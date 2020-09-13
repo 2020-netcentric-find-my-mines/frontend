@@ -12,10 +12,10 @@ function App() {
     y: "",
   })
 
-  let [socket, setSocket] = useState(io('http://34.87.49.3:3000'))
+  let [socket, setSocket] = useState(io('https://netcentric-architecture.herokuapp.com/'))
 
   const handleConnect = () => {
-    setSocket(io('http://34.87.49.3:3000'))
+    setSocket(io('https://netcentric-architecture.herokuapp.com/'))
     console.log("Reconnected.")
   }
 
