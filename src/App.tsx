@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import io from 'socket.io-client'
-import SocketEvent from './socket-event'
+import {SocketEvent} from './socket-event'
 import './App.css'
 
 function App() {
@@ -16,10 +16,7 @@ function App() {
 
   const handleConnect = () => {
     setSocket(io('http://34.87.49.3:3000'))
-  }
-
-  const handleDisconnect = () => {
-    console.log("lol not supported yet")
+    console.log("Reconnected.")
   }
 
   const handleInputChange = (event: any) => {
@@ -30,11 +27,12 @@ function App() {
         [event.target.name]: event.target.value,
       })
     })
-    console.log(state)
   }
 
   const handleSubmit = (event: any) => {
     event.preventDefault()
+
+    console.log(state)
 
     if (state.event === SocketEvent.CREATE_GAME) {
       socket.emit(SocketEvent.CREATE_GAME)
@@ -56,6 +54,8 @@ function App() {
       socket.emit(SocketEvent.DISCONNECT)
       console.log("Disconnected.")
 
+    } else {
+      console.log("Incorrect input. Please consult socket-event.ts for valid inputs.")
     }
   }
 
@@ -63,8 +63,7 @@ function App() {
     <div className='App'>
       <h1>Minimum Viable Product for Find My Mines</h1>
       <p>Check console log for debugging</p>
-      <button onClick={handleConnect}>Connect</button>
-      <button onClick={handleDisconnect}>Disconnect</button>
+      <button onClick={handleConnect}>Reconnect</button>
       <form onSubmit={handleSubmit}>
         <input type="text" name="event" placeholder="Socket Event" value={state.event} onChange={handleInputChange} />
         <input type="text" name="id" placeholder="Game ID" value={state.id} onChange={handleInputChange} />
