@@ -14,11 +14,19 @@ function App() {
   })
 
   // Initialize Socket.IO
-  let { socket, emitEvent } = useSocket('https://netcentric-architecture.herokuapp.com/')
+  let { socket, emitEvent } = useSocket('localhost:3001')
 
   // Handle Socket.IO events
   useEffect(() => {
     if (socket) {
+      socket.on(SocketEvent.CREATE_GAME_FEEDBACK, (d: any) => {
+        console.log('CREATE_GAME_FEEDBACK', d)
+      })
+
+      socket.on(SocketEvent.JOIN_GAME_FEEDBACK, (d: any) => {
+        console.log('JOIN_GAME_FEEDBACK', d)
+      })
+
       socket.on(SocketEvent.CHANGED_GAMESTATE, () => {
         console.log('CHANGED_GAMESTATE!')
       })
