@@ -7,7 +7,8 @@ export function useSocket(socketURL: string) {
 
     // Connect to Socket.IO
     useEffect(() => {
-        let s = io('https://netcentric-architecture.herokuapp.com/')
+        console.log("Connecting to WS...")
+        let s = io(socketURL)
         setSocket(s)
     }, [])
 
