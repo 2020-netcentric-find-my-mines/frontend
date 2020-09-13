@@ -1,6 +1,6 @@
-import { monitorEventLoopDelay } from 'perf_hooks'
 import React, {useState} from 'react'
 import io from 'socket.io-client'
+import SocketEvent from './socket-event'
 import './App.css'
 
 function App() {
@@ -8,16 +8,14 @@ function App() {
   let [state, setState] = useState({
     event: "",
     id: "",
-    x: 0,
-    y: 0,
+    x: "",
+    y: "",
   })
 
-  let socket: any = null
-
-  console.log("socket")
+  let [socket, setSocket] = useState(io('http://34.87.49.3:3000'))
 
   const handleConnect = () => {
-    socket = io('http://34.87.49.3:3000')
+    setSocket(io('http://34.87.49.3:3000'))
   }
 
   const handleDisconnect = () => {
@@ -32,24 +30,46 @@ function App() {
         [event.target.name]: event.target.value,
       })
     })
+    console.log(state)
   }
 
   const handleSubmit = (event: any) => {
     event.preventDefault()
-    console.log("HI")
-    console.log(event.target.name)
+
+    if (state.event === SocketEvent.CREATE_GAME) {
+      socket.emit(SocketEvent.CREATE_GAME)
+      console.log("Created game.")
+
+    } else if (state.event === SocketEvent.JOIN_GAME) {
+      socket.emit(SocketEvent.JOIN_GAME, state.id)
+      console.log("Joined game.")
+
+    } else if (state.event === SocketEvent.QUICK_MATCH) {
+      socket.emit(SocketEvent.QUICK_MATCH)
+      console.log("Quick matched.")
+
+    } else if (state.event === SocketEvent.SELECT_COORDINATE) {
+      socket.emit(SocketEvent.SELECT_COORDINATE)
+      console.log("Coordinate chosen.")
+
+    } else if (state.event === SocketEvent.DISCONNECT) {
+      socket.emit(SocketEvent.DISCONNECT)
+      console.log("Disconnected.")
+
+    }
   }
 
   return (
     <div className='App'>
       <h1>Minimum Viable Product for Find My Mines</h1>
+      <p>Check console log for debugging</p>
       <button onClick={handleConnect}>Connect</button>
       <button onClick={handleDisconnect}>Disconnect</button>
       <form onSubmit={handleSubmit}>
         <input type="text" name="event" placeholder="Socket Event" value={state.event} onChange={handleInputChange} />
-        <input type="text" name="id" placeholder="Game ID" />
-        <input type="text" name="x" placeholder="X coordinate" />
-        <input type="text" name="y" placeholder="Y coordinate" />
+        <input type="text" name="id" placeholder="Game ID" value={state.id} onChange={handleInputChange} />
+        <input type="text" name="x" placeholder="X coordinate" value={state.x} onChange={handleInputChange} />
+        <input type="text" name="y" placeholder="Y coordinate" value={state.y} onChange={handleInputChange} />
         <button>Submit</button>
       </form>
     </div>
