@@ -1,7 +1,8 @@
-import React, {useState} from 'react'
-import io from 'socket.io-client'
-import {SocketEvent} from './socket-event'
+import React, { useEffect, useState } from 'react'
+
+import { SocketEvent } from './socket-event'
 import './App.css'
+import { useSocket } from './hooks/useSocket'
 
 function App() {
 
@@ -12,12 +13,17 @@ function App() {
     y: "",
   })
 
-  let [socket, setSocket] = useState(io('https://netcentric-architecture.herokuapp.com/'))
+  // Initialize Socket.IO
+  let { socket, emitEvent } = useSocket('https://netcentric-architecture.herokuapp.com/')
 
-  const handleConnect = () => {
-    setSocket(io('https://netcentric-architecture.herokuapp.com/'))
-    console.log("Reconnected.")
-  }
+  // Handle Socket.IO events
+  useEffect(() => {
+    if (socket) {
+      socket.on(SocketEvent.CHANGED_GAMESTATE, () => {
+        console.log('CHANGED_GAMESTATE!')
+      })
+    }
+  }, [socket])
 
   const handleInputChange = (event: any) => {
     event.persist()
@@ -35,23 +41,23 @@ function App() {
     console.log(state)
 
     if (state.event === SocketEvent.CREATE_GAME) {
-      socket.emit(SocketEvent.CREATE_GAME)
+      emitEvent(SocketEvent.CREATE_GAME, null)
       console.log("Created game.")
 
     } else if (state.event === SocketEvent.JOIN_GAME) {
-      socket.emit(SocketEvent.JOIN_GAME, state.id)
+      emitEvent(SocketEvent.JOIN_GAME, state.id)
       console.log("Joined game.")
 
     } else if (state.event === SocketEvent.QUICK_MATCH) {
-      socket.emit(SocketEvent.QUICK_MATCH)
+      emitEvent(SocketEvent.QUICK_MATCH, null)
       console.log("Quick matched.")
 
     } else if (state.event === SocketEvent.SELECT_COORDINATE) {
-      socket.emit(SocketEvent.SELECT_COORDINATE)
+      emitEvent(SocketEvent.SELECT_COORDINATE, { x: state.x, y: state.y })
       console.log("Coordinate chosen.")
 
     } else if (state.event === SocketEvent.DISCONNECT) {
-      socket.emit(SocketEvent.DISCONNECT)
+      emitEvent(SocketEvent.DISCONNECT, null)
       console.log("Disconnected.")
 
     } else {
@@ -63,7 +69,6 @@ function App() {
     <div className='App'>
       <h1>Minimum Viable Product for Find My Mines</h1>
       <p>Check console log for debugging</p>
-      <button onClick={handleConnect}>Reconnect</button>
       <form onSubmit={handleSubmit}>
         <input type="text" name="event" placeholder="Socket Event" value={state.event} onChange={handleInputChange} />
         <input type="text" name="id" placeholder="Game ID" value={state.id} onChange={handleInputChange} />
