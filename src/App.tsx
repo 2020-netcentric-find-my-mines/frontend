@@ -78,7 +78,14 @@ function App() {
       <h1>Minimum Viable Product for Find My Mines</h1>
       <p>Check console log for debugging</p>
       <form onSubmit={handleSubmit}>
-        <input type="text" name="event" placeholder="Socket Event" value={state.event} onChange={handleInputChange} />
+        <select name="event" value={state.event} onChange={handleInputChange}>
+          <option value="">---Select Event---</option>
+          <option value="CREATE_GAME">Create Game</option>
+          <option value="JOIN_GAME">Join Game</option>
+          <option value="QUICK_MATCH">Quick Match</option>
+          <option value="SELECT_COORDINATE">Select Coordinate</option>
+          <option value="disconnect">Disconnect</option>
+        </select>
         <input type="text" name="id" placeholder="Game ID" value={state.id} onChange={handleInputChange} />
         <input type="text" name="x" placeholder="X coordinate" value={state.x} onChange={handleInputChange} />
         <input type="text" name="y" placeholder="Y coordinate" value={state.y} onChange={handleInputChange} />
