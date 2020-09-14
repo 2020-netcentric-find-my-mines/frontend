@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  font-family: openSansEmoji;
 }
 
 .App-logo {
@@ -11,6 +12,11 @@
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
+}
+
+@font-face {
+  font-family: openSansEmoji;
+  src: './OpenSansEmoji.ttf';
 }
 
 .App-header {

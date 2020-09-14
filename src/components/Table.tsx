@@ -24,11 +24,11 @@ export default function Table(props: any) {
             let cell = props.coordinate[column * 6 + row]
             let cellState
             if (!cell.isSelected) {
-                cellState = "A"
+                cellState = " "
             } else if (cell.isBomb) {
-                cellState = "B"
+                cellState = "💣"
             } else {
-                cellState = "E"
+                cellState = "❌"
             }
 
             columns.push(
