@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-
+import Table from './components/Table'
+import Timer from './components/Timer'
 import { SocketEvent } from './socket-event'
 import './App.css'
 import { useSocket } from './hooks/useSocket'
@@ -13,6 +14,10 @@ function App() {
     y: "",
   })
 
+  let [tableVisible, setTableVisible] = useState(false)
+  let [tick, setTick] = useState(-1)
+  let [coordinate, setCoordinate] = useState([])
+
   // Initialize Socket.IO
   let { socket, emitEvent } = useSocket(process.env.REACT_APP_SOCKET_URL ?? "http://localhost:3001")
 
@@ -21,26 +26,38 @@ function App() {
     if (socket) {
       socket.on(SocketEvent.CREATE_GAME_FEEDBACK, (d: any) => {
         console.log('CREATE_GAME_FEEDBACK', d)
+        console.log('Game ID: ', d.data.gameID)
       })
 
       socket.on(SocketEvent.TICK, (d: any) => {
-        console.log('TICK', d)
+        setTick(d)
       })
 
       socket.on(SocketEvent.JOIN_GAME_FEEDBACK, (d: any) => {
         console.log('JOIN_GAME_FEEDBACK', d)
       })
 
-      socket.on(SocketEvent.GAME_STATE_CHANGED, (s: any) => {
-        console.log(s)
+      socket.on(SocketEvent.GAME_STATE_CHANGED, (d: any) => {
+        console.log(d)
       })
 
-      socket.on(SocketEvent.START_GAME_FEEDBACK, (s: any) => {
-        console.log('START_GAME_FEEDBACK', s)
+      socket.on(SocketEvent.START_GAME_FEEDBACK, (d: any) => {
+        console.log('START_GAME_FEEDBACK', d)
+        setCoordinate(d.data.coordinates)
+        if (d.isOK) {
+          setTableVisible(true)
+        }
       })
 
-      socket.on(SocketEvent.NEXT_PLAYER, (s: any) => {
-        console.log('NEXT_PLAYER', s)
+      socket.on(SocketEvent.NEXT_PLAYER, (d: any) => {
+        console.log('NEXT_PLAYER', d)
+      })
+
+      socket.on(SocketEvent.SELECT_COORDINATE_FEEDBACK, (d: any) => {
+        console.log('SELECT_COORDINATE_FEEDBACK', d)
+        if(d.isOK) {
+          setCoordinate(d.data.coordinates)
+        }
       })
     }
   }, [socket])
@@ -82,6 +99,7 @@ function App() {
     <div className='App'>
       <h1>Minimum Viable Product for Find My Mines</h1>
       <p>Check console log for debugging</p>
+      <Timer tick={tick} />
       <form onSubmit={handleSubmit}>
         <select name="event" value={state.event} onChange={handleInputChange}>
           <option value="">---Select Event---</option>
@@ -97,6 +115,9 @@ function App() {
         <input type="text" name="y" placeholder="Y coordinate" value={state.y} onChange={handleInputChange} />
         <button>Submit</button>
       </form>
+
+      <Table width="6" height="6" visible={tableVisible} coordinate={coordinate} emitEvent={emitEvent}/>
+
     </div>
   )
 }
