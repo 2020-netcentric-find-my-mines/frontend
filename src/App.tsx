@@ -14,7 +14,7 @@ function App() {
   })
 
   // Initialize Socket.IO
-  let { socket, emitEvent } = useSocket('https://netcentric-architecture.herokuapp.com/')
+  let { socket, emitEvent } = useSocket('localhost:3001')
 
   // Handle Socket.IO events
   useEffect(() => {
@@ -23,12 +23,24 @@ function App() {
         console.log('CREATE_GAME_FEEDBACK', d)
       })
 
+      socket.on(SocketEvent.TICK, (d: any) => {
+        console.log('TICK', d)
+      })
+
       socket.on(SocketEvent.JOIN_GAME_FEEDBACK, (d: any) => {
         console.log('JOIN_GAME_FEEDBACK', d)
       })
 
-      socket.on(SocketEvent.CHANGED_GAMESTATE, () => {
-        console.log('CHANGED_GAMESTATE!')
+      socket.on(SocketEvent.GAME_STATE_CHANGED, (s: any) => {
+        console.log(s)
+      })
+
+      socket.on(SocketEvent.START_GAME_FEEDBACK, (s: any) => {
+        console.log('START_GAME_FEEDBACK', s)
+      })
+
+      socket.on(SocketEvent.NEXT_PLAYER, (s: any) => {
+        console.log('NEXT_PLAYER', s)
       })
     }
   }, [socket])
@@ -48,28 +60,21 @@ function App() {
 
     console.log(state)
 
-    if (state.event === SocketEvent.CREATE_GAME) {
-      emitEvent(SocketEvent.CREATE_GAME, null)
-      console.log("Created game.")
-
-    } else if (state.event === SocketEvent.JOIN_GAME) {
-      emitEvent(SocketEvent.JOIN_GAME, state.id)
-      console.log("Joined game.")
-
-    } else if (state.event === SocketEvent.QUICK_MATCH) {
-      emitEvent(SocketEvent.QUICK_MATCH, null)
-      console.log("Quick matched.")
-
-    } else if (state.event === SocketEvent.SELECT_COORDINATE) {
-      emitEvent(SocketEvent.SELECT_COORDINATE, { x: state.x, y: state.y })
-      console.log("Coordinate chosen.")
-
-    } else if (state.event === SocketEvent.DISCONNECT) {
-      emitEvent(SocketEvent.DISCONNECT, null)
-      console.log("Disconnected.")
-
-    } else {
-      console.log("Incorrect input. Please consult socket-event.ts for valid inputs.")
+    switch (state.event) {
+      case SocketEvent.CREATE_GAME:
+        emitEvent(SocketEvent.CREATE_GAME, null)
+        console.log("Emit CREATE_GAME")
+        break
+      case SocketEvent.JOIN_GAME:
+        emitEvent(SocketEvent.JOIN_GAME, state.id)
+        console.log("Emit JOIN_GAME")
+        break
+      case SocketEvent.START_GAME:
+        emitEvent(SocketEvent.START_GAME, null)
+        console.log("Emit START_GAME")
+        break
+      default:
+        console.error("Not available!")
     }
   }
 
@@ -84,6 +89,7 @@ function App() {
           <option value="JOIN_GAME">Join Game</option>
           <option value="QUICK_MATCH">Quick Match</option>
           <option value="SELECT_COORDINATE">Select Coordinate</option>
+          <option value="START_GAME">Start Game</option>
           <option value="disconnect">Disconnect</option>
         </select>
         <input type="text" name="id" placeholder="Game ID" value={state.id} onChange={handleInputChange} />
