@@ -14,7 +14,7 @@ function App() {
   })
 
   // Initialize Socket.IO
-  let { socket, emitEvent } = useSocket(process.env.SOCKET_URL ?? "http://localhost:3001")
+  let { socket, emitEvent } = useSocket(process.env.REACT_APP_SOCKET_URL ?? "http://localhost:3001")
 
   // Handle Socket.IO events
   useEffect(() => {
