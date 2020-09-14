@@ -19,7 +19,7 @@ function App() {
   let [coordinate, setCoordinate] = useState([])
 
   // Initialize Socket.IO
-  let { socket, emitEvent } = useSocket(process.env.REACT_APP_SOCKET_URL ?? "http://localhost:3001")
+  let { socket, emitEvent } = useSocket(process.env.REACT_APP_SOCKET_URL ?? "https://netcentric-architecture.herokuapp.com/")
 
   // Handle Socket.IO events
   useEffect(() => {
@@ -100,6 +100,7 @@ function App() {
       <h1>Minimum Viable Product for Find My Mines</h1>
       <p>Check console log for debugging</p>
       <Timer tick={tick} />
+      <p>Table key: A for avalable, B for bomb, E for empty</p>
       <form onSubmit={handleSubmit}>
         <select name="event" value={state.event} onChange={handleInputChange}>
           <option value="">---Select Event---</option>
