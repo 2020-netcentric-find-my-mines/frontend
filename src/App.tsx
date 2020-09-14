@@ -14,7 +14,7 @@ function App() {
   })
 
   // Initialize Socket.IO
-  let { socket, emitEvent } = useSocket('localhost:3001')
+  let { socket, emitEvent } = useSocket('https://netcentric-architecture.herokuapp.com/')
 
   // Handle Socket.IO events
   useEffect(() => {
