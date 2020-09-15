@@ -24,6 +24,7 @@ export default function Game(props: any) {
                     isLoading={props.loading[1]} 
                     loading={props.loading} 
                     setLoading={props.setLoading}
+                    emitEvent={props.emitEvent}
                 />
                 <GameModeButton 
                     link="/game/join" 

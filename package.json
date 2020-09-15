@@ -2,7 +2,7 @@
   "name": "find-my-mines",
   "version": "0.1.0",
   "private": true,
-  "homepage": "frontend",
+  "homepage": "home",
   "dependencies": {
     "@chakra-ui/core": "^0.8.0",
     "@emotion/core": "^10.0.35",

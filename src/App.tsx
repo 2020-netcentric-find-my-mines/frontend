@@ -19,6 +19,7 @@ import {
 } from 'react-router-dom'
 
 import { ThemeProvider } from '@chakra-ui/core'
+import CreateGame from './components/CreateGame'
 
 function App() {
 
@@ -60,7 +61,7 @@ function App() {
               <Game loading={loading} setLoading={setLoading} emitEvent={emitEvent} />
               <Switch>
                 <Route path="/game/create">
-                  Create
+                  <CreateGame socket={socket}></CreateGame>
                 </Route>
                 <Route path="/game/join">
                   Join
