@@ -19,7 +19,7 @@ export function useGame() {
         coordinates
     }
     function setGame(key: string, value: any) {
-        eval(key + "(" + value + ")")
+        // eval(key + "(" + value + ")")
     }
     return [ game, setGame ]
 }
