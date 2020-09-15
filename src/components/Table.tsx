@@ -1,5 +1,5 @@
 import React from 'react'
-import { SocketEvent } from '../socket-event';
+import SocketEvent from '../socket-event';
 
 export default function Table(props: any) {
 

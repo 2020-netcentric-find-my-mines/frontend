@@ -1,4 +1,4 @@
-export enum SocketEvent {
+enum SocketEvent {
     CONNECTION = 'connection',
     DISCONNECT = 'disconnect',
 
@@ -34,3 +34,5 @@ export enum SocketEvent {
     SET_MAX_PLAYER = 'SET_MAX_PLAYER',
     GET_CURRENT_PLAYER = 'GET_CURRENT_PLAYER',
 }
+
+export default SocketEvent

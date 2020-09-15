@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import io from 'socket.io-client'
-import { SocketEvent } from '../socket-event'
+import SocketEvent from '../socket-event'
 
 export function useSocket(socketURL: string) {
     let [socket, setSocket] = useState<null | SocketIOClient.Socket>()

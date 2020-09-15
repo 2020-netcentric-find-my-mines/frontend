@@ -1,16 +1,23 @@
 import React, { useEffect, useState } from 'react'
+import './App.css'
+
 import Table from './components/Table'
 import Timer from './components/Timer'
-import { SocketEvent } from './socket-event'
-import './App.css'
+import Home from './components/Home'
+import Game from './components/Game'
+import Play from './components/Play'
+
+import emitSocketEvent from './logics/handleSubmit'
+import onSocketEvent from './logics/handleEvent'
 import { useSocket } from './hooks/useSocket'
+
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link, useRouteMatch
-} from "react-router-dom";
-import { Box, Button, Flex, FormControl, FormLabel, Heading, Input, ThemeProvider } from '@chakra-ui/core'
+} from 'react-router-dom'
+
+import { ThemeProvider } from '@chakra-ui/core'
 
 function App() {
 
@@ -21,7 +28,7 @@ function App() {
     y: "",
   })
 
-  let [tableVisible, setTableVisible] = useState(false)
+  let [gameStarted, setGameStarted] = useState(false)
   let [tick, setTick] = useState(-1)
   let [coordinate, setCoordinate] = useState([])
   let [loading, setLoading] = useState(["", false]);
@@ -33,41 +40,7 @@ function App() {
   // Handle Socket.IO events
   useEffect(() => {
     if (socket) {
-      socket.on(SocketEvent.CREATE_GAME_FEEDBACK, (d: any) => {
-        console.log('CREATE_GAME_FEEDBACK', d)
-        console.log('Game ID: ', d.data.gameID)
-      })
-
-      socket.on(SocketEvent.TICK, (d: any) => {
-        setTick(d)
-      })
-
-      socket.on(SocketEvent.JOIN_GAME_FEEDBACK, (d: any) => {
-        console.log('JOIN_GAME_FEEDBACK', d)
-      })
-
-      socket.on(SocketEvent.GAME_STATE_CHANGED, (d: any) => {
-        console.log(d)
-      })
-
-      socket.on(SocketEvent.START_GAME_FEEDBACK, (d: any) => {
-        console.log('START_GAME_FEEDBACK', d)
-        setCoordinate(d.data.coordinates)
-        if (d.isOK) {
-          setTableVisible(true)
-        }
-      })
-
-      socket.on(SocketEvent.NEXT_PLAYER, (d: any) => {
-        console.log('NEXT_PLAYER', d)
-      })
-
-      socket.on(SocketEvent.SELECT_COORDINATE_FEEDBACK, (d: any) => {
-        console.log('SELECT_COORDINATE_FEEDBACK', d)
-        if (d.isOK) {
-          setCoordinate(d.data.coordinates)
-        }
-      })
+      onSocketEvent(socket, setTick, setCoordinate, setGameStarted)
     }
   }, [socket])
 
@@ -86,48 +59,7 @@ function App() {
 
     console.log(state)
 
-    switch (state.event) {
-      case SocketEvent.CREATE_GAME:
-        emitEvent(SocketEvent.CREATE_GAME, null)
-        console.log("Emit CREATE_GAME")
-        break
-      case SocketEvent.JOIN_GAME:
-        emitEvent(SocketEvent.JOIN_GAME, state.id)
-        console.log("Emit JOIN_GAME")
-        break
-      case SocketEvent.START_GAME:
-        emitEvent(SocketEvent.START_GAME, null)
-        console.log("Emit START_GAME")
-        break
-      default:
-        console.error("Not available!")
-    }
-  }
-
-  function GamemodeButton(props: any) {
-    const link: string = props.link;
-    const text: string = props.text;
-    const isLoading: boolean = props.isLoading;
-
-    if (loading[0] == link) {
-      return (
-        <Link to={link} style={{ textDecoration: 'none' }}>
-          <Button variantColor="green" variant="outline" isLoading={isLoading} onClick={() => { setLoading([link, true]) }}>
-            {text}
-          </Button>
-        </Link>
-      )
-    } else {
-      return (
-        <Link to={link} style={{ textDecoration: 'none' }}>
-          <Button variantColor="green" variant="outline" isDisabled={isLoading} onClick={() => { setLoading([link, true]) }}>
-            {text}
-          </Button>
-        </Link>
-      )
-    }
-
-
+    emitSocketEvent(state.event, emitEvent, state.id)
   }
 
   return (
@@ -160,38 +92,10 @@ function App() {
         <ThemeProvider >
           <Switch>
             <Route path="/home">
-              <Flex width="full" align="center" justifyContent="center">
-                <Box p={2}>
-                  <Box textAlign="center">
-                    <Heading>Mine Sweeper</Heading>
-                  </Box>
-                  <Box my={4} textAlign="left" justifyItems="center">
-                    <FormControl>
-                      <FormLabel mb="2">Enter your name:</FormLabel>
-                      <Input type="text" placeholder="John" variant="outline" width="-32px" />
-                    </FormControl>
-                    <Link to="/game" style={{ textDecoration: 'none' }}>
-                      <Button width="full" mt={4} variantColor="green" variant="outline">
-                        Continue
-                      </Button>
-                    </Link>
-                  </Box>
-                </Box>
-              </Flex>
+              <Home />
             </Route>
             <Route path="/game">
-              <nav>
-                <Box margin="5">
-                  <Link to="/home" style={{ textDecoration: 'none' }}>
-                    <Button variantColor="orange" variant="outline" onClick={() => { setLoading(["", false]) }}>
-                      Back
-                      </Button>
-                  </Link>
-                  <GamemodeButton link="/game/create" text="Create" isLoading={loading[1]} />
-                  <GamemodeButton link="/game/join" text="Join" isLoading={loading[1]} />
-                  <GamemodeButton link="/game/quick-game" text="Quick Game" isLoading={loading[1]} />
-                </Box>
-              </nav>
+              <Game loading={loading} setLoading={setLoading} emitEvent={emitEvent} />
               <Switch>
                 <Route path="/game/create">
                   Create
@@ -203,6 +107,9 @@ function App() {
                   Quick Game
                 </Route>
               </Switch>
+            </Route>
+            <Route path="/play">
+              <Play gameStarted={gameStarted} />
             </Route>
           </Switch>
         </ThemeProvider >
