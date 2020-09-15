@@ -24,9 +24,11 @@ function App() {
   let [tableVisible, setTableVisible] = useState(false)
   let [tick, setTick] = useState(-1)
   let [coordinate, setCoordinate] = useState([])
+  let [loading, setLoading] = useState(["", false]);
 
   // Initialize Socket.IO
   let { socket, emitEvent } = useSocket(process.env.REACT_APP_SOCKET_URL ?? "https://netcentric-architecture.herokuapp.com/")
+
 
   // Handle Socket.IO events
   useEffect(() => {
@@ -102,6 +104,32 @@ function App() {
     }
   }
 
+  function GamemodeButton(props: any) {
+    const link: string = props.link;
+    const text: string = props.text;
+    const isLoading: boolean = props.isLoading;
+ 
+    if(loading[0]==link) {
+      return (
+        <Link to={link} style={{ textDecoration: 'none' }}>
+          <Button variantColor="green" variant="outline" isLoading={isLoading} onClick={ () => {setLoading([link, true])}}>
+            {text}
+          </Button>
+        </Link>
+      )
+    } else {
+      return (
+        <Link to={link} style={{ textDecoration: 'none' }}>
+          <Button variantColor="green" variant="outline" isDisabled={isLoading} onClick={ () => {setLoading([link, true])}}>
+            {text}
+          </Button>
+        </Link>
+      )
+    }
+
+    
+  }
+
   return (
     // <div className='App'>
     //   <h1>Minimum Viable Product for Find My Mines</h1>
@@ -155,37 +183,25 @@ function App() {
               <nav>
                 <Box margin="5">
                   <Link to="/home" style={{ textDecoration: 'none' }}>
-                    <Button variantColor="orange" variant="outline">
+                    <Button variantColor="orange" variant="outline" onClick={ () => {setLoading(["",false])}}>
                       Back
                       </Button>
                   </Link>
-                  <Link to="/game/create" style={{ textDecoration: 'none' }}>
-                    <Button variantColor="green" variant="outline">
-                      Create
-                    </Button>
-                  </Link>
-                  <Link to="/game/join" style={{ textDecoration: 'none' }}>
-                    <Button variantColor="green" variant="outline">
-                      Join
-                    </Button>
-                  </Link>
-                  <Link to="/game/quick-game" style={{ textDecoration: 'none' }}>
-                    <Button variantColor="green" variant="outline">
-                      Quick Game
-                    </Button>
-                  </Link>
+                  <GamemodeButton link="/game/create" text="Create" isLoading={loading[1]} />
+                  <GamemodeButton link="/game/join" text="Join" isLoading={loading[1]} />
+                  <GamemodeButton link="/game/quick-game" text="Quick Game" isLoading={loading[1]}/>
                 </Box>
               </nav>
               <Switch>
                 <Route path="/game/create">
                   Create
-              </Route>
+                </Route>
                 <Route path="/game/join">
                   Join
-              </Route>
+                </Route>
                 <Route path="/game/quick-game">
                   Quick Game
-          </Route>
+                </Route>
               </Switch>
             </Route>
           </Switch>
