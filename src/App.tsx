@@ -8,7 +8,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link, useRouteMatch
 } from "react-router-dom";
 import { Box, Button, Flex, FormControl, FormLabel, Heading, Input, ThemeProvider } from '@chakra-ui/core'
 
@@ -127,64 +127,78 @@ function App() {
     //   <Table width="6" height="6" visible={tableVisible} coordinate={coordinate} emitEvent={emitEvent}/>
 
     // </div>
-    <ThemeProvider >
-      {/* <Flex flexDirection="column" justifyContent="center" maxWidth="12rem">
-        <FormControl>
-          <Input id="name" placeholder="Enter your Name" />
-        </FormControl>
-        <Button>
-          Submit
-      </Button> */}
-      <Flex width="full" align="center" justifyContent="center">
-        <Box p={2}>
-          <Box textAlign="center">
-            <Heading>Mine Sweeper</Heading>
-          </Box>
-          <Box my={4} textAlign="left" justifyItems="center">
-            <form>
-              <FormControl>
-                <FormLabel mb="2">Enter your name:</FormLabel>
-                <Input type="text" placeholder="John" variant="outline" width="-32px"/>
-              </FormControl>
-              <Button width="full" mt={4} type="submit"  variantColor="green" variant="outline">
-                Continue
-            </Button>
-            </form>
-          </Box>
-        </Box>
-      </Flex>
 
-    </ThemeProvider >
+
+
+
+    <div>
+      <Router>
+        <ThemeProvider >
+          <Switch>
+            <Route path="/home">
+              <Flex width="full" align="center" justifyContent="center">
+                <Box p={2}>
+                  <Box textAlign="center">
+                    <Heading>Mine Sweeper</Heading>
+                  </Box>
+                  <Box my={4} textAlign="left" justifyItems="center">
+                    <FormControl>
+                      <FormLabel mb="2">Enter your name:</FormLabel>
+                      <Input type="text" placeholder="John" variant="outline" width="-32px" />
+                    </FormControl>
+                    <Link to="/game" >
+                      <Button width="full" mt={4} variantColor="green" variant="outline">
+                        Continue
+                      </Button>
+                    </Link>
+                  </Box>
+                </Box>
+              </Flex>
+            </Route>
+            <Route path="/game">
+              <nav>
+                <Box margin="5">
+                  <Link to="/home">
+                    <Button variantColor="orange" variant="outline">
+                      Back
+                      </Button>
+                  </Link>
+                  <Link to="/game/create">
+                    <Button variantColor="green" variant="outline">
+                      Create
+                    </Button>
+                  </Link>
+                  <Link to="/game/join">
+                    <Button variantColor="green" variant="outline">
+                      Join
+                    </Button>
+                  </Link>
+                  <Link to="/game/quick-game">
+                    <Button variantColor="green" variant="outline">
+                      Quick Game
+                    </Button>
+                  </Link>
+                </Box>
+              </nav>
+              <Switch>
+                <Route path="/game/create">
+                  <Link to="/game/join">join</Link>
+                Create
+              </Route>
+                <Route path="/game/join">
+                  Join
+              </Route>
+                <Route path="/game/quick-game">
+                  Quick Game
+          </Route>
+              </Switch>
+            </Route>
+          </Switch>
+        </ThemeProvider >
+      </Router>
+    </div>
   )
 
-  // <Router>
-  //       <div>
-  //         <nav>
-  //           <ul>
-  //             <li>
-  //               <Link to="/create">Create</Link>
-  //             </li>
-  //             <li>
-  //               <Link to="/join">Join</Link>
-  //             </li>
-  //             <li>
-  //               <Link to="/quick-game">Quick Game</Link>
-  //             </li>
-  //           </ul>
-  //         </nav>
-  //         <Switch>
-  //           <Route path="/create">
-  //             Create
-  //         </Route>
-  //           <Route path="/join">
-  //             Join
-  //         </Route>
-  //           <Route path="/quick-game">
-  //             Quick Game
-  //         </Route>
-  //         </Switch>
-  //       </div>
-  //     </Router>
 }
 
 export default App;
