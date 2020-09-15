@@ -127,10 +127,6 @@ function App() {
     //   <Table width="6" height="6" visible={tableVisible} coordinate={coordinate} emitEvent={emitEvent}/>
 
     // </div>
-
-
-
-
     <div>
       <Router>
         <ThemeProvider >
@@ -146,7 +142,7 @@ function App() {
                       <FormLabel mb="2">Enter your name:</FormLabel>
                       <Input type="text" placeholder="John" variant="outline" width="-32px" />
                     </FormControl>
-                    <Link to="/game" >
+                    <Link to="/game" style={{ textDecoration: 'none' }}>
                       <Button width="full" mt={4} variantColor="green" variant="outline">
                         Continue
                       </Button>
@@ -158,22 +154,22 @@ function App() {
             <Route path="/game">
               <nav>
                 <Box margin="5">
-                  <Link to="/home">
+                  <Link to="/home" style={{ textDecoration: 'none' }}>
                     <Button variantColor="orange" variant="outline">
                       Back
                       </Button>
                   </Link>
-                  <Link to="/game/create">
+                  <Link to="/game/create" style={{ textDecoration: 'none' }}>
                     <Button variantColor="green" variant="outline">
                       Create
                     </Button>
                   </Link>
-                  <Link to="/game/join">
+                  <Link to="/game/join" style={{ textDecoration: 'none' }}>
                     <Button variantColor="green" variant="outline">
                       Join
                     </Button>
                   </Link>
-                  <Link to="/game/quick-game">
+                  <Link to="/game/quick-game" style={{ textDecoration: 'none' }}>
                     <Button variantColor="green" variant="outline">
                       Quick Game
                     </Button>
@@ -182,8 +178,7 @@ function App() {
               </nav>
               <Switch>
                 <Route path="/game/create">
-                  <Link to="/game/join">join</Link>
-                Create
+                  Create
               </Route>
                 <Route path="/game/join">
                   Join
