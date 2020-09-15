@@ -4,6 +4,13 @@ import Timer from './components/Timer'
 import { SocketEvent } from './socket-event'
 import './App.css'
 import { useSocket } from './hooks/useSocket'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+import { Box, Button, Flex, FormControl, FormLabel, Heading, Input, ThemeProvider } from '@chakra-ui/core'
 
 function App() {
 
@@ -55,7 +62,7 @@ function App() {
 
       socket.on(SocketEvent.SELECT_COORDINATE_FEEDBACK, (d: any) => {
         console.log('SELECT_COORDINATE_FEEDBACK', d)
-        if(d.isOK) {
+        if (d.isOK) {
           setCoordinate(d.data.coordinates)
         }
       })
@@ -96,30 +103,88 @@ function App() {
   }
 
   return (
-    <div className='App'>
-      <h1>Minimum Viable Product for Find My Mines</h1>
-      <p>Check console log for debugging</p>
-      <Timer tick={tick} />
-      <form onSubmit={handleSubmit}>
-        <select name="event" value={state.event} onChange={handleInputChange}>
-          <option value="">---Select Event---</option>
-          <option value="CREATE_GAME">Create Game</option>
-          <option value="JOIN_GAME">Join Game</option>
-          <option value="QUICK_MATCH">Quick Match</option>
-          <option value="SELECT_COORDINATE">Select Coordinate</option>
-          <option value="START_GAME">Start Game</option>
-          <option value="disconnect">Disconnect</option>
-        </select>
-        <input type="text" name="id" placeholder="Game ID" value={state.id} onChange={handleInputChange} />
-        <input type="text" name="x" placeholder="X coordinate" value={state.x} onChange={handleInputChange} />
-        <input type="text" name="y" placeholder="Y coordinate" value={state.y} onChange={handleInputChange} />
-        <button>Submit</button>
-      </form>
+    // <div className='App'>
+    //   <h1>Minimum Viable Product for Find My Mines</h1>
+    //   <p>Check console log for debugging</p>
+    //   <Timer tick={tick} />
+    //   <p>Table key: A for avalable, B for bomb, E for empty</p>
+    //   <form onSubmit={handleSubmit}>
+    //     <select name="event" value={state.event} onChange={handleInputChange}>
+    //       <option value="">---Select Event---</option>
+    //       <option value="CREATE_GAME">Create Game</option>
+    //       <option value="JOIN_GAME">Join Game</option>
+    //       <option value="QUICK_MATCH">Quick Match</option>
+    //       <option value="SELECT_COORDINATE">Select Coordinate</option>
+    //       <option value="START_GAME">Start Game</option>
+    //       <option value="disconnect">Disconnect</option>
+    //     </select>
+    //     <input type="text" name="id" placeholder="Game ID" value={state.id} onChange={handleInputChange} />
+    //     <input type="text" name="x" placeholder="X coordinate" value={state.x} onChange={handleInputChange} />
+    //     <input type="text" name="y" placeholder="Y coordinate" value={state.y} onChange={handleInputChange} />
+    //     <button>Submit</button>
+    //   </form>
 
-      <Table width="6" height="6" visible={tableVisible} coordinate={coordinate} emitEvent={emitEvent}/>
+    //   <Table width="6" height="6" visible={tableVisible} coordinate={coordinate} emitEvent={emitEvent}/>
 
-    </div>
+    // </div>
+    <ThemeProvider >
+      {/* <Flex flexDirection="column" justifyContent="center" maxWidth="12rem">
+        <FormControl>
+          <Input id="name" placeholder="Enter your Name" />
+        </FormControl>
+        <Button>
+          Submit
+      </Button> */}
+      <Flex width="full" align="center" justifyContent="center">
+        <Box p={2}>
+          <Box textAlign="center">
+            <Heading>Mine Sweeper</Heading>
+          </Box>
+          <Box my={4} textAlign="left" justifyItems="center">
+            <form>
+              <FormControl>
+                <FormLabel mb="2">Enter your name:</FormLabel>
+                <Input type="text" placeholder="John" variant="outline" width="-32px"/>
+              </FormControl>
+              <Button width="full" mt={4} type="submit"  variantColor="green" variant="outline">
+                Continue
+            </Button>
+            </form>
+          </Box>
+        </Box>
+      </Flex>
+
+    </ThemeProvider >
   )
+
+  // <Router>
+  //       <div>
+  //         <nav>
+  //           <ul>
+  //             <li>
+  //               <Link to="/create">Create</Link>
+  //             </li>
+  //             <li>
+  //               <Link to="/join">Join</Link>
+  //             </li>
+  //             <li>
+  //               <Link to="/quick-game">Quick Game</Link>
+  //             </li>
+  //           </ul>
+  //         </nav>
+  //         <Switch>
+  //           <Route path="/create">
+  //             Create
+  //         </Route>
+  //           <Route path="/join">
+  //             Join
+  //         </Route>
+  //           <Route path="/quick-game">
+  //             Quick Game
+  //         </Route>
+  //         </Switch>
+  //       </div>
+  //     </Router>
 }
 
 export default App;
