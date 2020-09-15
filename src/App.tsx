@@ -108,11 +108,11 @@ function App() {
     const link: string = props.link;
     const text: string = props.text;
     const isLoading: boolean = props.isLoading;
- 
-    if(loading[0]==link) {
+
+    if (loading[0] == link) {
       return (
         <Link to={link} style={{ textDecoration: 'none' }}>
-          <Button variantColor="green" variant="outline" isLoading={isLoading} onClick={ () => {setLoading([link, true])}}>
+          <Button variantColor="green" variant="outline" isLoading={isLoading} onClick={() => { setLoading([link, true]) }}>
             {text}
           </Button>
         </Link>
@@ -120,14 +120,14 @@ function App() {
     } else {
       return (
         <Link to={link} style={{ textDecoration: 'none' }}>
-          <Button variantColor="green" variant="outline" isDisabled={isLoading} onClick={ () => {setLoading([link, true])}}>
+          <Button variantColor="green" variant="outline" isDisabled={isLoading} onClick={() => { setLoading([link, true]) }}>
             {text}
           </Button>
         </Link>
       )
     }
 
-    
+
   }
 
   return (
@@ -183,13 +183,13 @@ function App() {
               <nav>
                 <Box margin="5">
                   <Link to="/home" style={{ textDecoration: 'none' }}>
-                    <Button variantColor="orange" variant="outline" onClick={ () => {setLoading(["",false])}}>
+                    <Button variantColor="orange" variant="outline" onClick={() => { setLoading(["", false]) }}>
                       Back
                       </Button>
                   </Link>
                   <GamemodeButton link="/game/create" text="Create" isLoading={loading[1]} />
                   <GamemodeButton link="/game/join" text="Join" isLoading={loading[1]} />
-                  <GamemodeButton link="/game/quick-game" text="Quick Game" isLoading={loading[1]}/>
+                  <GamemodeButton link="/game/quick-game" text="Quick Game" isLoading={loading[1]} />
                 </Box>
               </nav>
               <Switch>
