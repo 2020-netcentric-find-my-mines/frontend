@@ -35,6 +35,7 @@ function App() {
   let [tick, setTick] = useState(-1)
   let [coordinate, setCoordinate] = useState([])
   let [loading, setLoading] = useState(["", false]);
+  let [gameID, setGameID] = useState("")
 
   // Initialize Socket.IO
   let { socket, emitEvent } = useSocket(process.env.REACT_APP_SOCKET_URL ?? "https://netcentric-architecture.herokuapp.com/")
@@ -43,7 +44,7 @@ function App() {
   // Handle Socket.IO events
   useEffect(() => {
     if (socket) {
-      onSocketEvent(socket, setTick, setGame)
+      onSocketEvent(socket, setTick, setGame, setGameID)
       console.log('GAME HOOKS HERE!!!')
       console.log(game)
     }
@@ -61,7 +62,7 @@ function App() {
               <Game loading={loading} setLoading={setLoading} emitEvent={emitEvent} />
               <Switch>
                 <Route path="/game/create">
-                  <CreateGame socket={socket}></CreateGame>
+                  <CreateGame gameID={gameID} setLoading={setLoading}></CreateGame>
                 </Route>
                 <Route path="/game/join">
                   Join

@@ -3,11 +3,13 @@ import SocketEvent from '../socket-event'
 export default function onSocketEvent(
     socket: any, 
     setTick: any, 
-    setGame: any
+    setGame: any,
+    setGameID: any
 ){
     socket.on(SocketEvent.CREATE_GAME_FEEDBACK, (d: any) => {
         console.log('CREATE_GAME_FEEDBACK', d)
         console.log('Game ID: ', d.data.gameID)
+        setGameID(d.data.gameID)
     })
 
     socket.on(SocketEvent.TICK, (d: any) => {

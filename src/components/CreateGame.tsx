@@ -1,6 +1,6 @@
 import React from 'react'
 import SocketEvent from '../socket-event'
-import onSocketEvent  from '../logics/handleEvent'
+import onSocketEvent from '../logics/handleEvent'
 import { Box, Button, useDisclosure } from '@chakra-ui/core'
 import {
     Modal,
@@ -13,26 +13,30 @@ import {
 } from "@chakra-ui/core";
 
 export default function CreateGame(props: any) {
-    const { isOpen, onOpen, onClose } = useDisclosure();
+    const setLoading = props.setLoading
+    const { isOpen, onClose } = useDisclosure(true);
+    const gameID = props.gameID;
+    const exit = () => {
+        setLoading("", false)
+    }
+
 
     return (
         <>
-            <Button onClick={onOpen}>Open Modal</Button>
-
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
                 <ModalContent>
-                    <ModalHeader>Modal Title</ModalHeader>
+                    <ModalHeader>Game Created</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
-                        dsfasdfasd
-              </ModalBody>
+                        Ask you friends to join game <br/> <br/>
+                        <span style={{fontWeight: 'bolder'}}>ID: {gameID}</span>
+                    </ModalBody>
 
                     <ModalFooter>
-                        <Button variantColor="blue" mr={3} onClick={onClose}>
+                        <Button variantColor="blue" mr={3} onClick={() => { onClose(); exit();}}>
                             Close
-                </Button>
-                        <Button variant="ghost">Secondary Action</Button>
+                        </Button>
                     </ModalFooter>
                 </ModalContent>
             </Modal>
