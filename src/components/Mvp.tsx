@@ -3,7 +3,6 @@ import Timer from './Timer'
 import Table from './Table'
 import Board from './Board'
 import emitSocketEvent from '../logics/handleSubmit'
-import { useGame } from '../hooks/useGame'
 
 export default function Mvp(props: any) {
 

@@ -57,7 +57,7 @@ function App() {
               <Game selectedTab={selectedTab} setSelectedTab={setSelectedTab} emitEvent={emitEvent} />
               <Switch>
                 <Route path="/game/create">
-                  <CreateGame gameID={gameID} setSelectedTab={setSelectedTab} emitEvent={emitEvent}/>
+                  <CreateGame gameID={gameState.id} setSelectedTab={setSelectedTab} emitEvent={emitEvent}/>
                 </Route>
                 <Route path="/game/join">
                   <JoinGame emitEvent={emitEvent}/>
@@ -71,7 +71,7 @@ function App() {
               <Play gameStarted={gameStarted} />
             </Route>
             <Route path="/mvp">
-              <Mvp state={state} setState={setState} emitEvent={emitEvent} tableVisible={gameStarted} coordinate={coordinate} />
+              <Mvp state={state} setState={setState} emitEvent={emitEvent} tableVisible={gameStarted} coordinate={gameState.coordinates} />
             </Route>
           </Switch>
         </ThemeProvider >

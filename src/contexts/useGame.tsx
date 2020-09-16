@@ -1,16 +1,16 @@
-import React, { createContext, useReducer } from "react"
+import React, { createContext, useReducer } from 'react'
+import IContext from '../types/context.interface'
 
-export const GameContext = createContext({})
+export const GameContext = createContext({} as IContext)
 
 const initialState = {
     width: -1,
     height: -1,
-    gameId: "",
+    id: "",
     noBombs: -1,
     noBombsFound: -1,
     players: [],
     coordinates: [],
-    counter: 0,
     tick: -1
 }
 
