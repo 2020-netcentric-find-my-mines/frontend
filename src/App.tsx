@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import './App.css'
 
 import Table from './components/Table'
@@ -10,7 +10,7 @@ import Mvp from './components/Mvp'
 
 import onSocketEvent from './logics/handleEvent'
 import { useSocket } from './hooks/useSocket'
-import { useGame } from './hooks/useGame'
+import { GameContext }  from './contexts/useGame'
 
 import {
   BrowserRouter as Router,
@@ -31,23 +31,17 @@ function App() {
     y: "",
   })
 
-  let [game, setGame] = useGame()
-  let [gameStarted, setGameStarted] = useState(false)
-  let [tick, setTick] = useState(-1)
-  let [coordinate, setCoordinate] = useState([])
-  let [selectedTab, setSelectedTab] = useState(["", false]);
-  let [gameID, setGameID] = useState("")
+  const [gameStarted, setGameStarted] = useState(false)
+  const [selectedTab, setSelectedTab] = useState(["", false])
+  const { gameState, gameDispatch } = useContext(GameContext)
 
   // Initialize Socket.IO
-  let { socket, emitEvent } = useSocket(process.env.REACT_APP_SOCKET_URL ?? "https://netcentric-architecture.herokuapp.com/")
-
+  const { socket, emitEvent } = useSocket(process.env.REACT_APP_SOCKET_URL ?? "https://netcentric-architecture.herokuapp.com/")
 
   // Handle Socket.IO events
   useEffect(() => {
     if (socket) {
-      onSocketEvent(socket, setTick, setGame, setGameID)
-      console.log('GAME HOOKS HERE!!!')
-      console.log(game)
+      onSocketEvent(socket, gameDispatch)
     }
   }, [socket])
 
@@ -83,6 +77,7 @@ function App() {
         </ThemeProvider >
       </Router>
     </div>
+    
   )
 
 }
