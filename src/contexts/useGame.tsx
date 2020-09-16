@@ -40,7 +40,7 @@ const gameReducer = (state: any, action: any) => {
         case 'SET_GAME_ID':
             return ({
                 ...state,
-                gameId: payload
+                id: payload
             })
         case 'INITIALIZE':
             return ({
@@ -52,6 +52,8 @@ const gameReducer = (state: any, action: any) => {
                 players: payload.players,
                 coordinate: initializeCoordinate(payload.boardWidth, payload.boardHeight)
             })
+        default:
+            return (state)
     }
 }
 

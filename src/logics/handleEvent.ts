@@ -7,11 +7,11 @@ export default function onSocketEvent(
     socket.on(SocketEvent.CREATE_GAME_FEEDBACK, (d: any) => {
         console.log('CREATE_GAME_FEEDBACK', d)
         console.log('Game ID: ', d.data.gameID)
-        gameDispatch('SET_GAME_ID', d.data.gameID)
+        gameDispatch({type: 'SET_GAME_ID', payload: d.data.gameID})
     })
 
     socket.on(SocketEvent.TICK, (tick: number) => {
-        gameDispatch('SET_TICK', tick)
+        gameDispatch({type: 'SET_TICK', payload: tick})
     })
 
     socket.on(SocketEvent.JOIN_GAME_FEEDBACK, (d: any) => {
@@ -25,7 +25,7 @@ export default function onSocketEvent(
     socket.on(SocketEvent.START_GAME_FEEDBACK, (d: any) => {
         console.log('START_GAME_FEEDBACK', d)
         if (d.isOK) {
-            gameDispatch('INITIALIZE', d.data)
+            gameDispatch({type: 'INITIALIZE', payload: d.data})
         }
     })
 

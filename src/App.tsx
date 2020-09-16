@@ -35,6 +35,8 @@ function App() {
   const [selectedTab, setSelectedTab] = useState(["", false])
   const { gameState, gameDispatch } = useContext(GameContext)
 
+  console.log(gameState)
+
   // Initialize Socket.IO
   const { socket, emitEvent } = useSocket(process.env.REACT_APP_SOCKET_URL ?? "https://netcentric-architecture.herokuapp.com/")
 
