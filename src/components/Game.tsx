@@ -8,37 +8,40 @@ export default function Game(props: any) {
 
     return (
         <nav>
-            <Box margin="5">
+            <Box >
                 <Link to="/home" style={{ textDecoration: 'none' }}>
                     <Button 
                         variantColor="orange" 
                         variant="outline" 
-                        onClick={() => { props.setLoading(["", false]) }}
+                        onClick={() => { props.setSelectedTab(["", false]) }}
+                        margin="2"
                     >
                         Back
                     </Button>
                 </Link>
                 <GameModeButton 
                     link="/game/create" 
-                    text="Create" 
-                    isLoading={props.loading[1]} 
-                    loading={props.loading} 
-                    setLoading={props.setLoading}
+                    text="Create Room" 
+                    isLoading={props.selectedTab[1]} 
+                    loading={props.selectedTab} 
+                    setLoading={props.setSelectedTab}
                     emitEvent={props.emitEvent}
                 />
                 <GameModeButton 
                     link="/game/join" 
-                    text="Join" 
-                    isLoading={props.loading[1]}
-                    loading={props.loading} 
-                    setLoading={props.setLoading} 
+                    text="Join Room" 
+                    isLoading={props.selectedTab[1]}
+                    loading={props.selectedTab} 
+                    setLoading={props.setSelectedTab}
+                    emitEvent={props.emitEvent}
                 />
                 <GameModeButton 
                     link="/game/quick-game" 
                     text="Quick Game" 
-                    isLoading={props.loading[1]} 
-                    loading={props.loading} 
-                    setLoading={props.setLoading}
+                    isLoading={props.selectedTab[1]} 
+                    loading={props.selectedTab} 
+                    setLoading={props.setSelectedTab}
+                    emitEvent={props.emitEvent}
                 />
             </Box>
         </nav>

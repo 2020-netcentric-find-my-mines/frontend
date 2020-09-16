@@ -20,6 +20,7 @@ import {
 
 import { ThemeProvider } from '@chakra-ui/core'
 import CreateGame from './components/CreateGame'
+import JoinGame from './components/JoinGame'
 
 function App() {
 
@@ -34,7 +35,7 @@ function App() {
   let [gameStarted, setGameStarted] = useState(false)
   let [tick, setTick] = useState(-1)
   let [coordinate, setCoordinate] = useState([])
-  let [loading, setLoading] = useState(["", false]);
+  let [selectedTab, setSelectedTab] = useState(["", false]);
   let [gameID, setGameID] = useState("")
 
   // Initialize Socket.IO
@@ -59,13 +60,13 @@ function App() {
               <Home />
             </Route>
             <Route path="/game">
-              <Game loading={loading} setLoading={setLoading} emitEvent={emitEvent} />
+              <Game selectedTab={selectedTab} setSelectedTab={setSelectedTab} emitEvent={emitEvent} />
               <Switch>
                 <Route path="/game/create">
-                  <CreateGame gameID={gameID} setLoading={setLoading}></CreateGame>
+                  <CreateGame gameID={gameID} setSelectedTab={setSelectedTab} emitEvent={emitEvent}/>
                 </Route>
                 <Route path="/game/join">
-                  Join
+                  <JoinGame emitEvent={emitEvent}/>
                 </Route>
                 <Route path="/game/quick-game">
                   Quick Game
