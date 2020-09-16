@@ -12,7 +12,6 @@ import {
     ModalCloseButton,
 } from "@chakra-ui/core";
 import { create } from 'domain';
-import { red } from '@material-ui/core/colors';
 
 export default function CreateGame(props: any) {
     // const setLoading = props.setSelectedTab
