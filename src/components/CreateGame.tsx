@@ -32,7 +32,6 @@ export default function CreateGame(props: any) {
     <Stack align="center">
       <Heading>Create Room</Heading>
       <Box padding="1rem">
-        {/* <Input placeholder="Enter the game's ID" width="-32px" value={textfield} onChange={handleChange}/> */}
         <span style={{}}>ID: </span>
         <span style={{ color: "red" }}>{gameID}</span>
       </Box>
