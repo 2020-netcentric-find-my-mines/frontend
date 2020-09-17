@@ -49,10 +49,9 @@ function App() {
               />
               <Switch>
                 <Route path="/game/create">
-                  <JoinGame emitEvent={emitEvent} />
+                  <CreateGame gameID={gameState.id} emitEvent={emitEvent} />
                 </Route>
                 <Route path="/game/join">
-                  <CreateGame gameID={gameState.id} emitEvent={emitEvent} />
                   <JoinGame emitEvent={emitEvent} />
                 </Route>
                 <Route path="/game/quick-game">Quick Game</Route>
