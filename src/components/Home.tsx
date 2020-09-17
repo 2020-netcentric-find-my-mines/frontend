@@ -4,7 +4,7 @@ import { Box, Button, Flex, FormControl, FormLabel, Heading, Input } from '@chak
 
 export default function Home() {
     return (
-        <Flex width="full" align="center" justifyContent="center">
+        <Flex width="full" height="60%" align="center" position="absolute" justifyContent="center">
             <Box p={2}>
                 <Box textAlign="center">
                 <Heading>Mine Sweeper</Heading>

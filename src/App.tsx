@@ -43,6 +43,7 @@ function App() {
               <Home />
             </Route>
             <Route path="/game">
+              {/*  Switch = what to show in path; Link = route to path; Link is in <Game>/<Lobby>/<Link>  */}
               <Game selectedTab={selectedTab} setSelectedTab={setSelectedTab} emitEvent={emitEvent} />
               <Switch>
                 <Route path="/game/create">
