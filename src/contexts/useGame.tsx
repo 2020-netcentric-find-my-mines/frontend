@@ -1,5 +1,7 @@
 import React, { createContext, useReducer } from 'react'
+import { updateReturn } from 'typescript'
 import IContext from '../types/context.interface'
+import ICoordinate from '../types/coordinate.interface'
 
 export const GameContext = createContext({} as IContext)
 
@@ -17,8 +19,8 @@ const initialState = {
 
 const initializeCoordinate = (boardWidth: number, boardHeight: number) => {
     let coordinates = []
-    for (let x: number = 0; x < boardWidth; x++) {
-        for (let y: number = 0; y < boardHeight; y++) {
+    for (let x = 0; x < boardWidth; x++) {
+        for (let y = 0; y < boardHeight; y++) {
             coordinates.push({
                 x,
                 y,
@@ -28,6 +30,14 @@ const initializeCoordinate = (boardWidth: number, boardHeight: number) => {
         }
     }
     return coordinates
+}
+
+const updateCoordinate = (current: ICoordinate[], selected: ICoordinate[], width: number) => {
+    selected.forEach((cell) => {
+        current[cell.x + cell.y * width] = cell
+    })
+    
+    return current
 }
 
 const gameReducer = (state: any, action: any) => {
@@ -46,12 +56,18 @@ const gameReducer = (state: any, action: any) => {
         case 'INITIALIZE':
             return ({
                 ...state,
+                started: true,
                 width: payload.boardWidth,
                 height: payload.boardHeight,
                 noBombs: payload.numberOfBombs,
                 noBombsFound: payload.numberOfBombsFound,
                 players: payload.players,
-                coordinate: initializeCoordinate(payload.boardWidth, payload.boardHeight)
+                coordinates: initializeCoordinate(payload.boardWidth, payload.boardHeight)
+            })
+        case 'COORDINATE_FEEDBACK':
+            return ({
+                ...state,
+                coordinates: updateCoordinate(state.coordinates, payload, state.width)
             })
         default:
             return (state)

@@ -36,7 +36,7 @@ export default function onSocketEvent(
     socket.on(SocketEvent.SELECT_COORDINATE_FEEDBACK, (d: any) => {
         console.log('SELECT_COORDINATE_FEEDBACK', d)
         if (d.isOK) {
-            //setCoordinate(d.data.coordinates)
+            gameDispatch({type: 'COORDINATE_FEEDBACK', payload: d.data.selectedCoordinates})
         }
     })
 }

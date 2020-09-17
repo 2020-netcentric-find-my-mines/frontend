@@ -1,51 +1,28 @@
-import React from 'react'
-import GameModeButton from './GameModeButton'
-import StartGameButton from './StartGameButton'
-import { Link } from 'react-router-dom'
-import { Box, Button } from '@chakra-ui/core'
+import React, { useContext } from 'react'
+import Lobby from './Lobby'
+import Play from './Play'
+import { Route, Switch, Redirect } from 'react-router-dom'
+import { Box } from '@chakra-ui/core'
+import { GameContext } from '../contexts/useGame'
 
 export default function Game(props: any) {
+
+    const {gameState} = useContext(GameContext)
 
     return (
         <nav>
             <Box >
-                <Link to="/home" style={{ textDecoration: 'none' }}>
-                    <Button 
-                        variantColor="orange" 
-                        variant="outline" 
-                        onClick={() => { props.setSelectedTab(["", false]) }}
-                        margin="2"
-                    >
-                        Back
-                    </Button>
-                </Link>
-                <GameModeButton 
-                    link="/game/create" 
-                    text="Create Room" 
-                    isLoading={props.selectedTab[1]} 
-                    loading={props.selectedTab} 
-                    setLoading={props.setSelectedTab}
-                    emitEvent={props.emitEvent}
-                />
-                <GameModeButton 
-                    link="/game/join" 
-                    text="Join Room" 
-                    isLoading={props.selectedTab[1]}
-                    loading={props.selectedTab} 
-                    setLoading={props.setSelectedTab}
-                    emitEvent={props.emitEvent}
-                />
-                <GameModeButton 
-                    link="/game/quick-game" 
-                    text="Quick Game" 
-                    isLoading={props.selectedTab[1]} 
-                    loading={props.selectedTab} 
-                    setLoading={props.setSelectedTab}
-                    emitEvent={props.emitEvent}
-                />
-                <StartGameButton
-                    emitEvent={props.emitEvent}
-                />
+                <Switch>
+                    <Route path="/game">
+                        {gameState.started 
+                            ? <Redirect to="/play" />
+                            : <Lobby selectedTab={props.selectedTab} setSelectedTab={props.setSelectedTab} emitEvent={props.emitEvent} />
+                        }
+                    </Route> 
+                    <Route path="/play">
+                        <Play />
+                    </Route>
+                </Switch>
             </Box>
         </nav>
     )

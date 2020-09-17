@@ -4,31 +4,54 @@ import { Grid, Button } from '@chakra-ui/core'
 import { GameContext } from '../contexts/useGame'
 
 export default function Play(props: any) {
-    const {gameState, gameDispatch} = useContext(GameContext)
+    const {gameState} = useContext(GameContext)
 
-    if (gameState.started) {
-        return (<h2>Game not ready to start.</h2>)
+    if (!gameState.started) {
+        return (
+            <div>
+                <h2>Loading...</h2>
+                <p>Make sure you create/join game before starting.</p>
+            </div>
+        )
     }
 
     const handleSelectCoordinate = (event: any) => {
         console.log("SELECT_COORDINATE", event.target.dataset.x, event.target.dataset.y)
         props.emitEvent(SocketEvent.SELECT_COORDINATE, {
-            x: event.target.dataset.x,
-            y: event.target.dataset.y,
+            x: +event.target.dataset.x,
+            y: +event.target.dataset.y,
         })
     }
-    
+
     let grid = []
     for (let cellId: number = 0; cellId < 36; cellId++) {
+        let cellBody
+        const cellState = gameState.coordinates[cellId]
+
+        if (!cellState.isSelected) {
+            cellBody = '🎯'
+        } else if (!cellState.isBomb) {
+            cellBody = '❌'
+        } else {
+            cellBody = '💣'
+        }
+
         grid.push(
-            <Button data-x="1" data-y="1" variantColor="green" onClick={handleSelectCoordinate}>Button</Button>
+            <Button 
+                data-x={cellId % gameState.width} 
+                data-y={Math.floor(cellId / gameState.height)} 
+                variantColor="green" 
+                onClick={handleSelectCoordinate}
+            >
+                {cellBody}
+            </Button>
         )
     }
 
     return (
         <Grid 
-            templateColumns="repeat(6, 1fr)" 
-            templateRows="repeat(6, 1fr)" 
+            templateColumns={`repeat(${gameState.width}, 1fr)`}
+            templateRows={`repeat(${gameState.height}, 1fr)`}
             gap={1}
         >
             {grid}
