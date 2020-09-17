@@ -49,10 +49,8 @@ function App() {
               />
               <Switch>
                 <Route path="/game/create">
-                  <CreateGame
-                    gameID={gameState.id}
-                    emitEvent={emitEvent}
-                  />
+                  Game check
+                  <CreateGame gameID={gameState.id} emitEvent={emitEvent} />
                 </Route>
                 <Route path="/game/join">
                   <JoinGame emitEvent={emitEvent} />
