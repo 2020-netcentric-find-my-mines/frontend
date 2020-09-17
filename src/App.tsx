@@ -9,7 +9,11 @@ import { useSocket } from "./hooks/useSocket";
 import { GameContext } from "./contexts/useGame";
 import onSocketEvent from "./logics/handleEvent";
 
-import { HashRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  HashRouter as Router,
+  Switch,
+  Route,
+} from 'react-router-dom'
 
 import { ThemeProvider } from "@chakra-ui/core";
 import CreateGame from "./components/CreateGame";
