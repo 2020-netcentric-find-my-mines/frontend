@@ -32,7 +32,7 @@ function App() {
     if (socket) {
       onSocketEvent(socket, gameDispatch)
     }
-  }, [socket])
+  }, [socket, gameDispatch])
 
   return (
     <div>

@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import SocketEvent from '../socket-event'
-import { Link } from "react-router-dom";
-import { Box, Button, Flex, Heading, Input, Stack } from '@chakra-ui/core'
+import { Box, Button, Heading, Input, Stack } from '@chakra-ui/core'
 
 export default function JoinGame(props: any) {
     
