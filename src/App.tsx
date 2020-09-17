@@ -37,7 +37,7 @@ function App() {
       <Router>
         <ThemeProvider>
           <Switch>
-            <Route path="/">
+            <Route path="">
               <Home />
             </Route>
             <Route path="/game">
