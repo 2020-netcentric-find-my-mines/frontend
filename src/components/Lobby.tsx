@@ -8,7 +8,7 @@ export default function Lobby(props: any) {
 
     return (
         <>
-            <Link to="/home" style={{ textDecoration: 'none' }}>
+            <Link to="/" style={{ textDecoration: 'none' }}>
                 <Button 
                     variantColor="orange" 
                     variant="outline" 
