@@ -1,16 +1,13 @@
 import React, { useEffect, useState, useContext } from 'react'
 import './App.css'
 
-import Table from './components/Table'
-import Timer from './components/Timer'
 import Home from './components/Home'
 import Game from './components/Game'
 import Play from './components/Play'
-import Mvp from './components/Mvp'
 
-import onSocketEvent from './logics/handleEvent'
 import { useSocket } from './hooks/useSocket'
 import { GameContext }  from './contexts/useGame'
+import onSocketEvent from './logics/handleEvent'
 
 import {
   BrowserRouter as Router,
@@ -24,18 +21,8 @@ import JoinGame from './components/JoinGame'
 
 function App() {
 
-  let [state, setState] = useState({
-    event: "",
-    id: "",
-    x: "",
-    y: "",
-  })
-
-  const [gameStarted, setGameStarted] = useState(false)
   const [selectedTab, setSelectedTab] = useState(["", false])
   const { gameState, gameDispatch } = useContext(GameContext)
-
-  console.log(gameState)
 
   // Initialize Socket.IO
   const { socket, emitEvent } = useSocket(process.env.REACT_APP_SOCKET_URL ?? "https://netcentric-architecture.herokuapp.com/")
@@ -70,10 +57,7 @@ function App() {
               </Switch>
             </Route>
             <Route path="/play">
-              <Play gameStarted={gameStarted} />
-            </Route>
-            <Route path="/mvp">
-              <Mvp state={state} setState={setState} emitEvent={emitEvent} tableVisible={gameStarted} coordinate={gameState.coordinates} />
+              <Play emitEvent={emitEvent} />
             </Route>
           </Switch>
         </ThemeProvider >

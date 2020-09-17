@@ -1,6 +1,6 @@
 import React from 'react'
-import SocketEvent from '../socket-event'
 import GameModeButton from './GameModeButton'
+import StartGameButton from './StartGameButton'
 import { Link } from 'react-router-dom'
 import { Box, Button } from '@chakra-ui/core'
 
@@ -41,6 +41,9 @@ export default function Game(props: any) {
                     isLoading={props.selectedTab[1]} 
                     loading={props.selectedTab} 
                     setLoading={props.setSelectedTab}
+                    emitEvent={props.emitEvent}
+                />
+                <StartGameButton
                     emitEvent={props.emitEvent}
                 />
             </Box>

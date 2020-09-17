@@ -1,9 +1,12 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import SocketEvent from '../socket-event'
 import { Grid, Button } from '@chakra-ui/core'
+import { GameContext } from '../contexts/useGame'
 
 export default function Play(props: any) {
-    if (!props.gameStarted) {
+    const {gameState, gameDispatch} = useContext(GameContext)
+
+    if (gameState.started) {
         return (<h2>Game not ready to start.</h2>)
     }
 

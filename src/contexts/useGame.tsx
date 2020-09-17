@@ -7,6 +7,7 @@ const initialState = {
     width: -1,
     height: -1,
     id: "",
+    started: false,
     noBombs: -1,
     noBombsFound: -1,
     players: [],
