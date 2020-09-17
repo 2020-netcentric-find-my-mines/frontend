@@ -1,26 +1,10 @@
 import React from "react";
 import SocketEvent from "../socket-event";
-// import onSocketEvent from '../logics/handleEvent'
 import { Box, Button, Heading, Stack } from "@chakra-ui/core";
-// import {
-//     Modal,
-//     ModalOverlay,
-//     ModalContent,
-//     ModalHeader,
-//     ModalFooter,
-//     ModalBody,
-//     ModalCloseButton,
-// } from "@chakra-ui/core";
-// import { create } from 'domain';
 
 export default function CreateGame(props: any) {
-  // const setLoading = props.setSelectedTab
-  // const { isOpen, onClose } = useDisclosure(true);
   const emitEvent = props.emitEvent;
   const gameID = props.gameID;
-  // const exit = () => {
-  //     setLoading("", false)
-  // }
 
   function createGame() {
     emitEvent(SocketEvent.CREATE_GAME, null);

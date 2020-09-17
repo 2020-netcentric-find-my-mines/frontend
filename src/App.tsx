@@ -51,7 +51,6 @@ function App() {
                 <Route path="/game/create">
                   <CreateGame
                     gameID={gameState.id}
-                    setSelectedTab={setSelectedTab}
                     emitEvent={emitEvent}
                   />
                 </Route>
