@@ -10,7 +10,7 @@ import { GameContext }  from './contexts/useGame'
 import onSocketEvent from './logics/handleEvent'
 
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Switch,
   Route,
 } from 'react-router-dom'
@@ -39,7 +39,7 @@ function App() {
       <Router>
         <ThemeProvider >
           <Switch>
-            <Route path="/home">
+            <Route path="/">
               <Home />
             </Route>
             <Route path="/game">
