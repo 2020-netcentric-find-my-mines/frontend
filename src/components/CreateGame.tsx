@@ -5,7 +5,7 @@ import { Box, Button, Heading, Stack } from "@chakra-ui/core";
 
 export default function CreateGame(props: any) {
 
-  // const emitEvent = props.emitEvent;
+  const emitEvent = props.emitEvent;
   
   // const { gameState } = useContext(GameContext)
 
@@ -39,7 +39,7 @@ export default function CreateGame(props: any) {
         <span style={{}}>ID: </span>
         <span style={{ color: "red" }}>ppp</span>
       </Box>
-      <Button margin="1rem" onClick={ () => {}}>
+      <Button margin="1rem" onClick={ emitEvent }>
         Create
       </Button>
     </Stack>
