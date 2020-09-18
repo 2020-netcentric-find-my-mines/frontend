@@ -17,7 +17,7 @@ import JoinGame from "./components/JoinGame";
 
 function App() {
   const [selectedTab, setSelectedTab] = useState(["", false]);
-  const { gameState, gameDispatch } = useContext(GameContext);
+  const { gameDispatch } = useContext(GameContext);
 
   // Initialize Socket.IO
   const { socket, emitEvent } = useSocket(
@@ -49,7 +49,7 @@ function App() {
               />
               <Switch>
                 <Route path="/game/create">
-                  <CreateGame gameID={gameState.id} emitEvent={emitEvent} />
+                  <CreateGame emitEvent={emitEvent} />
                 </Route>
                 <Route path="/game/join">
                   <JoinGame emitEvent={emitEvent} />
