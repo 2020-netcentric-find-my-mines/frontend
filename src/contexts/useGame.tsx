@@ -14,6 +14,7 @@ const initialState = {
   players: [],
   coordinates: [],
   tick: -1,
+  playerJoined: false
 };
 
 const initializeCoordinate = (boardWidth: number, boardHeight: number) => {
@@ -75,6 +76,11 @@ const gameReducer = (state: any, action: any) => {
         ...state,
         coordinates: updateCoordinate(state.coordinates, payload, state.width),
       };
+      case "PLAYER_JOINED":
+        return {
+          ...state,
+          playerJoined: payload
+        }
     default:
       return state;
   }

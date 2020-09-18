@@ -1,12 +1,12 @@
 import React from "react";
 import SocketEvent from "../socket-event";
-import { Box, Button, Flex, Heading, Stack, Text } from "@chakra-ui/core";
+import { Box, Button, Flex, Heading, Text } from "@chakra-ui/core";
 import { Link } from "react-router-dom";
 
 export default function CreateGame(props: any) {
   const emitEvent = props.emitEvent;
   const gameID = props.gameID;
-
+  const playerJoin = props.playerJoin;
   function createGame() {
     emitEvent(SocketEvent.CREATE_GAME, null);
   }
@@ -50,6 +50,9 @@ export default function CreateGame(props: any) {
             variantColor={gameID === "" ? "teal" : "orange"}
             variant="solid"
             onClick={gameID === "" ? createGame : startGame}
+            isDisabled={
+              gameID === "" ? false : playerJoin === true ? false : true
+            }
           >
             {gameID === "" ? "Generate" : "Start Game"}
           </Button>

@@ -10,4 +10,5 @@ export default interface IGame {
   players: string[];
   coordinates: ICoordinate[];
   tick: number;
+  playerJoined: boolean;
 }
