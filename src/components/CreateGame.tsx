@@ -1,10 +1,11 @@
-import React from "react";
+import React, {useContext} from "react";
 import SocketEvent from "../socket-event";
 import { Box, Button, Heading, Stack } from "@chakra-ui/core";
-// import { create } from "domain";
-// import { GameContext } from '../contexts/useGame'
+import { GameContext } from '../contexts/useGame'
 
 export default function CreateGame(props: any) {
+
+  const { gameState } = useContext(GameContext)
 
   const createGame = () => {
     props.emitEvent(SocketEvent.CREATE_GAME, null);
@@ -15,7 +16,7 @@ export default function CreateGame(props: any) {
       <Heading>Create Room</Heading>
       <Box padding="1rem">
         <span style={{}}>ID: </span>
-        <span style={{ color: "red" }}>ppp</span>
+        <span style={{ color: "red" }}>{gameState.id}</span>
       </Box>
       <Button margin="1rem" onClick={ createGame }>
         Create
