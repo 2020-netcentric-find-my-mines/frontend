@@ -17,7 +17,7 @@ import JoinGame from "./components/JoinGame";
 
 function App() {
   const [selectedTab, setSelectedTab] = useState(["", false]);
-  const { gameState, gameDispatch } = useContext(GameContext);
+  const { gameDispatch } = useContext(GameContext);
 
   // Initialize Socket.IO
   const { socket, emitEvent } = useSocket(
