@@ -1,20 +1,34 @@
 import React from "react";
-import SocketEvent from "../socket-event";
+// import SocketEvent from "../socket-event";
 import { Box, Button, Heading, Stack } from "@chakra-ui/core";
 // import { create } from "domain";
 // import { GameContext } from '../contexts/useGame'
 
 export default function CreateGame(props: any) {
 
-  const emitEvent = props.emitEvent;
+  return (
+    <Stack align="center">
+      <Heading>Create Room</Heading>
+      <Box padding="1rem">
+        <span style={{}}>ID: </span>
+        <span style={{ color: "red" }}>ppp</span>
+      </Box>
+      <Button margin="1rem">
+        Create
+      </Button>
+    </Stack>
+    
+  )
+
+  // const emitEvent = props.emitEvent;
   
   // const { gameState } = useContext(GameContext)
 
-  const createGame = () => {
-    emitEvent(SocketEvent.CREATE_GAME, null);
-  }
+  // const createGame = () => {
+  //   emitEvent(SocketEvent.CREATE_GAME, null);
+  // }
 
-  return (
+  // return (
     // <>
     //     <Modal isOpen={isOpen} onClose={onClose}>
     //         <ModalOverlay />
@@ -34,15 +48,17 @@ export default function CreateGame(props: any) {
     //     </Modal>
     // </>
 
-    <Stack align="center">
-      <Heading>Create Room</Heading>
-      <Box padding="1rem">
-        <span style={{}}>ID: </span>
-        <span style={{ color: "red" }}>ppp</span>
-      </Box>
-      <Button margin="1rem" onClick={ createGame }>
-        Create
-      </Button>
-    </Stack>
-  )
+    // <Stack align="center">
+    //   <Heading>Create Room</Heading>
+    //   <Box padding="1rem">
+    //     <span style={{}}>ID: </span>
+    //     <span style={{ color: "red" }}>ppp</span>
+    //   </Box>
+    //   <Button margin="1rem" onClick={ createGame }>
+    //     Create
+    //   </Button>
+    // </Stack>
+
+
+  // )
 }
