@@ -9,11 +9,7 @@ import { useSocket } from "./hooks/useSocket";
 import { GameContext } from "./contexts/useGame";
 import onSocketEvent from "./logics/handleEvent";
 
-import {
-  HashRouter as Router,
-  Switch,
-  Route,
-} from 'react-router-dom'
+import { HashRouter as Router, Switch, Route } from "react-router-dom";
 
 import { ThemeProvider } from "@chakra-ui/core";
 import CreateGame from "./components/CreateGame";
@@ -53,11 +49,7 @@ function App() {
               />
               <Switch>
                 <Route path="/game/create">
-                  <CreateGame
-                    gameID={gameState.id}
-                    setSelectedTab={setSelectedTab}
-                    emitEvent={emitEvent}
-                  />
+                  <CreateGame gameID={gameState.id} emitEvent={emitEvent} />
                 </Route>
                 <Route path="/game/join">
                   <JoinGame emitEvent={emitEvent} />
