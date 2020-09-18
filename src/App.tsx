@@ -11,9 +11,10 @@ import { useSocket } from "./hooks/useSocket";
 
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
 
-import { ThemeProvider } from "@chakra-ui/core";
+import { CSSReset, ThemeProvider } from "@chakra-ui/core";
 import CreateGame from "./components/CreateGame";
 import JoinGame from "./components/JoinGame";
+import customTheme from "./styling";
 
 function App() {
   const [selectedTab, setSelectedTab] = useState(["", false]);
@@ -36,10 +37,14 @@ function App() {
   return (
     <div>
       <Router basename="/">
-        <ThemeProvider>
+        <ThemeProvider theme={customTheme}>
+          <CSSReset />
           <Switch>
             <Route exact path="/">
               <Home />
+            </Route>
+            <Route path="/play">
+              <Play emitEvent={emitEvent} />
             </Route>
             <Route path="/game">
               {/*  Switch = what to show in path; Link = route to path; Link is in <Game>/<Lobby>/<Link>  */}
@@ -57,9 +62,6 @@ function App() {
                 </Route>
                 <Route path="/game/quick-game">Quick Game</Route>
               </Switch>
-            </Route>
-            <Route path="/play">
-              <Play emitEvent={emitEvent} />
             </Route>
           </Switch>
         </ThemeProvider>
