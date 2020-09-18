@@ -14,11 +14,15 @@ import { Link } from "react-router-dom";
 
 export default function JoinGame(props: any) {
   let [textfield, setTextField] = useState("");
+  const playerJoin = props.playerJoin;
 
   const emitEvent = props.emitEvent;
 
-  function submit() {
+  function joinGame() {
     emitEvent(SocketEvent.JOIN_GAME, textfield);
+  }
+  function startGame() {
+    emitEvent(SocketEvent.START_GAME, null);
   }
 
   function handleChange(event: any) {
@@ -57,11 +61,11 @@ export default function JoinGame(props: any) {
           <Button
             width="full"
             mt={4}
-            variantColor="teal"
+            variantColor={playerJoin === true ? "orange" : "teal"}
             variant="solid"
-            onClick={submit}
+            onClick={playerJoin === true ? startGame : joinGame}
           >
-            Enter
+            {playerJoin === true ? "Start Game" : "Join Game"}
           </Button>
           <Link to="/game/create">
             <Text width="full" mt="2" fontSize="xs" color="gray.600">

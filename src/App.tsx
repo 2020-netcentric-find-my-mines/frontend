@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useContext } from "react";
 import "./App.css";
 
 import Home from "./components/Home";
-import Game from "./components/Game";
 import Play from "./components/Play";
 
 import { useSocket } from "./hooks/useSocket";
@@ -17,8 +16,8 @@ import JoinGame from "./components/JoinGame";
 import customTheme from "./styling";
 
 function App() {
-  const [selectedTab, setSelectedTab] = useState(["", false]);
-  // const { gameDispatch } = useContext(GameContext);
+  // const [selectedTab, setSelectedTab] = useState(["", false]);
+  const { gameState, gameDispatch } = useContext(GameContext);
 
   // Initialize Socket.IO
   const { socket, emitEvent } = useSocket(
@@ -57,10 +56,10 @@ function App() {
 
               <Switch>
                 <Route path="/game/create">
-                  <CreateGame emitEvent={emitEvent} />
+                  <CreateGame gameID={gameState.id} playerJoin={gameState.playerJoined} emitEvent={emitEvent} />
                 </Route>
                 <Route path="/game/join">
-                  <JoinGame emitEvent={emitEvent} />
+                  <JoinGame playerJoin={gameState.playerJoined} emitEvent={emitEvent} />
                 </Route>
                 <Route path="/game/quick-game">Quick Game</Route>
               </Switch>
