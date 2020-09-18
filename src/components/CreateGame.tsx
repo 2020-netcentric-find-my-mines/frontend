@@ -9,7 +9,7 @@ export default function CreateGame(props: any) {
   
   const { gameState } = useContext(GameContext)
 
-  function createGame() {
+  const createGame = () => {
     emitEvent(SocketEvent.CREATE_GAME, null);
   }
 
@@ -42,5 +42,5 @@ export default function CreateGame(props: any) {
         Create
       </Button>
     </Stack>
-  );
+  )
 }
