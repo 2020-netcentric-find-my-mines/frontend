@@ -1,10 +1,14 @@
 import React from "react";
-// import SocketEvent from "../socket-event";
+import SocketEvent from "../socket-event";
 import { Box, Button, Heading, Stack } from "@chakra-ui/core";
 // import { create } from "domain";
 // import { GameContext } from '../contexts/useGame'
 
 export default function CreateGame(props: any) {
+
+  const createGame = () => {
+    props.emitEvent(SocketEvent.CREATE_GAME, null);
+  }
 
   return (
     <Stack align="center">
@@ -13,7 +17,7 @@ export default function CreateGame(props: any) {
         <span style={{}}>ID: </span>
         <span style={{ color: "red" }}>ppp</span>
       </Box>
-      <Button margin="1rem">
+      <Button margin="1rem" onClick={ createGame }>
         Create
       </Button>
     </Stack>
