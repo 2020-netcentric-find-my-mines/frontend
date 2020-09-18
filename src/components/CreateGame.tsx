@@ -1,7 +1,7 @@
 import React, {useContext} from "react";
 import SocketEvent from "../socket-event";
-import { Box, Button, Heading, Stack } from "@chakra-ui/core";
-import { GameContext } from '../contexts/useGame'
+import { Box, Button, Flex, Heading, Stack, Text } from "@chakra-ui/core";
+import { Link } from "react-router-dom";
 
 export default function CreateGame(props: any) {
 
@@ -11,59 +11,55 @@ export default function CreateGame(props: any) {
     props.emitEvent(SocketEvent.CREATE_GAME, null);
   }
 
+  function startGame() {
+    emitEvent(SocketEvent.START_GAME, null);
+  }
+
   return (
-    <Stack align="center">
-      <Heading>Create Room</Heading>
-      <Box padding="1rem">
-        <span style={{}}>ID: </span>
-        <span style={{ color: "red" }}>{gameState.id}</span>
+    <Flex
+      width="full"
+      height="100%"
+      align="center"
+      position="absolute"
+      justifyContent="center"
+      bg="gray.50"
+    >
+      <Box
+        p={10}
+        bg="white"
+        borderRadius={10}
+        boxShadow="0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)"
+      >
+        <Box textAlign="center">
+          <Heading>Create Game</Heading>
+        </Box>
+        <Box mt={4} textAlign="left" justifyItems="center">
+          <Text
+            width="full"
+            mt="2"
+            fontSize="md"
+            color="gray.600"
+            fontWeight=""
+          >
+            ID: <span style={{ color: "red" }}>{gameID}</span>
+          </Text>
+
+          <Button
+            width="full"
+            mt={4}
+            variantColor={gameID === "" ? "teal" : "orange"}
+            variant="solid"
+            onClick={gameID === "" ? createGame : startGame}
+          >
+            {gameID === "" ? "Generate" : "Start Game"}
+          </Button>
+          <Link to="/game/join">
+            <Text width="full" mt="2" fontSize="xs" color="gray.600">
+              Join Game
+            </Text>
+          </Link>
+        </Box>
       </Box>
-      <Button margin="1rem" onClick={ createGame }>
-        Create
-      </Button>
-    </Stack>
-    
-  )
-
-  // const emitEvent = props.emitEvent;
-  
-  // const { gameState } = useContext(GameContext)
-
-  // const createGame = () => {
-  //   emitEvent(SocketEvent.CREATE_GAME, null);
-  // }
-
-  // return (
-    // <>
-    //     <Modal isOpen={isOpen} onClose={onClose}>
-    //         <ModalOverlay />
-    //         <ModalContent>
-    //             <ModalHeader>Game Created</ModalHeader>
-    //             <ModalBody>
-    //                 Ask you friends to join game <br/> <br/>
-    //                 <span style={{fontWeight: 'bolder'}}>ID: {gameID}</span>
-    //             </ModalBody>
-
-    //             <ModalFooter>
-    //                 <Button variantColor="blue" mr={3} onClick={() => { onClose(); exit();}}>
-    //                     Close
-    //                 </Button>
-    //             </ModalFooter>
-    //         </ModalContent>
-    //     </Modal>
-    // </>
-
-    // <Stack align="center">
-    //   <Heading>Create Room</Heading>
-    //   <Box padding="1rem">
-    //     <span style={{}}>ID: </span>
-    //     <span style={{ color: "red" }}>ppp</span>
-    //   </Box>
-    //   <Button margin="1rem" onClick={ createGame }>
-    //     Create
-    //   </Button>
-    // </Stack>
-
-
-  // )
+    </Flex>
+  );
 }

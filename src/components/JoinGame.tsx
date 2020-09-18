@@ -26,21 +26,6 @@ export default function JoinGame(props: any) {
   }
 
   return (
-    //   <Stack align="center">
-    //     <Heading>Join Room</Heading>
-    //     <Box margin="5" maxWidth="300px">
-    //       <Input
-    //         placeholder="Enter the game's ID"
-    //         width="-32px"
-    //         value={textfield}
-    //         onChange={handleChange}
-    //       />
-    //     </Box>
-    //     <Button margin="1rem" onClick={submit}>
-    //       Join
-    //     </Button>
-    //   </Stack>
-
     <Flex
       width="full"
       height="100%"
