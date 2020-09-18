@@ -30,5 +30,5 @@ export default function JoinGame(props: any) {
         Join
       </Button>
     </Stack>
-  );
+  )
 }
