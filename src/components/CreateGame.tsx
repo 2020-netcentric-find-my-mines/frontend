@@ -1,31 +1,14 @@
-import React, { useContext, useEffect } from "react";
+import React from "react";
 import SocketEvent from "../socket-event";
 import { Box, Button, Heading, Stack } from "@chakra-ui/core";
-import { GameContext } from "../contexts/useGame";
-import { useSocket } from "../hooks/useSocket";
-import onSocketEvent from "../logics/handleEvent";
-
 
 export default function CreateGame(props: any) {
-  const { gameState, gameDispatch } = useContext(GameContext);
-
-  const { socket, emitEvent } = useSocket(
-    process.env.REACT_APP_SOCKET_URL ??
-      "https://netcentric-architecture.herokuapp.com/"
-  );
+  const emitEvent = props.emitEvent;
+  const gameID = props.gameID;
 
   function createGame() {
     emitEvent(SocketEvent.CREATE_GAME, null);
   }
-
-  
-    // Handle Socket.IO events
-    useEffect(() => {
-      if (socket) {
-        onSocketEvent(socket, gameDispatch);
-      }
-    }, [socket, gameDispatch]);
-  
 
   return (
     // <>
@@ -50,7 +33,7 @@ export default function CreateGame(props: any) {
       <Heading>Create Room</Heading>
       <Box padding="1rem">
         <span style={{}}>ID: </span>
-        <span style={{ color: "red" }}>{gameState.id}</span>
+        <span style={{ color: "red" }}>{gameID}</span>
       </Box>
       <Button margin="1rem" onClick={createGame}>
         Create
