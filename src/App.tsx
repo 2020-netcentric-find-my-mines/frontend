@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useState } from "react";
 import "./App.css";
 
 import Home from "./components/Home";
@@ -6,8 +6,8 @@ import Game from "./components/Game";
 import Play from "./components/Play";
 
 import { useSocket } from "./hooks/useSocket";
-import { GameContext } from "./contexts/useGame";
-import onSocketEvent from "./logics/handleEvent";
+// import { GameContext } from "./contexts/useGame";
+// import onSocketEvent from "./logics/handleEvent";
 
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -17,7 +17,7 @@ import JoinGame from "./components/JoinGame";
 
 function App() {
   const [selectedTab, setSelectedTab] = useState(["", false]);
-  const { gameDispatch } = useContext(GameContext);
+  // const { gameDispatch } = useContext(GameContext);
 
   // Initialize Socket.IO
   const { socket, emitEvent } = useSocket(
@@ -25,12 +25,13 @@ function App() {
       "https://netcentric-architecture.herokuapp.com/"
   );
 
-  // Handle Socket.IO events
-  useEffect(() => {
-    if (socket) {
-      onSocketEvent(socket, gameDispatch);
-    }
-  }, [socket, gameDispatch]);
+  console.log(socket)
+  // // Handle Socket.IO events
+  // useEffect(() => {
+  //   if (socket) {
+  //     onSocketEvent(socket, gameDispatch);
+  //   }
+  // }, [socket, gameDispatch]);
 
   return (
     <div>
