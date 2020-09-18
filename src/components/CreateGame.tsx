@@ -1,6 +1,6 @@
 import React from "react";
 // import SocketEvent from "../socket-event";
-// import { Box, Button, Heading, Stack } from "@chakra-ui/core";
+import { Box, Button, Heading, Stack } from "@chakra-ui/core";
 // import { GameContext } from '../contexts/useGame'
 
 export default function CreateGame(props: any) {
@@ -14,7 +14,6 @@ export default function CreateGame(props: any) {
   // }
 
   return (
-    <div>wtf</div>
     // <>
     //     <Modal isOpen={isOpen} onClose={onClose}>
     //         <ModalOverlay />
@@ -34,15 +33,15 @@ export default function CreateGame(props: any) {
     //     </Modal>
     // </>
 
-    // <Stack align="center">
-    //   <Heading>Create Room</Heading>
-    //   <Box padding="1rem">
-    //     <span style={{}}>ID: </span>
-    //     <span style={{ color: "red" }}>ppp</span>
-    //   </Box>
-    //   <Button margin="1rem" onClick={createGame}>
-    //     Create
-    //   </Button>
-    // </Stack>
+    <Stack align="center">
+      <Heading>Create Room</Heading>
+      <Box padding="1rem">
+        <span style={{}}>ID: </span>
+        <span style={{ color: "red" }}>ppp</span>
+      </Box>
+      <Button margin="1rem" onClick={ () => {}}>
+        Create
+      </Button>
+    </Stack>
   )
 }
