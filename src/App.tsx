@@ -19,6 +19,7 @@ function App() {
   const [selectedTab, setSelectedTab] = useState(["", false]);
   const { gameState, gameDispatch } = useContext(GameContext);
 
+  console.log(gameState.id)
   // Initialize Socket.IO
   const { socket, emitEvent } = useSocket(
     process.env.REACT_APP_SOCKET_URL ??
@@ -49,7 +50,7 @@ function App() {
               />
               <Switch>
                 <Route path="/game/create">
-                  <CreateGame gameID={gameState.id} emitEvent={emitEvent} />
+                  <CreateGame emitEvent={emitEvent} />
                 </Route>
                 <Route path="/game/join">
                   <JoinGame emitEvent={emitEvent} />
