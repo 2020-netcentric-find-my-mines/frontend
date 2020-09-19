@@ -1,18 +1,31 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import SocketEvent from "../socket-event";
-import { Box, Button, Flex, Heading, Text } from "@chakra-ui/core";
+import {
+  Box,
+  Button,
+  Flex,
+  FormControl,
+  FormLabel,
+  Heading,
+  Input,
+} from "@chakra-ui/core";
 import { Link, Redirect } from "react-router-dom";
 import { GameContext } from "../contexts/useGame";
 
-export default function CreateGame(props: any) {
+export default function JoinGame(props: any) {
+  let [textfield, setTextField] = useState("");
   const { gameState } = useContext(GameContext);
   const emitEvent = props.emitEvent;
-  function createGame() {
-    emitEvent(SocketEvent.CREATE_GAME, null);
-  }
 
+  function joinGame() {
+    emitEvent(SocketEvent.JOIN_GAME, textfield);
+  }
   function startGame() {
     emitEvent(SocketEvent.START_GAME, null);
+  }
+
+  function handleChange(event: any) {
+    setTextField(event.target.value);
   }
 
   return (
@@ -35,40 +48,34 @@ export default function CreateGame(props: any) {
             boxShadow="0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)"
           >
             <Box textAlign="center">
-              <Heading>Create Game</Heading>
+              <Heading>Join Game</Heading>
             </Box>
             <Box mt={4} textAlign="left" justifyItems="center">
-              <Text
-                width="full"
-                mt="2"
-                fontSize="md"
-                color="gray.600"
-                fontWeight=""
-              >
-                {gameState.id === "" ? "" : "ID: "}
-                <span style={{ color: "red" }}>{gameState.id}</span>
-              </Text>
-
+              <FormControl>
+                <FormLabel mb="2">Enter Game ID:</FormLabel>
+                <Input
+                  type="text"
+                  placeholder="Ex: XRTMK35"
+                  variant="outline"
+                  value={textfield}
+                  onChange={handleChange}
+                />
+              </FormControl>
               <Button
                 width="full"
                 mt={4}
-                variantColor={gameState.id === "" ? "teal" : "orange"}
-                variant="solid"
-                onClick={gameState.id === "" ? createGame : startGame}
-                fontSize="sm"
-                isDisabled={
-                  gameState.id === ""
-                    ? false
-                    : gameState.playerJoined === true
-                    ? false
-                    : true
+                variantColor={
+                  gameState.playerJoined === true ? "orange" : "teal"
                 }
+                variant="solid"
+                onClick={gameState.playerJoined === true ? startGame : joinGame}
+                fontSize="sm"
               >
-                {gameState.id === "" ? "Generate" : "Start Game"}
+                {gameState.playerJoined === true ? "Start Game" : "Join Game"}
               </Button>
-              <Link to="/game/join">
+              <Link to="/create">
                 <Button width="full" mt="2" fontSize="sm" color="gray.600">
-                  Join Game
+                  Create game
                 </Button>
               </Link>
             </Box>

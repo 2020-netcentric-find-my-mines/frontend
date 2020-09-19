@@ -33,7 +33,7 @@ export default function Home() {
               variant="outline"
             />
           </FormControl>
-          <Link to="/game/create" style={{ textDecoration: "none" }}>
+          <Link to="create" style={{ textDecoration: "none" }}>
             <Button width="full" mt={4} variantColor="teal" variant="solid">
               Continue
             </Button>
