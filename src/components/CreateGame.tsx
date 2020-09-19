@@ -41,7 +41,8 @@ export default function CreateGame(props: any) {
             color="gray.600"
             fontWeight=""
           >
-            ID: <span style={{ color: "red" }}>{gameID}</span>
+            {gameID === "" ? "" : "ID: "}
+            <span style={{ color: "red" }}>{gameID}</span>
           </Text>
 
           <Button
@@ -50,6 +51,7 @@ export default function CreateGame(props: any) {
             variantColor={gameID === "" ? "teal" : "orange"}
             variant="solid"
             onClick={gameID === "" ? createGame : startGame}
+            fontSize="sm"
             isDisabled={
               gameID === "" ? false : playerJoin === true ? false : true
             }
@@ -57,9 +59,9 @@ export default function CreateGame(props: any) {
             {gameID === "" ? "Generate" : "Start Game"}
           </Button>
           <Link to="/game/join">
-            <Text width="full" mt="2" fontSize="xs" color="gray.600">
+            <Button width="full" mt="2" fontSize="sm" color="gray.600">
               Join Game
-            </Text>
+            </Button>
           </Link>
         </Box>
       </Box>
