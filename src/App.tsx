@@ -1,23 +1,21 @@
 import React, { useEffect, useContext } from "react";
 import "./App.css";
 
-import Home from "./components/Home";
-import Play from "./components/Play";
+import Home from "./pages/Home";
+import Play from "./pages/Play";
 
 import { useSocket } from "./hooks/useSocket";
-// import { GameContext } from "./contexts/useGame";
-// import onSocketEvent from "./logics/handleEvent";
+import { GameContext } from "./contexts/useGame";
+import onSocketEvent from "./logics/handleEvent";
 
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
 
 import { CSSReset, ThemeProvider } from "@chakra-ui/core";
-import CreateGame from "./components/CreateGame";
-import JoinGame from "./components/JoinGame";
+import CreateGame from "./pages/CreateGame";
+import JoinGame from "./pages/JoinGame";
 import customTheme from "./styling";
 
 function App() {
-  // const [selectedTab, setSelectedTab] = useState(["", false]);
-  
   const { gameDispatch } = useContext(GameContext);
 
   // Initialize Socket.IO
@@ -26,13 +24,13 @@ function App() {
       "https://netcentric-architecture.herokuapp.com/"
   );
 
-  console.log(socket)
-  // // Handle Socket.IO events
-  // useEffect(() => {
-  //   if (socket) {
-  //     onSocketEvent(socket, gameDispatch);
-  //   }
-  // }, [socket, gameDispatch]);
+  console.log(socket);
+  // Handle Socket.IO events
+  useEffect(() => {
+    if (socket) {
+      onSocketEvent(socket, gameDispatch);
+    }
+  }, [socket, gameDispatch]);
 
   return (
     <div>
@@ -46,25 +44,15 @@ function App() {
             <Route path="/play">
               <Play emitEvent={emitEvent} />
             </Route>
-            <Route path="/game">
-              {/*  Switch = what to show in path; Link = route to path; Link is in <Game>/<Lobby>/<Link>  */}
-
-              {/* <Game
-                selectedTab={selectedTab}
-                setSelectedTab={setSelectedTab}
-                emitEvent={emitEvent}
-              /> */}
-
-              <Switch>
-                <Route path="/game/create">
-                  <CreateGame emitEvent={emitEvent} />
-                </Route>
-                <Route path="/game/join">
-                  <JoinGame emitEvent={emitEvent} />
-                </Route>
-                <Route path="/game/quick-game">Quick Game</Route>
-              </Switch>
-            </Route>
+            <Switch>
+              <Route path="/create">
+                <CreateGame emitEvent={emitEvent} />
+              </Route>
+              <Route path="/join">
+                <JoinGame emitEvent={emitEvent} />
+              </Route>
+              <Route path="/quick-game">Quick Game</Route>
+            </Switch>
           </Switch>
         </ThemeProvider>
       </Router>
