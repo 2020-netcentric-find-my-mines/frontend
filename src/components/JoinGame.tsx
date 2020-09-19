@@ -8,7 +8,6 @@ import {
   FormLabel,
   Heading,
   Input,
-  Text,
 } from "@chakra-ui/core";
 import { Link } from "react-router-dom";
 
@@ -64,13 +63,14 @@ export default function JoinGame(props: any) {
             variantColor={playerJoin === true ? "orange" : "teal"}
             variant="solid"
             onClick={playerJoin === true ? startGame : joinGame}
+            fontSize="sm"
           >
             {playerJoin === true ? "Start Game" : "Join Game"}
           </Button>
           <Link to="/game/create">
-            <Text width="full" mt="2" fontSize="xs" color="gray.600">
+            <Button width="full" mt="2" fontSize="sm" color="gray.600">
               Create game
-            </Text>
+            </Button>
           </Link>
         </Box>
       </Box>
