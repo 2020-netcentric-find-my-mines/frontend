@@ -17,7 +17,8 @@ import customTheme from "./styling";
 
 function App() {
   // const [selectedTab, setSelectedTab] = useState(["", false]);
-  const { gameState, gameDispatch } = useContext(GameContext);
+  
+  const { gameDispatch } = useContext(GameContext);
 
   // Initialize Socket.IO
   const { socket, emitEvent } = useSocket(
@@ -56,10 +57,10 @@ function App() {
 
               <Switch>
                 <Route path="/game/create">
-                  <CreateGame gameID={gameState.id} playerJoin={gameState.playerJoined} emitEvent={emitEvent} />
+                  <CreateGame emitEvent={emitEvent} />
                 </Route>
                 <Route path="/game/join">
-                  <JoinGame playerJoin={gameState.playerJoined} emitEvent={emitEvent} />
+                  <JoinGame emitEvent={emitEvent} />
                 </Route>
                 <Route path="/game/quick-game">Quick Game</Route>
               </Switch>
