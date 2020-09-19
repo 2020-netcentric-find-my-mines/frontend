@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import SocketEvent from "../socket-event";
 import { Box, Button, Flex, Heading, Text } from "@chakra-ui/core";
 import { Link } from "react-router-dom";
+import { GameContext } from "../contexts/useGame";
 
 export default function CreateGame(props: any) {
+  const { gameState } = useContext(GameContext);
   const emitEvent = props.emitEvent;
-  const gameID = props.gameID;
-  const playerJoin = props.playerJoin;
   function createGame() {
     emitEvent(SocketEvent.CREATE_GAME, null);
   }
@@ -41,22 +41,22 @@ export default function CreateGame(props: any) {
             color="gray.600"
             fontWeight=""
           >
-            {gameID === "" ? "" : "ID: "}
-            <span style={{ color: "red" }}>{gameID}</span>
+            {gameState.id === "" ? "" : "ID: "}
+            <span style={{ color: "red" }}>{gameState.id}</span>
           </Text>
 
           <Button
             width="full"
             mt={4}
-            variantColor={gameID === "" ? "teal" : "orange"}
+            variantColor={gameState.id === "" ? "teal" : "orange"}
             variant="solid"
-            onClick={gameID === "" ? createGame : startGame}
+            onClick={gameState.id === "" ? createGame : startGame}
             fontSize="sm"
             isDisabled={
-              gameID === "" ? false : playerJoin === true ? false : true
+              gameState.id === "" ? false : gameState.playerJoined === true ? false : true
             }
           >
-            {gameID === "" ? "Generate" : "Start Game"}
+            {gameState.id === "" ? "Generate" : "Start Game"}
           </Button>
           <Link to="/game/join">
             <Button width="full" mt="2" fontSize="sm" color="gray.600">

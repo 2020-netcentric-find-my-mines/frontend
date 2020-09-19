@@ -13,7 +13,7 @@ export default function onSocketEvent(socket: any, gameDispatch: any) {
 
   socket.on(SocketEvent.JOIN_GAME_FEEDBACK, (d: any) => {
     console.log("JOIN_GAME_FEEDBACK", d);
-    gameDispatch({ type: "PLAYER_JOINED", payload: true });
+    gameDispatch({ type: "PLAYER_JOINED", payload: d.isOK });
   });
 
   socket.on(SocketEvent.GAME_STATE_CHANGED, (d: any) => {

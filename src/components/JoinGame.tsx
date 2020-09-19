@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import SocketEvent from "../socket-event";
 import {
   Box,
@@ -10,11 +10,11 @@ import {
   Input,
 } from "@chakra-ui/core";
 import { Link } from "react-router-dom";
+import { GameContext } from "../contexts/useGame";
 
 export default function JoinGame(props: any) {
   let [textfield, setTextField] = useState("");
-  const playerJoin = props.playerJoin;
-
+  const { gameState } = useContext(GameContext);
   const emitEvent = props.emitEvent;
 
   function joinGame() {
@@ -60,12 +60,12 @@ export default function JoinGame(props: any) {
           <Button
             width="full"
             mt={4}
-            variantColor={playerJoin === true ? "orange" : "teal"}
+            variantColor={gameState.playerJoined === true ? "orange" : "teal"}
             variant="solid"
-            onClick={playerJoin === true ? startGame : joinGame}
+            onClick={gameState.playerJoined === true ? startGame : joinGame}
             fontSize="sm"
           >
-            {playerJoin === true ? "Start Game" : "Join Game"}
+            {gameState.playerJoined === true ? "Start Game" : "Join Game"}
           </Button>
           <Link to="/game/create">
             <Button width="full" mt="2" fontSize="sm" color="gray.600">
