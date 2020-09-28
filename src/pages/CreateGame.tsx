@@ -7,14 +7,14 @@ import { SocketContext } from "../contexts/useSocket";
 
 export default function CreateGame(props: any) {
   const { gameState } = useContext(GameContext);
-  const { socketDispatch } = useContext(SocketContext);
+  const { emitEvent } = useContext(SocketContext);
 
   const createGame = () => {
-    socketDispatch({ type: SocketEvent.CREATE_GAME, payload: null });
+    emitEvent(SocketEvent.CREATE_GAME, null);
   }
 
   const startGame = () => {
-    socketDispatch({ type: SocketEvent.START_GAME, payload: null });
+    emitEvent(SocketEvent.START_GAME, null);
   }
 
   return (

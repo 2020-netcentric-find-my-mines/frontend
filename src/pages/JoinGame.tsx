@@ -16,13 +16,13 @@ import { SocketContext } from "../contexts/useSocket";
 export default function JoinGame(props: any) {
   const [textfield, setTextField] = useState("");
   const { gameState } = useContext(GameContext);
-  const { socketDispatch } = useContext(SocketContext);
+  const { emitEvent } = useContext(SocketContext);
 
   function joinGame() {
-    socketDispatch({ type: SocketEvent.JOIN_GAME, payload: textfield });
+    emitEvent(SocketEvent.JOIN_GAME, textfield);
   }
   function startGame() {
-    socketDispatch({ type: SocketEvent.START_GAME, payload: null });
+    emitEvent(SocketEvent.START_GAME, null);
   }
 
   function handleChange(event: any) {

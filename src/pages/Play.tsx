@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 export default function Play(props: any) {
   const { gameState } = useContext(GameContext);
-  const { socketDispatch } = useContext(SocketContext);
+  const { emitEvent } = useContext(SocketContext);
 
   if (!gameState.started) {
     return (
@@ -27,10 +27,10 @@ export default function Play(props: any) {
       event.target.dataset.x,
       event.target.dataset.y
     );
-    socketDispatch({ type: SocketEvent.SELECT_COORDINATE, payload: {
+    emitEvent(SocketEvent.SELECT_COORDINATE, {
       x: +event.target.dataset.x,
       y: +event.target.dataset.y,
-    }});
+    });
   };
 
   let grid = [];
