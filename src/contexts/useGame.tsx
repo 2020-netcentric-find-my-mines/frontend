@@ -1,8 +1,8 @@
 import React, { createContext, useReducer } from "react";
-import IContext from "../types/context.interface";
+import IGameContext from "../types/gameContext.interface";
 import ICoordinate from "../types/coordinate.interface";
 
-export const GameContext = createContext({} as IContext);
+export const GameContext = createContext({} as IGameContext);
 
 const initialState = {
   width: -1,

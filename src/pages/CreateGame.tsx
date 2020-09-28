@@ -64,7 +64,7 @@ export default function CreateGame(props: any) {
                     : true
                 }
               >
-                {gameState.id === "" ? "Generate" : "Start Game"}
+                {gameState.id === "" ? "Generate Game ID" : "Start Game"}
               </Button>
               <Link to="/join">
                 <Button width="full" mt="2" fontSize="sm" color="gray.600">
