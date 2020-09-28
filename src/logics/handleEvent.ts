@@ -1,6 +1,6 @@
-import SocketEvent from "../socket-event";
+import SocketEvent from "../socket-event"
 
-export default function onSocketEvent(socket: any, gameDispatch: any) {
+export function onSocketEvent(socket: any, gameDispatch: any) {
   socket.on(SocketEvent.CREATE_GAME_FEEDBACK, (d: any) => {
     console.log("CREATE_GAME_FEEDBACK", d);
     console.log("Game ID: ", d.data.gameID);

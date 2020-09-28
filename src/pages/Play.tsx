@@ -2,10 +2,12 @@ import React, { useContext } from "react";
 import SocketEvent from "../socket-event";
 import { Grid, Button } from "@chakra-ui/core";
 import { GameContext } from "../contexts/useGame";
+import { SocketContext } from "../contexts/useSocket";
 import { Link } from "react-router-dom";
 
 export default function Play(props: any) {
   const { gameState } = useContext(GameContext);
+  const { socketDispatch } = useContext(SocketContext);
 
   if (!gameState.started) {
     return (
@@ -25,10 +27,10 @@ export default function Play(props: any) {
       event.target.dataset.x,
       event.target.dataset.y
     );
-    props.emitEvent(SocketEvent.SELECT_COORDINATE, {
+    socketDispatch({ type: SocketEvent.SELECT_COORDINATE, payload: {
       x: +event.target.dataset.x,
       y: +event.target.dataset.y,
-    });
+    }});
   };
 
   let grid = [];

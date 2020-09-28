@@ -11,17 +11,18 @@ import {
 } from "@chakra-ui/core";
 import { Link, Redirect } from "react-router-dom";
 import { GameContext } from "../contexts/useGame";
+import { SocketContext } from "../contexts/useSocket";
 
 export default function JoinGame(props: any) {
-  let [textfield, setTextField] = useState("");
+  const [textfield, setTextField] = useState("");
   const { gameState } = useContext(GameContext);
-  const emitEvent = props.emitEvent;
+  const { socketDispatch } = useContext(SocketContext);
 
   function joinGame() {
-    emitEvent(SocketEvent.JOIN_GAME, textfield);
+    socketDispatch({ type: SocketEvent.JOIN_GAME, payload: textfield });
   }
   function startGame() {
-    emitEvent(SocketEvent.START_GAME, null);
+    socketDispatch({ type: SocketEvent.START_GAME, payload: null });
   }
 
   function handleChange(event: any) {

@@ -4,9 +4,9 @@ import "./App.css";
 import Home from "./pages/Home";
 import Play from "./pages/Play";
 
-import { useSocket } from "./hooks/useSocket";
 import { GameContext } from "./contexts/useGame";
-import onSocketEvent from "./emitEvent.ts/handleEvent";
+import { SocketContext } from "./contexts/useSocket";
+import { onSocketEvent } from "./logics/handleEvent";
 
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -17,20 +17,14 @@ import customTheme from "./styling";
 
 function App() {
   const { gameDispatch } = useContext(GameContext);
-  
-  // // Initialize Socket.IO
-  // const { socket, emitEvent } = useSocket(
-  //   process.env.REACT_APP_SOCKET_URL ??
-  //     "https://netcentric-architecture.herokuapp.com/"
-  // );
+  const { socket } = useContext(SocketContext);
 
-  // console.log(socket);
-  // // Handle Socket.IO events
-  // useEffect(() => {
-  //   if (socket) {
-  //     onSocketEvent(socket, gameDispatch);
-  //   }
-  // }, [socket, gameDispatch]);
+  // Handle Socket.IO events
+  useEffect(() => {
+    if (socket) {
+      onSocketEvent(socket, gameDispatch);
+    }
+  }, [socket, gameDispatch]);
 
   return (
     <div>

@@ -3,16 +3,18 @@ import SocketEvent from "../socket-event";
 import { Box, Button, Flex, Heading, Text } from "@chakra-ui/core";
 import { Link, Redirect } from "react-router-dom";
 import { GameContext } from "../contexts/useGame";
+import { SocketContext } from "../contexts/useSocket";
 
 export default function CreateGame(props: any) {
   const { gameState } = useContext(GameContext);
-  const emitEvent = props.emitEvent;
-  function createGame() {
-    emitEvent(SocketEvent.CREATE_GAME, null);
+  const { socketDispatch } = useContext(SocketContext);
+
+  const createGame = () => {
+    socketDispatch({ type: SocketEvent.CREATE_GAME, payload: null });
   }
 
-  function startGame() {
-    emitEvent(SocketEvent.START_GAME, null);
+  const startGame = () => {
+    socketDispatch({ type: SocketEvent.START_GAME, payload: null });
   }
 
   return (
