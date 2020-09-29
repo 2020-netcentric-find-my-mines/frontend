@@ -7,6 +7,7 @@ export default interface IGame {
   started: boolean;
   noBombs: number;
   noBombsFound: number;
+  currentPlayer: string;
   players: string[];
   coordinates: ICoordinate[];
   tick: number;

@@ -11,6 +11,7 @@ const initialState = {
   started: false,
   noBombs: -1,
   noBombsFound: -1,
+  currentPlayer: "",
   players: [],
   coordinates: [],
   tick: -1,
@@ -80,6 +81,11 @@ const gameReducer = (state: any, action: any) => {
       return {
         ...state,
         playerJoined: payload,
+      };
+    case "SET_CURRENT_PLAYER":
+      return {
+        ...state,
+        currentPlayer: (payload === null || payload === "") ? "Anonymous" : payload,
       };
     default:
       return state;

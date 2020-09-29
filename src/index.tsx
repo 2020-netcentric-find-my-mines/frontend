@@ -4,11 +4,14 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { GameProvider } from "./contexts/useGame";
+import { SocketProvider } from "./contexts/useSocket";
 
 ReactDOM.render(
   <React.StrictMode>
     <GameProvider>
-      <App />
+      <SocketProvider>
+        <App />
+      </SocketProvider>
     </GameProvider>
   </React.StrictMode>,
   document.getElementById("root")
