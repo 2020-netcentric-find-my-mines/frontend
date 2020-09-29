@@ -29,7 +29,7 @@ export function onSocketEvent(socket: any, gameDispatch: any) {
 
   socket.on(SocketEvent.NEXT_PLAYER, (d: any) => {
     console.log("NEXT_PLAYER", d);
-    gameDispatch({ type: "SET_CURRENT_PLAYER", payload: d.name})
+    gameDispatch({ type: "SET_CURRENT_PLAYER", payload: d.id})
   });
 
   socket.on(SocketEvent.SELECT_COORDINATE_FEEDBACK, (d: any) => {
@@ -40,5 +40,9 @@ export function onSocketEvent(socket: any, gameDispatch: any) {
         payload: d.data.selectedCoordinates,
       });
     }
+  });
+
+  socket.on(SocketEvent.SET_PLAYER_NAME_FEEDBACK, (d: any) => {
+    console.log("SET_PLAYER_NAME_FEEDBACK", d);
   });
 }

@@ -14,7 +14,7 @@ const initialState = {
   currentPlayer: "",
   players: [],
   coordinates: [],
-  tick: -1,
+  tick: 10,
   playerJoined: false,
 };
 
