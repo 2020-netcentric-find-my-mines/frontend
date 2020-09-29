@@ -1,6 +1,5 @@
 import React, { createContext, useReducer } from "react";
-import IGameContext from "../types/gameContext.interface";
-import ICoordinate from "../types/coordinate.interface";
+import { IGameContext, ICoordinate, IGame, IAction } from "../types/interface";
 
 export const GameContext = createContext({} as IGameContext);
 
@@ -45,7 +44,7 @@ const updateCoordinate = (
   return current;
 };
 
-const gameReducer = (state: any, action: any) => {
+const gameReducer = (state: IGame, action: IAction) => {
   const { type, payload } = action;
   switch (type) {
     case "SET_TICK":

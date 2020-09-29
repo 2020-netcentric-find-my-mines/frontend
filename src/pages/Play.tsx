@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Board from "./components/Board";
 import Info from "./components/Info";
 
-export default function Play(props: any) {
+export default function Play() {
   const { gameState } = useContext(GameContext);
 
   if (!gameState.started) {
@@ -34,6 +34,8 @@ export default function Play(props: any) {
         bg="white"
         borderRadius={10}
         boxShadow="0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)"
+        alignItems="center"
+        justifyContent="center"
       >
         <Info />
         <Board />

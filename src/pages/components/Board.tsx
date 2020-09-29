@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import SocketEvent from "../../socket-event";
-import { Grid, Box } from "@chakra-ui/core";
+import { Grid, Box, Flex } from "@chakra-ui/core";
 import { GameContext } from "../../contexts/useGame";
 import { SocketContext } from "../../contexts/useSocket";
 
@@ -10,6 +10,7 @@ export default function Board() {
     let [ selectedCell, setSelectedCell ] = useState(-1)
 
     const handleSelectCoordinate = (event: any) => {
+
         console.log(
             "SELECT_COORDINATE",
             event.target.dataset.x,
@@ -24,7 +25,7 @@ export default function Board() {
     };
 
     let grid = [];
-    for (let cellId = 0; cellId < 36; cellId++) {
+    for (let cellId = 0; cellId < gameState.width * gameState.height; cellId++) {
         let cellBody;
         const cellState = gameState.coordinates[cellId];
 
@@ -47,25 +48,31 @@ export default function Board() {
                 key={cellId}
                 data-x={cellId % gameState.width}
                 data-y={Math.floor(cellId / gameState.width)}
-                w="35px"
-                h="35px"
+                width="35px"
+                height="35px"
                 bg={cellColor}
                 onClick={handleSelectCoordinate}
-            >
+            >  
                 {cellBody}
             </Box>
         ); 
     }
 
     return (
-        <Grid
-            templateColumns={`repeat(${gameState.width}, 1fr)`}
-            templateRows={`repeat(${gameState.height}, 1fr)`}
-            w={gameState.width * 35}
-            gap={0}
-            alignItems="center"
+        <Flex 
+            width="full"
+            height="100%"
+            align="center"
+            justifyContent="center"
         >
-            {grid}
-        </Grid>
+            <Grid
+                templateColumns={`repeat(${gameState.width}, 1fr)`}
+                templateRows={`repeat(${gameState.height}, 1fr)`}
+                w={gameState.width * 35}
+                gap={0}
+            >
+                {grid}
+            </Grid>
+        </Flex>
     );
 }

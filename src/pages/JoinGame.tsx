@@ -13,7 +13,7 @@ import { Link, Redirect } from "react-router-dom";
 import { GameContext } from "../contexts/useGame";
 import { SocketContext } from "../contexts/useSocket";
 
-export default function JoinGame(props: any) {
+export default function JoinGame() {
   const [textfield, setTextField] = useState("");
   const { gameState } = useContext(GameContext);
   const { emitEvent } = useContext(SocketContext);
