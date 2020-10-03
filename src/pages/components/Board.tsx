@@ -36,7 +36,7 @@ export default function Board() {
         }
 
         //magic chessboard formula 
-        const cellColor = ((cellId % gameState.width) % 2 === (Math.floor(cellId / gameState.width)) % 2) ? "orange.400" : "green.400" 
+        const cellColor = ((cellId % gameState.width) % 2 === (Math.floor(cellId / gameState.width)) % 2) ? "orange.200" : "green.200" 
 
         grid.push(
             <Box
@@ -46,8 +46,8 @@ export default function Board() {
                 key={cellId}
                 data-x={cellId % gameState.width}
                 data-y={Math.floor(cellId / gameState.width)}
-                width="35px"
-                height="35px"
+                width="50px"
+                height="50px"
                 bg={cellColor}
                 onClick={handleSelectCoordinate}
             >  
@@ -66,7 +66,10 @@ export default function Board() {
             <Grid
                 templateColumns={`repeat(${gameState.width}, 1fr)`}
                 templateRows={`repeat(${gameState.height}, 1fr)`}
-                w={gameState.width * 35}
+                border="4px"
+                borderColor="gray.200"
+                w={gameState.width * 50 + 8}
+                h={gameState.width * 50 + 8}
                 gap={0}
             >
                 {grid}

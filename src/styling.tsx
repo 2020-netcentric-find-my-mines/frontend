@@ -6,6 +6,10 @@ const customTheme = {
       ...theme.colors,
       accentColor: "#1a365d"
     },
+    borders: {
+      ...theme.borders,
+      "8px": 8,
+    }
   };
 
 export default customTheme;
