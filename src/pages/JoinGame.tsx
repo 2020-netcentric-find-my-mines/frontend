@@ -17,11 +17,13 @@ export default function JoinGame() {
   const [textfield, setTextField] = useState("");
   const { gameState } = useContext(GameContext);
   const { emitEvent } = useContext(SocketContext);
+  const [started, setStarted] = useState(false)
 
   function joinGame() {
     emitEvent(SocketEvent.JOIN_GAME, textfield);
   }
   function startGame() {
+    setStarted(true)
     emitEvent(SocketEvent.START_GAME, null);
   }
 
@@ -63,6 +65,8 @@ export default function JoinGame() {
                 />
               </FormControl>
               <Button
+                isLoading={started}
+                loadingText="Starting..."
                 width="full"
                 mt={4}
                 variantColor={
@@ -75,7 +79,7 @@ export default function JoinGame() {
                 {gameState.playerJoined === true ? "Start Game" : "Join Game"}
               </Button>
               <Link to="/create">
-                <Button width="full" mt="2" fontSize="sm" color="gray.600">
+                <Button isLoading={started} width="full" mt="2" fontSize="sm" color="gray.600">
                   Create game
                 </Button>
               </Link>

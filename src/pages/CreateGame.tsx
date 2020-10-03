@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import SocketEvent from "../socket-event";
 import { Box, Button, Flex, Heading, Text } from "@chakra-ui/core";
 import { Link, Redirect } from "react-router-dom";
@@ -8,12 +8,14 @@ import { SocketContext } from "../contexts/useSocket";
 export default function CreateGame() {
   const { gameState } = useContext(GameContext);
   const { emitEvent } = useContext(SocketContext);
+  const [started, setStarted] = useState(false)
 
   const createGame = () => {
     emitEvent(SocketEvent.CREATE_GAME, null);
   }
 
   const startGame = () => {
+    setStarted(true)
     emitEvent(SocketEvent.START_GAME, null);
   }
 
@@ -52,6 +54,8 @@ export default function CreateGame() {
               </Text>
 
               <Button
+                isLoading={started}
+                loadingText="Starting..."
                 width="full"
                 mt={4}
                 variantColor={gameState.id === "" ? "teal" : "orange"}
@@ -68,8 +72,9 @@ export default function CreateGame() {
               >
                 {gameState.id === "" ? "Generate Game ID" : "Start Game"}
               </Button>
+
               <Link to="/join">
-                <Button width="full" mt="2" fontSize="sm" color="gray.600">
+                <Button isLoading={started} width="full" mt="2" fontSize="sm" color="gray.600">
                   Join Game
                 </Button>
               </Link>
