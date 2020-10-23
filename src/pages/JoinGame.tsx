@@ -8,6 +8,7 @@ import {
   FormLabel,
   Heading,
   Input,
+  useColorMode,
 } from "@chakra-ui/core";
 import { Link, Redirect } from "react-router-dom";
 import { GameContext } from "../contexts/useGame";
@@ -17,7 +18,9 @@ export default function JoinGame() {
   const [textfield, setTextField] = useState("");
   const { gameState } = useContext(GameContext);
   const { emitEvent } = useContext(SocketContext);
-  const [started, setStarted] = useState(false)
+  const [started, setStarted] = useState(false);
+  const { colorMode } = useColorMode();
+
 
   function joinGame() {
     emitEvent(SocketEvent.JOIN_GAME, textfield);
@@ -42,11 +45,11 @@ export default function JoinGame() {
           align="center"
           position="absolute"
           justifyContent="center"
-          bg="gray.50"
+          bg={colorMode === "light" ? "gray.50" : "gray.700"}
         >
           <Box
             p={10}
-            bg="white"
+            bg={colorMode === "light" ? "white" : "gray.600"}
             borderRadius={10}
             boxShadow="0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)"
           >
@@ -79,7 +82,7 @@ export default function JoinGame() {
                 {gameState.playerJoined === true ? "Start Game" : "Join Game"}
               </Button>
               <Link to="/create">
-                <Button isLoading={started} width="full" mt="2" fontSize="sm" color="gray.600">
+                <Button isLoading={started} width="full" mt="2" fontSize="sm" color={colorMode === "light" ? "gray.600" : "gray.300"}>
                   Create game
                 </Button>
               </Link>

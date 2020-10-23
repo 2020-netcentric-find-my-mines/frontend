@@ -1,12 +1,14 @@
 import React, { useContext } from "react";
 import SocketEvent from "../../socket-event";
-import { Grid, Box, Flex } from "@chakra-ui/core";
+import { Grid, Box, Flex, useColorMode } from "@chakra-ui/core";
 import { GameContext } from "../../contexts/useGame";
 import { SocketContext } from "../../contexts/useSocket";
 
 export default function Board() {
     const { gameState } = useContext(GameContext);
     const { emitEvent } = useContext(SocketContext);
+    const { colorMode } = useColorMode();
+
 
     const handleSelectCoordinate = (event: any) => {
 
@@ -67,7 +69,7 @@ export default function Board() {
                 templateColumns={`repeat(${gameState.width}, 1fr)`}
                 templateRows={`repeat(${gameState.height}, 1fr)`}
                 border="4px"
-                borderColor="gray.200"
+                borderColor={colorMode === "light" ? "gray.200" : "gray.700"}
                 w={gameState.width * 50 + 8}
                 h={gameState.width * 50 + 8}
                 gap={0}

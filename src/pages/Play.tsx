@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Button, Flex, Box, Divider } from "@chakra-ui/core";
+import { Button, Flex, Box, Divider, useColorMode } from "@chakra-ui/core";
 import { GameContext } from "../contexts/useGame";
 import { Link } from "react-router-dom";
 import Board from "./components/Board";
@@ -8,6 +8,7 @@ import Chat from "./components/Chat";
 
 export default function Play() {
   const { gameState } = useContext(GameContext);
+  const { colorMode } = useColorMode();
 
   if (!gameState.started) {
     return (
@@ -28,11 +29,11 @@ export default function Play() {
       align="center"
       position="absolute"
       justifyContent="center"
-      bg="gray.50"
+      bg={colorMode === "light" ? "gray.50" : "gray.700"}
     > 
       <Box
         p={10}
-        bg="white"
+        bg={colorMode === "light" ? "white" : "gray.600"}
         borderRadius={10}
         boxShadow="0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)"
         alignItems="center"

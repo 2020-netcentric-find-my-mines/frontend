@@ -8,6 +8,7 @@ import {
   FormLabel,
   Heading,
   Input,
+  useColorMode,
 } from "@chakra-ui/core";
 import { GameContext } from "../contexts/useGame"
 import { SocketContext } from "../contexts/useSocket"
@@ -18,6 +19,7 @@ export default function Home() {
   const [ name, setName ] = useState("")
   const { gameDispatch } = useContext(GameContext)
   const { emitEvent } = useContext(SocketContext)
+  const { colorMode } = useColorMode();
 
   function handleNameChange(event: any) {
     setName(event.target.value)
@@ -36,11 +38,11 @@ export default function Home() {
       align="center"
       position="absolute"
       justifyContent="center"
-      bg="gray.50"
+      bg={colorMode === "light" ? "gray.50" : "gray.700"}
     >
       <Box
         p={10}
-        bg="white"
+        bg={colorMode === "light" ? "white" : "gray.600"}
         borderRadius={10}
         boxShadow="0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)"
       >

@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import SocketEvent from "../socket-event";
-import { Box, Button, Flex, Heading, Text } from "@chakra-ui/core";
+import { Box, Button, Flex, Heading, Text, useColorMode } from "@chakra-ui/core";
 import { Link, Redirect } from "react-router-dom";
 import { GameContext } from "../contexts/useGame";
 import { SocketContext } from "../contexts/useSocket";
@@ -9,6 +9,7 @@ export default function CreateGame() {
   const { gameState } = useContext(GameContext);
   const { emitEvent } = useContext(SocketContext);
   const [started, setStarted] = useState(false)
+  const { colorMode } = useColorMode();
 
   const createGame = () => {
     emitEvent(SocketEvent.CREATE_GAME, null);
@@ -30,11 +31,11 @@ export default function CreateGame() {
           align="center"
           position="absolute"
           justifyContent="center"
-          bg="gray.50"
+          bg={colorMode === "light" ? "gray.50" : "gray.700"}
         >
           <Box
             p={10}
-            bg="white"
+            bg={colorMode === "light" ? "white" : "gray.600"}
             borderRadius={10}
             boxShadow="0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)"
           >
@@ -46,7 +47,7 @@ export default function CreateGame() {
                 width="full"
                 mt="2"
                 fontSize="md"
-                color="gray.600"
+                color={colorMode === "light" ? "gray.600" : "gray.100"}
                 fontWeight=""
               >
                 {gameState.id === "" ? "" : "ID: "}
@@ -74,7 +75,7 @@ export default function CreateGame() {
               </Button>
 
               <Link to="/join">
-                <Button isLoading={started} width="full" mt="2" fontSize="sm" color="gray.600">
+                <Button isLoading={started} width="full" mt="2" fontSize="sm" color={colorMode === "light" ? "gray.600" : "gray.300"}>
                   Join Game
                 </Button>
               </Link>
