@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import axios from "axios"
 import { Link } from "react-router-dom"
 import { Flex, Box, Text, Heading, Divider, Spinner, Button } from "@chakra-ui/core"
@@ -26,6 +26,17 @@ export default function Leaderboard() {
         day: [dummyPlayer] as ITopPlayer[],
     })
 
+    useEffect(() => {
+        requestLeaderboard("allTime").then(
+            () => requestLeaderboard("week")
+        ).then(
+            () => requestLeaderboard("day")
+        ).then(
+            () => setLoading(false)
+        )
+    //eslint-disable-next-line
+    }, [])
+
     async function requestLeaderboard(timeRange: string) {
         if (timeRange !== "allTime" && timeRange !== "week" && timeRange !== "day") {
             return
@@ -46,14 +57,6 @@ export default function Leaderboard() {
             }
         })
     }
-
-    requestLeaderboard("allTime").then(
-        () => requestLeaderboard("week")
-    ).then(
-        () => requestLeaderboard("day")
-    ).then(
-        () => setLoading(false)
-    )
 
     const leaderboardView = (
         <Flex direction="column" justify="center" alignItems="center">
