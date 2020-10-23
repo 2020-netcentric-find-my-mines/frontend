@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { GameContext } from '../../contexts/useGame' 
+import { GameContext } from '../../contexts/useGame'
 import { SocketContext } from '../../contexts/useSocket'
 import { Text, Flex, Heading } from '@chakra-ui/core'
 
@@ -15,8 +15,11 @@ export default function Info() {
             <Text>
                 It is {gameState.currentPlayer === socket.id ? "your" : "other player's"} turn.
             </Text>
-            <Text mb={4}>
+            <Text>
                 {gameState.currentPlayer === socket.id ? `${gameState.tick} seconds left!` : "Please wait..."}
+            </Text>
+            <Text mb={4}>
+                Player: {gameState.thisPlayerName}
             </Text>
         </Flex>
     )
