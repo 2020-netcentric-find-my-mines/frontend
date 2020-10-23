@@ -10,7 +10,7 @@ import { onSocketEvent } from "./logics/handleEvent";
 
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
 
-import { CSSReset, ThemeProvider } from "@chakra-ui/core";
+import { CSSReset, ThemeProvider, ColorModeProvider } from "@chakra-ui/core";
 import CreateGame from "./pages/CreateGame";
 import JoinGame from "./pages/JoinGame";
 import Leaderboard from "./pages/Leaderboard";
@@ -31,6 +31,7 @@ function App() {
     <div>
       <Router basename="/">
         <ThemeProvider theme={customTheme}>
+          <ColorModeProvider>
           <CSSReset />
           <Switch>
             <Route exact path="/">
@@ -52,6 +53,7 @@ function App() {
               </Route>
             </Switch>
           </Switch>
+          </ColorModeProvider>
         </ThemeProvider>
       </Router>
     </div>
