@@ -78,12 +78,6 @@ export default function CreateGame() {
                   Join Game
                 </Button>
               </Link>
-
-              <Link to="/leaderboard">
-                <Button isLoading={started} width="full" mt="2" fontSize="sm" color="gray.600">
-                  Leaderboard
-                </Button>
-              </Link>
             </Box>
           </Box>
         </Flex>

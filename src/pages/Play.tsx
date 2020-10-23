@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { Button, Flex, Box, Divider } from "@chakra-ui/core";
 import { GameContext } from "../contexts/useGame";
 import { Link } from "react-router-dom";
@@ -39,8 +39,10 @@ export default function Play() {
         justifyContent="center"
       >
         <Flex>
-          <Info />
-          <Board />
+          <Flex direction="column">
+            <Info />
+            <Board />
+          </Flex>
           <Divider orientation="vertical" />
           <Chat />
         </Flex>

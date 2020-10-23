@@ -9,12 +9,14 @@ import {
   Heading,
   Input,
 } from "@chakra-ui/core";
+import { GameContext } from "../contexts/useGame"
 import { SocketContext } from "../contexts/useSocket"
 import SocketEvent from "../socket-event";
 
 export default function Home() {
 
   const [ name, setName ] = useState("")
+  const { gameDispatch } = useContext(GameContext)
   const { emitEvent } = useContext(SocketContext)
 
   function handleNameChange(event: any) {
@@ -23,6 +25,7 @@ export default function Home() {
 
   function emitName() {
     console.log("SET_PLAYER_NAME", name)
+    gameDispatch({ type: "SET_PLAYER_NAME", payload: name })
     emitEvent(SocketEvent.SET_PLAYER_NAME, name)
   }
 
@@ -44,14 +47,23 @@ export default function Home() {
         <Box textAlign="center">
           <Heading>Mine Sweeper</Heading>
         </Box>
+
         <Box my={4} textAlign="left" justifyItems="center">
+
           <FormControl onSubmit={() => {}}>
             <FormLabel mb="2">Enter your name:</FormLabel>
             <Input type="text" placeholder="Ex: John" variant="outline" value={name} onChange={handleNameChange}/>
           </FormControl>
+
           <Link to="create" style={{ textDecoration: "none" }}>
             <Button width="full" mt={4} variantColor="teal" variant="solid" onClick={emitName}>
               Continue
+            </Button>
+          </Link>
+
+          <Link to="/leaderboard">
+            <Button width="full" mt="2" fontSize="sm" color="gray.600">
+              Leaderboard
             </Button>
           </Link>
         </Box>
