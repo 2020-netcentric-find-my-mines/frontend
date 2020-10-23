@@ -1,9 +1,10 @@
-import React, { useContext } from "react";
-import { Button, Flex, Box } from "@chakra-ui/core";
+import React, { useContext, useState } from "react";
+import { Button, Flex, Box, Divider } from "@chakra-ui/core";
 import { GameContext } from "../contexts/useGame";
 import { Link } from "react-router-dom";
 import Board from "./components/Board";
 import Info from "./components/Info";
+import Chat from "./components/Chat";
 
 export default function Play() {
   const { gameState } = useContext(GameContext);
@@ -37,8 +38,12 @@ export default function Play() {
         alignItems="center"
         justifyContent="center"
       >
-        <Info />
-        <Board />
+        <Flex>
+          <Info />
+          <Board />
+          <Divider orientation="vertical" />
+          <Chat />
+        </Flex>
       </Box>
     </Flex>
   );

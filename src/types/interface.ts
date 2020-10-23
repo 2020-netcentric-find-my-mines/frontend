@@ -1,45 +1,45 @@
 import { Dispatch, ReducerAction, Reducer } from "react";
 
 export interface ICoordinate {
-  x: number;
-  y: number;
-  isBomb: boolean;
-  isSelected: boolean;
+  x: number
+  y: number
+  isBomb: boolean
+  isSelected: boolean
 }
 
 export interface IGame {
-  width: number;
-  height: number;
-  id: string;
-  started: boolean;
-  noBombs: number;
-  noBombsFound: number;
-  currentPlayer: string;
-  players: string[];
-  coordinates: ICoordinate[];
-  tick: number;
-  playerJoined: boolean;
+  width: number
+  height: number
+  id: string
+  started: boolean
+  noBombs: number
+  noBombsFound: number
+  currentPlayer: string
+  players: string[]
+  coordinates: ICoordinate[]
+  tick: number
+  playerJoined: boolean
 }
 
 export interface IGameContext {
-  gameState: IGame;
-  gameDispatch: Dispatch<ReducerAction<Reducer<IGame, IAction>>>;
+  gameState: IGame
+  gameDispatch: Dispatch<ReducerAction<Reducer<IGame, IAction>>>
 }
 
 export interface ISocketContext {
-  socket: SocketIOClient.Socket;
-  emitEvent: Function;
+  socket: SocketIOClient.Socket
+  emitEvent: Function
 }
 
 export interface IAction {
-  type: string,
-  payload: any,
+  type: string
+  payload: any
 }
 
 export interface IPayload {
-  isOK: boolean,
-  data: any,
-  message: string | null,
+  isOK: boolean
+  data: any
+  message: string | null
 }
 
 export interface IPlayer {
@@ -47,4 +47,29 @@ export interface IPlayer {
   name: string | null; // Player's name
   account: string | null; // Firebase's UID
   score: number; // Player's score
+}
+
+export interface ICreatedAt {
+  _seconds: number
+  _nanoseconds: number
+}
+
+export interface ITopPlayer {
+  email: string
+  gamesWonWeek: number
+  firstname: string | undefined
+  lastname: string | undefined
+  username: string | undefined
+  createdAt: ICreatedAt
+  gamesWonDay: number
+  totalGamesWon: number
+}
+
+export interface ILeaderboardData {
+  isOk: boolean
+  topPlayers: ITopPlayer[]
+}
+
+export interface ILeaderboardResponse {
+  data: ILeaderboardData
 }

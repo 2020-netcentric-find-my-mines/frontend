@@ -13,6 +13,7 @@ import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import { CSSReset, ThemeProvider } from "@chakra-ui/core";
 import CreateGame from "./pages/CreateGame";
 import JoinGame from "./pages/JoinGame";
+import Leaderboard from "./pages/Leaderboard";
 import customTheme from "./styling";
 
 function App() {
@@ -46,6 +47,9 @@ function App() {
                 <JoinGame />
               </Route>
               <Route path="/quick-game">Quick Game</Route>
+              <Route path="/leaderboard">
+                <Leaderboard />
+              </Route>
             </Switch>
           </Switch>
         </ThemeProvider>
