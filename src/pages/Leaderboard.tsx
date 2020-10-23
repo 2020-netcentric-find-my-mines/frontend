@@ -2,33 +2,9 @@ import React, { useState } from "react"
 import axios from "axios"
 import { Link } from "react-router-dom"
 import { Flex, Box, Text, Heading, Divider, Spinner, Button } from "@chakra-ui/core"
-import { ILeaderboardData, ILeaderboardResponse, ITopPlayer } from "../types/interface"
+import { ITopPlayer } from "../types/interface"
 
 export default function Leaderboard() {
-    const [loading, setLoading] = useState(true)
-
-    function requestLeaderboard(timeRange: string) {
-        if (timeRange !== "allTime" && timeRange !== "week" && timeRange !== "day") {
-            return
-        }
-        axios.request<ILeaderboardData>({
-            url: "https://asia-southeast2-findmymines.cloudfunctions.net/getTopScorers",
-            params: {
-                numOfPlayers: 1,
-                timeRange,
-            },
-            transformResponse: (r: ILeaderboardResponse) => r.data
-        }).then((response) => {
-            // `response` is of type `AxiosResponse<ServerData>`
-            const { data } = response
-            // `data` is of type ServerData, correctly inferred
-            if (data.isOk) {
-                leaderboard[timeRange] = data.topPlayers
-                setLoading(false)
-            }
-        })
-    }
-
     const dummyPlayer = {
         "email": "-",
         "gamesWonWeek": 0, 
@@ -43,15 +19,41 @@ export default function Leaderboard() {
         "totalGamesWon": 0
     }
 
-    const leaderboard = {
+    const [loading, setLoading] = useState(true)
+    const [leaderboard, setLeaderboard] = useState({
         allTime: [dummyPlayer] as ITopPlayer[],
         week: [dummyPlayer] as ITopPlayer[],
         day: [dummyPlayer] as ITopPlayer[],
+    })
+
+    async function requestLeaderboard(timeRange: string) {
+        if (timeRange !== "allTime" && timeRange !== "week" && timeRange !== "day") {
+            return
+        }
+        axios.get("https://asia-southeast2-findmymines.cloudfunctions.net/getTopScorers", {
+            params: {
+                numOfPlayers: 1,
+                timeRange,
+            }
+        }).then((response) => {
+            console.log(response)
+            const {data} = response
+            if (data.isOk) {
+                setLeaderboard({
+                    ...leaderboard,
+                    [timeRange]: data.topPlayers,
+                })
+            }
+        })
     }
 
-    requestLeaderboard("allTime")
-    requestLeaderboard("week")
-    requestLeaderboard("day")
+    requestLeaderboard("allTime").then(
+        () => requestLeaderboard("week")
+    ).then(
+        () => requestLeaderboard("day")
+    ).then(
+        () => setLoading(false)
+    )
 
     const leaderboardView = (
         <Flex direction="column" justify="center" alignItems="center">

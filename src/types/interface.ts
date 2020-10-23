@@ -66,12 +66,3 @@ export interface ITopPlayer {
   gamesWonDay: number
   totalGamesWon: number
 }
-
-export interface ILeaderboardData {
-  isOk: boolean
-  topPlayers: ITopPlayer[]
-}
-
-export interface ILeaderboardResponse {
-  data: ILeaderboardData
-}
