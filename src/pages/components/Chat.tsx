@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useCallback, useRef } from "react"
+import React, { useState, useContext, useEffect, useCallback, } from "react"
 import axios from "axios"
 import { FormControl, Input, IconButton, Flex, Text } from "@chakra-ui/core"
 import { GameContext } from "../../contexts/useGame"
@@ -12,11 +12,6 @@ export default function Chat() {
     const { gameState } = useContext(GameContext)
     const [chatData, setChatData] = useState([] as IChatData[])
     const { socket } = useContext(SocketContext)
-
-    const axiosAgent = useRef(axios.create({
-        baseURL: 'https://asia-southeast2-findmymines.cloudfunctions.net/addChatMessage/',
-        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-    }))
 
     const handleChange = (event: any) => {
         setChat(event.target.value)
@@ -50,12 +45,20 @@ export default function Chat() {
     const handleSubmit = () => {
         console.log(gameState.id, gameState.name)
         setChat("")
-        axiosAgent.current.post(gameState.id,
+        axios.post('https://asia-southeast2-findmymines.cloudfunctions.net/addChatMessage/',
             qs.stringify({
                 message: chat,
                 uid: socket.id,
                 username: gameState.name,
-            })
+            }),
+            {
+                params: {
+                    gameId: gameState.id
+                },
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }
         )
     }
 
