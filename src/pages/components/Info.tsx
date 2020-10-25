@@ -19,7 +19,7 @@ export default function Info() {
                 {gameState.currentPlayer === socket.id ? `${gameState.tick} seconds left!` : "Please wait..."}
             </Text>
             <Text mb={4}>
-                Player: {gameState.thisPlayerName}
+                Player: {gameState.name}
             </Text>
         </Flex>
     )

@@ -11,8 +11,7 @@ const initialState = {
   noBombs: -1,
   noBombsFound: -1,
   currentPlayer: "",
-  thisPlayer: "",
-  thisPlayerName: "",
+  name: "",
   players: [],
   coordinates: [],
   tick: 10,
@@ -91,7 +90,7 @@ const gameReducer = (state: IGame, action: IAction) => {
     case "SET_PLAYER_NAME":
       return {
         ...state,
-        thisPlayerName: payload,
+        name: (payload === null || payload === "") ? "Anonymous" : payload,
       }
     default:
       return state;

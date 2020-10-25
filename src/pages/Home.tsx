@@ -52,7 +52,7 @@ export default function Home() {
 
         <Box my={4} textAlign="left" justifyItems="center">
 
-          <FormControl onSubmit={() => {}}>
+          <FormControl>
             <FormLabel mb="2">Enter your name:</FormLabel>
             <Input type="text" placeholder="Ex: John" variant="outline" value={name} onChange={handleNameChange}/>
           </FormControl>

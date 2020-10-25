@@ -15,8 +15,7 @@ export interface IGame {
   noBombs: number
   noBombsFound: number
   currentPlayer: string
-  thisPlayer: string
-  thisPlayerName: string
+  name: string
   players: string[]
   coordinates: ICoordinate[]
   tick: number
@@ -71,4 +70,9 @@ export interface ILeaderboard {
   allTime: ITopPlayer[]
   week: ITopPlayer[]
   day:ITopPlayer[]
+}
+
+export interface IChatData {
+  username: string
+  message: string
 }
