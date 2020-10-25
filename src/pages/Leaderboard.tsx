@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useCallback, useRef } from "react"
 import axios from "axios"
 import { Link } from "react-router-dom"
 import { Flex, Box, Text, Heading, Divider, Spinner, Button } from "@chakra-ui/core"
-import { ITopPlayer } from "../types/interface"
+import { ILeaderboard } from "../types/interface"
 
 export default function Leaderboard() {
     const dummyPlayer = {
@@ -20,28 +20,17 @@ export default function Leaderboard() {
     }
 
     const [loading, setLoading] = useState(true)
-    const [leaderboard, setLeaderboard] = useState({
-        allTime: [dummyPlayer] as ITopPlayer[],
-        week: [dummyPlayer] as ITopPlayer[],
-        day: [dummyPlayer] as ITopPlayer[],
-    })
-
-    useEffect(() => {
-        requestLeaderboard("allTime").then(
-            () => requestLeaderboard("week")
-        ).then(
-            () => requestLeaderboard("day")
-        ).then(
-            () => setLoading(false)
-        )
-    //eslint-disable-next-line
-    }, [])
+    const leaderboard = useRef({
+        allTime: [dummyPlayer],
+        week: [dummyPlayer],
+        day: [dummyPlayer],
+    } as ILeaderboard)
 
     async function requestLeaderboard(timeRange: string) {
         if (timeRange !== "allTime" && timeRange !== "week" && timeRange !== "day") {
             return
         }
-        axios.get("https://asia-southeast2-findmymines.cloudfunctions.net/getTopScorers", {
+        await axios.get("https://asia-southeast2-findmymines.cloudfunctions.net/getTopScorers", {
             params: {
                 numOfPlayers: 1,
                 timeRange,
@@ -50,13 +39,21 @@ export default function Leaderboard() {
             console.log(response)
             const {data} = response
             if (data.isOk) {
-                setLeaderboard({
-                    ...leaderboard,
-                    [timeRange]: data.topPlayers,
-                })
+                leaderboard.current[timeRange] = data.topPlayers
             }
         })
     }
+
+    const requestLeaderboards = useCallback(async () => {
+        await requestLeaderboard("allTime")
+        await requestLeaderboard("week")
+        await requestLeaderboard("day")
+        setLoading(false)
+    }, [])
+
+    useEffect(() => {
+        requestLeaderboards()
+    }, [requestLeaderboards])
 
     const leaderboardView = (
         <Flex direction="column" justify="center" alignItems="center">
@@ -64,30 +61,30 @@ export default function Leaderboard() {
                 All Time
             </Heading>
             <Text>
-                {leaderboard.allTime[0].username} : {leaderboard.allTime[0].totalGamesWon} Wins 
+                {leaderboard.current.allTime[0].username} : {leaderboard.current.allTime[0].totalGamesWon} Wins 
             </Text>
             <Text>
-                {leaderboard.allTime[0].email}
+                {leaderboard.current.allTime[0].email}
             </Text>
             <Divider />
             <Heading as="h4">
                 Week
             </Heading>
             <Text>
-                {leaderboard.week[0].username} : {leaderboard.week[0].gamesWonWeek} Wins 
+                {leaderboard.current.week[0].username} : {leaderboard.current.week[0].gamesWonWeek} Wins 
             </Text>
             <Text>
-                {leaderboard.week[0].email}
+                {leaderboard.current.week[0].email}
             </Text>
             <Divider />
             <Heading as="h4">
                 Day
             </Heading>
             <Text>
-                {leaderboard.day[0].username} : {leaderboard.day[0].gamesWonDay} Wins 
+                {leaderboard.current.day[0].username} : {leaderboard.current.day[0].gamesWonDay} Wins 
             </Text>
             <Text>
-                {leaderboard.day[0].email}
+                {leaderboard.current.day[0].email}
             </Text>
             <Divider />
             <Link to="/">

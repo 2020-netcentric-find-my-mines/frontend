@@ -66,3 +66,9 @@ export interface ITopPlayer {
   gamesWonDay: number
   totalGamesWon: number
 }
+
+export interface ILeaderboard {
+  allTime: ITopPlayer[]
+  week: ITopPlayer[]
+  day:ITopPlayer[]
+}
