@@ -2,17 +2,19 @@ import React, { useState, useContext } from "react"
 import axios from "axios"
 import { Input } from "@chakra-ui/core"
 import { GameContext } from "../../contexts/useGame";
+import firebase from "../../Firebase"
 
 export default function Chat() {
     const [chat, setChat] = useState("")
     const { gameState } = useContext(GameContext)
+    // const chatData = firebase.database()
 
     const handleChange = (event: any) => {
         setChat(event.target.value)
     }
 
     const handleSubmit = () => {
-        axios.post("https://asia-southeast2-findmymines.cloudfunctions.net/getTopScorers", {
+        axios.post("https://asia-southeast2-findmymines.cloudfunctions.net/addChatMessage", {
             params: {
                 gameId: gameState.id
             },
@@ -22,6 +24,7 @@ export default function Chat() {
                 username: gameState.thisPlayerName,
             }
         })
+        // console.log(chatData)
         setChat("")
     }
 
