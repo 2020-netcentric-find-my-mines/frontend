@@ -64,7 +64,7 @@ export default function Home() {
           </Link>
 
           <Link to="/leaderboard">
-            <Button width="full" mt="2" fontSize="sm" color="gray.600">
+            <Button width="full" mt="2" fontSize="sm" color={colorMode === "light" ? "gray.600" : "gray.300"}>
               Leaderboard
             </Button>
           </Link>
