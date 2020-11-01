@@ -1,6 +1,18 @@
 import React, { useContext, useState } from "react";
 import SocketEvent from "../socket-event";
-import { Box, Button, Flex, Heading, Text, useColorMode } from "@chakra-ui/core";
+import { 
+  Box, 
+  Button, 
+  Flex, 
+  Heading, 
+  Text, 
+  useColorMode, 
+  NumberInput, 
+  NumberInputField, 
+  NumberInputStepper, 
+  NumberIncrementStepper, 
+  NumberDecrementStepper 
+} from "@chakra-ui/core";
 import { Link, Redirect } from "react-router-dom";
 import { GameContext } from "../contexts/useGame";
 import { SocketContext } from "../contexts/useSocket";
@@ -10,6 +22,8 @@ export default function CreateGame() {
   const { emitEvent } = useContext(SocketContext);
   const [started, setStarted] = useState(false)
   const { colorMode } = useColorMode();
+  const [boardSizeValue, setBoardSizeValue] = useState(6)
+  const [bombValue, setBombValue] = useState(3)
 
   const createGame = () => {
     emitEvent(SocketEvent.CREATE_GAME, null);
@@ -19,6 +33,76 @@ export default function CreateGame() {
     setStarted(true)
     emitEvent(SocketEvent.START_GAME, null);
   }
+
+  function handleBoardSizeChange(value: React.ReactText) {
+    setBoardSizeValue(+value)
+  } 
+
+  function handleBombChange(value: React.ReactText) {
+    setBombValue(+value)
+  }
+
+  function submitGameParameters() {
+    emitEvent('SET_NUMBER_OF_BOMB', bombValue)
+    emitEvent('SET_BOARD_SIZE', {
+      w: boardSizeValue, 
+      h: boardSizeValue,
+    })
+  }
+
+  const gameParameters = gameState.id !== "" ? (
+    <Box
+      p={5}
+      m={5}
+      bg={colorMode === "light" ? "gray.100" : "gray.500"}
+      borderRadius={10}
+    >
+      <Text>
+        Board size:
+      </Text>
+
+      <NumberInput 
+        step={1} 
+        min={2} 
+        max={10} 
+        value={boardSizeValue} 
+        onChange={handleBoardSizeChange}
+      >
+        <NumberInputField />
+        <NumberInputStepper>
+          <NumberIncrementStepper />
+          <NumberDecrementStepper />
+        </NumberInputStepper>
+      </NumberInput>
+
+      <Text>
+        Bombs:
+      </Text>
+
+      <NumberInput 
+        step={1} 
+        defaultValue={3} 
+        min={1} 
+        max={10}
+        value={bombValue} 
+        onChange={handleBombChange}
+      >
+        <NumberInputField />
+        <NumberInputStepper>
+          <NumberIncrementStepper />
+          <NumberDecrementStepper />
+        </NumberInputStepper>
+      </NumberInput>
+
+      <Button
+        color={colorMode === "light" ? "black.200" : "black.400"}
+        width="full"
+        onClick={submitGameParameters}
+      >
+        Apply
+      </Button>
+    </Box>
+  ) : <></>
 
   return (
     <>
@@ -42,6 +126,9 @@ export default function CreateGame() {
             <Box textAlign="center">
               <Heading>Create Game</Heading>
             </Box>
+
+            {gameParameters}
+
             <Box mt={4} textAlign="left" justifyItems="center">
               <Text
                 width="full"
@@ -66,7 +153,7 @@ export default function CreateGame() {
                 isDisabled={
                   gameState.id === ""
                     ? false
-                    : gameState.playerJoined === true
+                    : gameState.players.length > 1
                     ? false
                     : true
                 }

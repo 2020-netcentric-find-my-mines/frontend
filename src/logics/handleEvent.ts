@@ -6,6 +6,7 @@ export function onSocketEvent(socket: SocketIOClient.Socket, gameDispatch: Dispa
   socket.on(SocketEvent.CREATE_GAME_FEEDBACK, (payload: IPayload) => {
     console.log("CREATE_GAME_FEEDBACK", payload);
     gameDispatch({ type: "SET_GAME_ID", payload: payload.data.gameID });
+    gameDispatch({ type: "SET_PLAYERS", payload: payload.data === null ? [] : payload.data.players });
   });
 
   socket.on(SocketEvent.TICK, (tick: number) => {
@@ -15,6 +16,7 @@ export function onSocketEvent(socket: SocketIOClient.Socket, gameDispatch: Dispa
   socket.on(SocketEvent.JOIN_GAME_FEEDBACK, (payload: IPayload) => {
     console.log("JOIN_GAME_FEEDBACK", payload);
     gameDispatch({ type: "PLAYER_JOINED", payload: payload.isOK });
+    gameDispatch({ type: "SET_PLAYERS", payload: payload.data === null ? [] : payload.data.players });
   });
 
   socket.on(SocketEvent.START_GAME_FEEDBACK, (payload: IPayload) => {
@@ -38,5 +40,13 @@ export function onSocketEvent(socket: SocketIOClient.Socket, gameDispatch: Dispa
       });
     }
   });
+
+  socket.on(SocketEvent.SET_BOARD_SIZE_FEEDBACK, (payload: IPayload) => {
+    console.log("SELECT_BOARD_SIZE_FEEDBACK", payload);
+  })
+
+  socket.on(SocketEvent.SET_NUMBER_OF_BOMB_FEEDBACK, (payload: IPayload) => {
+    console.log("SELECT_NUMBER_OF_BOMB_FEEDBACK", payload);
+  })
 
 }

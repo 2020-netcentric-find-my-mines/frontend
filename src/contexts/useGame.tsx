@@ -92,6 +92,11 @@ const gameReducer = (state: IGame, action: IAction) => {
         ...state,
         name: (payload === null || payload === "") ? "Anonymous" : payload,
       }
+    case "SET_PLAYERS":
+      return {
+        ...state,
+        players: payload,
+      }
     default:
       return state;
   }
