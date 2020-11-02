@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Box,
@@ -9,6 +9,7 @@ import {
   Heading,
   Input,
   useColorMode,
+  useToast
 } from "@chakra-ui/core";
 import { GameContext } from "../contexts/useGame"
 import { SocketContext } from "../contexts/useSocket"
@@ -20,6 +21,18 @@ export default function Home() {
   const { gameDispatch } = useContext(GameContext)
   const { emitEvent } = useContext(SocketContext)
   const { colorMode } = useColorMode();
+  const toast = useToast();
+
+  useEffect(() => {
+    toast({
+      title: "Welcome to Find My Mines",
+      description: "Have a great day!",
+      status: "success",
+      position: "top",
+      duration: 5000,
+      isClosable: true,
+    })
+  }, [toast]);
 
   function handleNameChange(event: any) {
     setName(event.target.value)
