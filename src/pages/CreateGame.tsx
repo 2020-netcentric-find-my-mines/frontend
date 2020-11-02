@@ -57,7 +57,7 @@ export default function CreateGame() {
       bg={colorMode === "light" ? "gray.100" : "gray.500"}
       borderRadius={10}
     >
-      <Text>
+      <Text fontSize="xs" fontWeight="medium">
         Board size:
       </Text>
 
@@ -75,7 +75,7 @@ export default function CreateGame() {
         </NumberInputStepper>
       </NumberInput>
 
-      <Text>
+      <Text mt="2" fontSize="xs" fontWeight="medium">
         Bombs:
       </Text>
 
@@ -95,8 +95,10 @@ export default function CreateGame() {
       </NumberInput>
 
       <Button
+        mt="2"
         color={colorMode === "light" ? "black.200" : "black.400"}
         width="full"
+        bg={colorMode === "light" ? "gray.200" : "gray.600"}
         onClick={submitGameParameters}
       >
         Apply
