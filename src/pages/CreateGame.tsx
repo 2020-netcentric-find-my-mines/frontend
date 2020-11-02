@@ -58,6 +58,14 @@ export default function CreateGame() {
       borderRadius={10}
     >
       <Text fontSize="xs" fontWeight="medium">
+        Game ID:
+      </Text>
+        <Text py="1" rounded="md" fontWeight="bold"
+>
+        <span style={{ color: "orange" }}>{gameState.id}</span>
+        </Text>
+
+      <Text mt="2" fontSize="xs" fontWeight="medium">
         Board size:
       </Text>
 
@@ -67,6 +75,8 @@ export default function CreateGame() {
         max={10} 
         value={boardSizeValue} 
         onChange={handleBoardSizeChange}
+        rounded="md"
+        bg={colorMode === "light" ? "gray.200" : "gray.600"}
       >
         <NumberInputField />
         <NumberInputStepper>
@@ -84,8 +94,11 @@ export default function CreateGame() {
         defaultValue={3} 
         min={1} 
         max={10}
+        bg={colorMode === "light" ? "gray.200" : "gray.600"}
+        rounded="md"
         value={bombValue} 
         onChange={handleBombChange}
+        
       >
         <NumberInputField />
         <NumberInputStepper>
@@ -132,17 +145,6 @@ export default function CreateGame() {
             {gameParameters}
 
             <Box mt={4} textAlign="left" justifyItems="center">
-              <Text
-                width="full"
-                mt="2"
-                fontSize="md"
-                color={colorMode === "light" ? "gray.600" : "gray.100"}
-                fontWeight=""
-              >
-                {gameState.id === "" ? "" : "ID: "}
-                <span style={{ color: "red" }}>{gameState.id}</span>
-              </Text>
-
               <Button
                 isLoading={started}
                 loadingText="Starting..."
