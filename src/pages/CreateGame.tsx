@@ -91,7 +91,7 @@ export default function CreateGame() {
         defaultValue={3} 
         min={1} 
         max={10}
-        bg={colorMode === "light" ? "gray.200" : "gray.600"}
+        bg={bombValue%2 === 1 ? colorMode === "light" ? "gray.200" : "gray.600" : "red.400"}
         rounded="md"
         value={bombValue} 
         onChange={handleBombChange}
