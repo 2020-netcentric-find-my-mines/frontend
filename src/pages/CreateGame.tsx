@@ -44,10 +44,7 @@ export default function CreateGame() {
 
   function submitGameParameters() {
     emitEvent('SET_NUMBER_OF_BOMB', bombValue)
-    emitEvent('SET_BOARD_SIZE', {
-      w: boardSizeValue, 
-      h: boardSizeValue,
-    })
+    emitEvent('SET_BOARD_SIZE', boardSizeValue, boardSizeValue)
   }
 
   const gameParameters = gameState.id !== "" ? (

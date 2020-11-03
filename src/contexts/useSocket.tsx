@@ -10,8 +10,8 @@ export const SocketProvider = ({ children }: any) => {
   const [ socket ] = useState(io(process.env.REACT_APP_SOCKET_URL ??
     "https://netcentric-architecture.herokuapp.com/"))
 
-  const emitEvent = (event: SocketEvent, data: any) => {
-    socket.emit(event, data)
+  const emitEvent = (event: SocketEvent, ...data: [any]) => {
+    socket.emit(event, ...data)
   }
 
   return (
