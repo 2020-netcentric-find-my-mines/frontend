@@ -20,7 +20,8 @@ export default function Home() {
   const [ name, setName ] = useState("")
   const { gameDispatch } = useContext(GameContext)
   const { emitEvent } = useContext(SocketContext)
-  const { colorMode } = useColorMode();
+  const { colorMode, toggleColorMode } = useColorMode();
+
   const toast = useToast();
 
   useEffect(() => {
@@ -81,6 +82,9 @@ export default function Home() {
               Leaderboard
             </Button>
           </Link>
+          <Button width="full" mt="2" fontSize="sm" color={colorMode === "light" ? "gray.600" : "gray.300"} onClick={toggleColorMode}>
+            Toggle {colorMode === "light" ? "Dark" : "Light"} 
+          </Button>
         </Box>
       </Box>
     </Flex>
