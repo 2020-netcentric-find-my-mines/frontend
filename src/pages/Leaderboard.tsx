@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from "react"
 import axios from "axios"
 import { Link } from "react-router-dom"
-import { Flex, Box, Text, Heading, Divider, Spinner, Button } from "@chakra-ui/core"
+import { Flex, Box, Text, Heading, Divider, Spinner, Button, useColorMode } from "@chakra-ui/core"
 import { ILeaderboard } from "../types/interface"
 
 export default function Leaderboard() {
@@ -18,7 +18,7 @@ export default function Leaderboard() {
         "gamesWonDay": 0,
         "totalGamesWon": 0
     }
-
+    const { colorMode } = useColorMode();
     const [loading, setLoading] = useState(true)
     const leaderboard = useRef({
         allTime: [dummyPlayer],
@@ -88,7 +88,7 @@ export default function Leaderboard() {
             </Text>
             <Divider />
             <Link to="/">
-                <Button width="full" mt="2" fontSize="sm" color="gray.600">
+                <Button width="full" mt="2" fontSize="sm">
                     Back
                 </Button>
             </Link>
@@ -97,18 +97,19 @@ export default function Leaderboard() {
 
     return (
         <Flex
-          width="full"
-          height="100%"
-          align="center"
-          position="absolute"
-          justifyContent="center"
-          bg="gray.50"
-        >
+            width="full"
+            height="100%"
+            align="center"
+            position="absolute"
+            justifyContent="center"
+            bg={colorMode === "light" ? "gray.50" : "gray.700"}        >
             <Box
                 p={10}
-                bg="white"
+                px={20}
+                bg={colorMode === "light" ? "white" : "gray.600"}
                 borderRadius={10}
                 boxShadow="0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)"
+                
             >
                 { loading ? <Spinner /> : leaderboardView }
             </Box>
