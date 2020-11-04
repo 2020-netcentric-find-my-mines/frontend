@@ -18,6 +18,7 @@ import SocketEvent from "../socket-event";
 export default function Home() {
 
   const [ name, setName ] = useState("")
+  const [ email, setEmail ] = useState("")
   const { gameDispatch } = useContext(GameContext)
   const { emitEvent } = useContext(SocketContext)
   const { colorMode, toggleColorMode } = useColorMode();
@@ -37,6 +38,10 @@ export default function Home() {
 
   function handleNameChange(event: any) {
     setName(event.target.value)
+  }
+
+  function handleEmailChange(event: any) {
+    setEmail(event.target.value)
   }
 
   function emitName() {
@@ -67,8 +72,12 @@ export default function Home() {
         <Box my={4} textAlign="left" justifyItems="center">
 
           <FormControl>
-            <FormLabel mb="2">Enter your name:</FormLabel>
-            <Input type="text" placeholder="Ex: John" variant="outline" value={name} onChange={handleNameChange}/>
+            <FormLabel mb="1">Name:</FormLabel>
+            <Input mb="3" type="text" placeholder="Ex: John" variant="outline" value={name} onChange={handleNameChange}/>
+          </FormControl>
+          <FormControl>
+            <FormLabel mb="1">Email:</FormLabel>
+            <Input type="text" placeholder="Leave blank for guest" variant="outline" value={email} onChange={handleEmailChange}/>
           </FormControl>
 
           <Link to="create" style={{ textDecoration: "none" }}>
