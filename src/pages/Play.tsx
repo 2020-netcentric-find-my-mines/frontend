@@ -63,10 +63,13 @@ export default function Play() {
                 Scores
               </Flex>
               <Text>
-              <span style={{ fontWeight: "bold" }}>{gameState.players[0].name?.length === 0 ? "Player 1" : gameState.players[0].name}: </span><span style={{ color: "red" }}>{gameState.players[0].score}</span>
+              <span style={{ fontWeight: "bold" }}>{gameState.players[0].name?.length === 0 ? "Player 1" : gameState.players[0].name}: </span><span style={{ color: "orange" }}>{gameState.players[0].score}</span>
               </Text>
               <Text>
-              <span style={{ fontWeight: "bold" }}>{gameState.players[1].name?.length === 0 ? "Player 2" : gameState.players[1].name}: </span><span style={{ color: "red" }}>{gameState.players[1].score}</span>
+              <span style={{ fontWeight: "bold" }}>{gameState.players[1].name?.length === 0 ? "Player 2" : gameState.players[1].name}: </span><span style={{ color: "orange" }}>{gameState.players[1].score}</span>
+              </Text>
+              <Text fontWeight="light">
+                There are {gameState.players.length} players online
               </Text>
             </Box>
           <Chat />
