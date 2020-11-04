@@ -46,6 +46,10 @@ export function onSocketEvent(socket: SocketIOClient.Socket, gameDispatch: Dispa
         type: "COORDINATE_FEEDBACK",
         payload: payload.data.selectedCoordinates,
       });
+      gameDispatch({
+        type: "UPDATE_PLAYERS_SCORE",
+        payload: payload.data.players
+      })
     }
   });
 

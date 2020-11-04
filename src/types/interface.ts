@@ -16,7 +16,7 @@ export interface IGame {
   noBombsFound: number
   currentPlayer: string
   name: string
-  players: string[]
+  players: IPlayer[]
   coordinates: ICoordinate[]
   tick: number
   playerJoined: boolean

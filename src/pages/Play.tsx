@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Button, Flex, Box, Divider, useColorMode } from "@chakra-ui/core";
+import { Button, Flex, Box, Divider, Text, useColorMode } from "@chakra-ui/core";
 import { GameContext } from "../contexts/useGame";
 import { Link } from "react-router-dom";
 import Board from "./components/Board";
@@ -57,7 +57,20 @@ export default function Play() {
             </Button>
           </Flex>
           <Divider orientation="vertical" />
+          <Flex direction="column">
+            <Box backgroundColor="gray" padding="2">
+              <Flex fontWeight="bold" fontSize="xl" justifyContent="center" pb="2">
+                Scores
+              </Flex>
+              <Text>
+              <span style={{ fontWeight: "bold" }}>{gameState.players[0].name}: </span>{gameState.players[0].score}
+              </Text>
+              <Text>
+              <span style={{ fontWeight: "bold" }}>{gameState.players[1].name}: </span>{gameState.players[1].score}
+              </Text>
+            </Box>
           <Chat />
+          </Flex>
         </Flex>
       </Box>
     </Flex>

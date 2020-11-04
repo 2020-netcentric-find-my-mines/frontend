@@ -70,9 +70,14 @@ const gameReducer = (state: IGame, action: IAction) => {
         });
       }
     }
+    let players = state.players
+    players.map( player => {
+      return player.score = 0
+    })
     return {
       ...state,
       coordinates: coordinates,
+      players: players
     };
     case "INITIALIZE":
       return {
@@ -109,6 +114,11 @@ const gameReducer = (state: IGame, action: IAction) => {
         name: (payload === null || payload === "") ? "Anonymous" : payload,
       }
     case "SET_PLAYERS":
+      return {
+        ...state,
+        players: payload,
+      }
+      case "UPDATE_PLAYERS_SCORE":
       return {
         ...state,
         players: payload,
