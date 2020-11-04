@@ -68,10 +68,11 @@ export default function Play() {
               <Text>
               <span style={{ fontWeight: "bold" }}>{gameState.players[1].name?.length === 0 ? "Player 2" : gameState.players[1].name}: </span><span style={{ color: "orange" }}>{gameState.players[1].score}</span>
               </Text>
-              <Text fontWeight="light">
+              <Text fontWeight="light" pt={2}>
                 There are {gameState.players.length} players online
               </Text>
             </Box>
+            <Divider orientation="horizontal"/>
           <Chat />
           </Flex>
         </Flex>
