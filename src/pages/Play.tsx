@@ -5,11 +5,19 @@ import { Link } from "react-router-dom";
 import Board from "./components/Board";
 import Info from "./components/Info";
 import Chat from "./components/Chat";
+import { SocketContext } from "../contexts/useSocket";
+import SocketEvent from "../socket-event";
 
 export default function Play() {
   const { gameState } = useContext(GameContext);
   const { colorMode } = useColorMode();
+  const { emitEvent } = useContext(SocketContext)
 
+  function emitResetBoard() {
+    console.log(SocketEvent.RESET_BOARD)
+    emitEvent(SocketEvent.RESET_BOARD, null)
+  }
+  
   if (!gameState.started) {
     return (
       <div>
@@ -21,6 +29,7 @@ export default function Play() {
       </div>
     );
   }
+  
 
   return (
     <Flex
@@ -43,6 +52,9 @@ export default function Play() {
           <Flex direction="column">
             <Info />
             <Board />
+            <Button onClick={emitResetBoard}>
+              Reset Game
+            </Button>
           </Flex>
           <Divider orientation="vertical" />
           <Chat />

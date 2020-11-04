@@ -9,6 +9,10 @@ export function onSocketEvent(socket: SocketIOClient.Socket, gameDispatch: Dispa
     gameDispatch({ type: "SET_PLAYERS", payload: payload.data === null ? [] : payload.data.players });
   });
 
+  socket.on(SocketEvent.SET_PLAYER_NAME_FEEDBACK, (payload: IPayload) => {
+    console.log("SET_PLAYER_NAME_FEEDBACK", payload);
+  });
+
   socket.on(SocketEvent.TICK, (tick: number) => {
     gameDispatch({ type: "SET_TICK", payload: tick });
   });
@@ -29,6 +33,10 @@ export function onSocketEvent(socket: SocketIOClient.Socket, gameDispatch: Dispa
   socket.on(SocketEvent.NEXT_PLAYER, (player: IPlayer) => {
     console.log("NEXT_PLAYER", player);
     gameDispatch({ type: "SET_CURRENT_PLAYER", payload: player.id})
+  });
+  socket.on(SocketEvent.RESET_BOARD_FEEDBACK, (payload: IPayload) => {
+    console.log("RESET_BOARD", payload);
+    gameDispatch({ type: "RESET_BOARD", payload: null})
   });
 
   socket.on(SocketEvent.SELECT_COORDINATE_FEEDBACK, (payload: IPayload) => {

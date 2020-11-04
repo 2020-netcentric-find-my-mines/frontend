@@ -58,6 +58,22 @@ const gameReducer = (state: IGame, action: IAction) => {
         ...state,
         id: payload,
       };
+    case "RESET_BOARD":
+      let coordinates = [];
+    for (let x = 0; x < state.width; x++) {
+      for (let y = 0; y < state.height; y++) {
+        coordinates.push({
+          x,
+          y,
+          isBomb: false,
+          isSelected: false,
+        });
+      }
+    }
+    return {
+      ...state,
+      coordinates: coordinates,
+    };
     case "INITIALIZE":
       return {
         ...state,
