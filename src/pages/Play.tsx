@@ -63,10 +63,10 @@ export default function Play() {
                 Scores
               </Flex>
               <Text>
-              <span style={{ fontWeight: "bold" }}>{gameState.players[0].name}: </span>{gameState.players[0].score}
+              <span style={{ fontWeight: "bold" }}>{gameState.players[0].name?.length === 0 ? "Player 1" : gameState.players[0].name}: </span><span style={{ color: "red" }}>{gameState.players[0].score}</span>
               </Text>
               <Text>
-              <span style={{ fontWeight: "bold" }}>{gameState.players[1].name}: </span>{gameState.players[1].score}
+              <span style={{ fontWeight: "bold" }}>{gameState.players[1].name?.length === 0 ? "Player 2" : gameState.players[1].name}: </span><span style={{ color: "red" }}>{gameState.players[1].score}</span>
               </Text>
             </Box>
           <Chat />
