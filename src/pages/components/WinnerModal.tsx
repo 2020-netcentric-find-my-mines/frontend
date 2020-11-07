@@ -12,7 +12,7 @@ import {
 import { GameContext } from '../../contexts/useGame'
 
 export default function WinnerModal() {
-  const { gameState } = useContext(GameContext)
+  const { gameState, gameDispatch } = useContext(GameContext)
 
   function findWinner():string{
     const players = gameState.players;
@@ -26,10 +26,13 @@ export default function WinnerModal() {
     }
     return winner;
   }
+  // const { isOpen, onOpen, onClose } = useDisclosure();
+
+
 
   return(
     <>
-      <Modal isOpen={gameState.showWinnerModal}>
+      <Modal isOpen={gameState.showWinnerModal} >
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Congratulations!</ModalHeader>
@@ -38,9 +41,9 @@ export default function WinnerModal() {
             {findWinner()} is the Winner!
           </ModalBody>
           <ModalFooter>
-            <Button variantColor="blue" mr={3} onClick={() => {gameState.showWinnerModal = false}}>
+            <Button variantColor="blue" mr={3} onClick={() => {gameDispatch({ type: "SHOW_WINNER", payload: false })}}>
               Exit
-            </Button>
+            </Button>            
           </ModalFooter>
         </ModalContent>
       </Modal>

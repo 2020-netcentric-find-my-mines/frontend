@@ -39,9 +39,10 @@ export function onSocketEvent(socket: SocketIOClient.Socket, gameDispatch: Dispa
     console.log("NEXT_PLAYER", player);
     gameDispatch({ type: "SET_CURRENT_PLAYER", payload: player})
   });
+
   socket.on(SocketEvent.RESET_BOARD_FEEDBACK, (payload: IPayload) => {
     console.log("RESET_BOARD", payload);
-    gameDispatch({ type: "RESET_BOARD", payload: null})
+    gameDispatch({ type: "RESET_BOARD", payload: payload.data})
   });
 
   socket.on(SocketEvent.SELECT_COORDINATE_FEEDBACK, (payload: IPayload) => {

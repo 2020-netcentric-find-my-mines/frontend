@@ -84,7 +84,7 @@ const gameReducer = (state: IGame, action: IAction) => {
       return {
         ...state,
         coordinates: coordinates,
-        players: players
+        players: payload.players
       };
     case "INITIALIZE":
       return {
