@@ -210,12 +210,10 @@ export default function CreateGame() {
       </Text>
     )
   );
-  if (playerList.length === 0) {
-    playerList.push(<Text key={playerKey++}>None</Text>);
-  }
 
   const playerListBox = (
     <Box
+      hidden={playerList.length === 0 ? true : false}
       width="full"
       p={5}
       m={5}
@@ -254,7 +252,7 @@ export default function CreateGame() {
               {playerListBox}
             </Flex>
 
-            <Box mt={2} textAlign="left" justifyItems="center">
+            <Box textAlign="left" justifyItems="center" mt={playerList.length === 0 ? 4 : 2}>
               <Button
                 isLoading={started}
                 loadingText="Starting..."

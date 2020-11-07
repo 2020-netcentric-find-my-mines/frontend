@@ -7,6 +7,7 @@ import {
   FormControl,
   FormLabel,
   Heading,
+  Text,
   Input,
   useColorMode,
 } from "@chakra-ui/core";
@@ -32,6 +33,28 @@ export default function JoinGame() {
   function handleChange(event: any) {
     setTextField(event.target.value);
   }
+  const playerList: JSX.Element[] = [];
+  let playerKey = 0;
+  gameState.players.forEach((player) =>
+    playerList.push(
+      <Text key={playerKey++}>
+        {player.name === "" || player.name === null ? "Anonymous" : player.name}
+      </Text>
+    )
+  );
+  const playerListBox = (
+    <Box
+      hidden={playerList.length === 0 ? true : false}
+      width="full"
+      p={5}
+      m={5}
+      bg={colorMode === "light" ? "gray.100" : "gray.500"}
+      borderRadius={10}
+    >
+      <Text as="u">Players joined:</Text>
+      {playerList}
+    </Box>
+  );
 
   return (
     <>
@@ -55,7 +78,8 @@ export default function JoinGame() {
             <Box textAlign="center">
               <Heading>Join Game</Heading>
             </Box>
-            <Box mt={4} textAlign="left" justifyItems="center">
+            <Flex>{playerListBox}</Flex>
+            <Box textAlign="left" justifyItems="center" mt={playerList.length === 0 ? 2 : 0}>
               <FormControl>
                 <FormLabel mb="2">Enter Game ID:</FormLabel>
                 <Input
@@ -66,6 +90,7 @@ export default function JoinGame() {
                   onChange={handleChange}
                 />
               </FormControl>
+
               <Button
                 isLoading={started}
                 loadingText="Starting..."

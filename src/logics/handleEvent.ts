@@ -29,7 +29,7 @@ export function onSocketEvent(
   socket.on(SocketEvent.WINNER, (payload: any) => {
     console.log("WINNER", payload);
     gameDispatch({ type: "SHOW_WINNER", payload: true });
-    gameDispatch({ type: "WINNER", payload: payload.winner })
+    gameDispatch({ type: "WINNER", payload: payload.winners })
   });
 
   socket.on(SocketEvent.TICK, (tick: number) => {
