@@ -3,6 +3,7 @@ import "./App.css";
 
 import Home from "./pages/Home";
 import Play from "./pages/Play";
+import Register from "./pages/Register";
 
 import { GameContext } from "./contexts/useGame";
 import { SocketContext } from "./contexts/useSocket";
@@ -48,6 +49,9 @@ function App() {
                 <JoinGame />
               </Route>
               <Route path="/quick-game">Quick Game</Route>
+              <Route path="/register">
+                <Register />
+              </Route>
               <Route path="/leaderboard">
                 <Leaderboard />
               </Route>

@@ -86,7 +86,13 @@ export default function Home() {
             </Button>
           </Link>
 
-          <Link to="/leaderboard">
+          <Link to="register" style={{ textDecoration: "none" }}>
+            <Button width="full" mt="2" fontSize="sm" color={colorMode === "light" ? "gray.600" : "gray.300"}>
+              Register
+            </Button>
+          </Link>
+
+          <Link to="sleaderboard">
             <Button width="full" mt="2" fontSize="sm" color={colorMode === "light" ? "gray.600" : "gray.300"}>
               Leaderboard
             </Button>
