@@ -18,17 +18,20 @@ export default function WinnerModal() {
     const players = gameState.players;
     let maxScore = 0;
     let winner = "";
-    for (let i = 1; i < players.length; i++){
+    for (let i = 0; i < players.length -1; i++){
       if (players[i].score > maxScore){
       maxScore = players[i].score;
     }
     }
     for (let i = 0; i < players.length-1; i++) {
-      if (players[i] === maxScore) {
+      console.log(maxScore)
+      console.log(players[i].name)
+      console.log(players[i].score)
+      if (players[i].score === maxScore) {
         if (winner !== "") {
-          winner.concat(" ")
+          winner = winner + " "
         }
-        winner.concat(players[i].name)
+        winner = winner + players[i].name;
       }
     }
     return winner;
