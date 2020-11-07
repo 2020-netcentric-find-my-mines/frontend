@@ -121,11 +121,47 @@ const gameReducer = (state: IGame, action: IAction) => {
         ...state,
         players: payload,
       }
-      case "UPDATE_PLAYERS_SCORE":
+    case "UPDATE_PLAYERS_SCORE":
       return {
         ...state,
         players: payload,
       }
+    case "MEMBER_JOINED":
+      const playersAfterJoined = state.players
+      if (payload.type === "player") {
+        playersAfterJoined.push(payload)
+      }
+      return {
+        ...state,
+        players: playersAfterJoined,
+      }
+    case "MEMBER_LEFT":
+      const playersAfterLeft = state.players
+      if (payload.type === "player") {
+        playersAfterLeft.splice(playersAfterLeft.indexOf(payload), 1)
+      }
+      return {
+        ...state,
+        players: playersAfterLeft
+      }
+    case "MEMBER_CHANGED":
+      if (payload.newType === "player") {
+        const playersAfterJoined = state.players
+        playersAfterJoined.push(payload.member)
+
+        return {
+          ...state,
+          players: playersAfterJoined,
+        }
+      } else if (payload.newType === "spectator") {
+        const playersAfterLeft = state.players
+        playersAfterLeft.splice(playersAfterLeft.indexOf(payload.member), 1)
+        return {
+          ...state,
+          players: playersAfterLeft
+        }
+      }
+      return state
     default:
       return state;
   }
