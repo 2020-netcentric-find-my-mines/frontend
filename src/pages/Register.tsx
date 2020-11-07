@@ -1,9 +1,8 @@
 import React, {useState} from "react"
 import { Link } from "react-router-dom"
 import { Flex, Box, Button, Heading, useColorMode, FormControl, FormLabel, Input } from "@chakra-ui/core"
-import axios from "axios"
 
-export function Register() {
+export default function Register() {
     const { colorMode } = useColorMode();
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("")
