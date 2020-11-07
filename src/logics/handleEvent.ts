@@ -32,7 +32,7 @@ export function onSocketEvent(socket: SocketIOClient.Socket, gameDispatch: Dispa
 
   socket.on(SocketEvent.NEXT_PLAYER, (player: IPlayer) => {
     console.log("NEXT_PLAYER", player);
-    gameDispatch({ type: "SET_CURRENT_PLAYER", payload: player.id})
+    gameDispatch({ type: "SET_CURRENT_PLAYER", payload: player})
   });
   socket.on(SocketEvent.RESET_BOARD_FEEDBACK, (payload: IPayload) => {
     console.log("RESET_BOARD", payload);

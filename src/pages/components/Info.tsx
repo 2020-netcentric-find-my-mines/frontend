@@ -13,7 +13,7 @@ export default function Info() {
                 Find My Mines
             </Heading>
             <Text>
-                It is {gameState.currentPlayer === socket.id ? "your" : "other player's"} turn.
+                It is {gameState.currentPlayer === socket.id ? "YOUR" : gameState.currentPlayerName + "'s"} turn.
             </Text>
             <Text>
                 {gameState.currentPlayer === socket.id ? `${gameState.tick} seconds left!` : "Please wait..."}
