@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import SocketEvent from "../socket-event";
 import { 
   Box, 
@@ -7,6 +7,7 @@ import {
   Heading, 
   Text, 
   useColorMode, 
+  useToast,
   NumberInput, 
   NumberInputField, 
   NumberInputStepper, 
@@ -16,14 +17,63 @@ import {
 import { Link, Redirect } from "react-router-dom";
 import { GameContext } from "../contexts/useGame";
 import { SocketContext } from "../contexts/useSocket";
+import { IPayload } from "../types/interface"
 
 export default function CreateGame() {
   const { gameState } = useContext(GameContext);
   const { emitEvent } = useContext(SocketContext);
   const [started, setStarted] = useState(false)
   const { colorMode } = useColorMode();
-  const [boardSizeValue, setBoardSizeValue] = useState(6)
-  const [bombValue, setBombValue] = useState(3)
+  const [boardSize, setBoardSize] = useState(6)
+  const [numberOfBombs, setNumberOfBombs] = useState(3)
+  const [maxPlayers, setMaxPlayers] = useState(2)
+  const { socket } = useContext(SocketContext);
+
+  const toast = useToast()
+
+  useEffect(() => {
+    socket.on(SocketEvent.SET_BOARD_SIZE_FEEDBACK, (payload: IPayload) => {
+      console.log("SELECT_BOARD_SIZE_FEEDBACK", payload);
+      if (!payload.isOK) {
+        toast({
+          title: "Unable to set board size",
+          description: "This board size is not available.",
+          status: "error",
+          position: "top",
+          duration: 2000,
+          isClosable: true,
+        })
+      }
+    })
+  
+    socket.on(SocketEvent.SET_NUMBER_OF_BOMB_FEEDBACK, (payload: IPayload) => {
+      console.log("SELECT_NUMBER_OF_BOMB_FEEDBACK", payload);
+      if (!payload.isOK) {
+        toast({
+          title: "Unable to set bomb number",
+          description: "This bomb number is not available.",
+          status: "error",
+          position: "top",
+          duration: 2000,
+          isClosable: true,
+        })
+      }
+    })
+
+    socket.on(SocketEvent.SET_MAX_PLAYER_FEEDBACK, (payload: IPayload) => {
+      console.log("SELECT_MAX_PLAYER_FEEDBACK", payload);
+      if (!payload.isOK) {
+        toast({
+          title: "Unable to set max players",
+          description: "This number of maximum players is not available.",
+          status: "error",
+          position: "top",
+          duration: 2000,
+          isClosable: true,
+        })
+      }
+    })
+  }, [socket, toast])
 
   const createGame = () => {
     emitEvent(SocketEvent.CREATE_GAME, null);
@@ -35,16 +85,21 @@ export default function CreateGame() {
   }
 
   function handleBoardSizeChange(value: React.ReactText) {
-    setBoardSizeValue(+value)
+    setBoardSize(+value)
   } 
 
   function handleBombChange(value: React.ReactText) {
-    setBombValue(+value)
+    setNumberOfBombs(+value)
+  }
+
+  function handleMaxPlayerChange(value: React.ReactText) {
+    setMaxPlayers(+value)
   }
 
   function submitGameParameters() {
-    emitEvent('SET_NUMBER_OF_BOMB', bombValue)
-    emitEvent('SET_BOARD_SIZE', boardSizeValue, boardSizeValue)
+    emitEvent('SET_MAX_PLAYER', maxPlayers)
+    emitEvent('SET_NUMBER_OF_BOMB', numberOfBombs)
+    emitEvent('SET_BOARD_SIZE', boardSize, boardSize)
   }
 
   const gameParameters = gameState.id !== "" ? (
@@ -70,7 +125,7 @@ export default function CreateGame() {
         step={1} 
         min={2} 
         max={10} 
-        value={boardSizeValue} 
+        value={boardSize} 
         onChange={handleBoardSizeChange}
         rounded="md"
         bg={colorMode === "light" ? "gray.200" : "gray.600"}
@@ -91,11 +146,31 @@ export default function CreateGame() {
         defaultValue={3} 
         min={1} 
         max={10}
-        bg={bombValue%2 === 1 ? colorMode === "light" ? "gray.200" : "gray.600" : "red.400"}
+        bg={colorMode === "light" ? "gray.200" : "gray.600"}
         rounded="md"
-        value={bombValue} 
+        value={numberOfBombs} 
         onChange={handleBombChange}
         
+      >
+        <NumberInputField />
+        <NumberInputStepper>
+          <NumberIncrementStepper />
+          <NumberDecrementStepper />
+        </NumberInputStepper>
+      </NumberInput>
+
+      <Text mt="2" fontSize="xs" fontWeight="medium">
+        Max players:
+      </Text>
+
+      <NumberInput 
+        step={1} 
+        min={2} 
+        max={10} 
+        value={maxPlayers} 
+        onChange={handleMaxPlayerChange}
+        rounded="md"
+        bg={colorMode === "light" ? "gray.200" : "gray.600"}
       >
         <NumberInputField />
         <NumberInputStepper>

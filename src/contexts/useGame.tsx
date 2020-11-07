@@ -82,6 +82,7 @@ const gameReducer = (state: IGame, action: IAction) => {
     case "INITIALIZE":
       return {
         ...state,
+        id: payload.gameID,
         started: true,
         width: payload.boardWidth,
         height: payload.boardHeight,

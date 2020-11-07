@@ -52,13 +52,4 @@ export function onSocketEvent(socket: SocketIOClient.Socket, gameDispatch: Dispa
       })
     }
   });
-
-  socket.on(SocketEvent.SET_BOARD_SIZE_FEEDBACK, (payload: IPayload) => {
-    console.log("SELECT_BOARD_SIZE_FEEDBACK", payload);
-  })
-
-  socket.on(SocketEvent.SET_NUMBER_OF_BOMB_FEEDBACK, (payload: IPayload) => {
-    console.log("SELECT_NUMBER_OF_BOMB_FEEDBACK", payload);
-  })
-
 }
