@@ -14,11 +14,13 @@ import {
 import { GameContext } from "../contexts/useGame"
 import { SocketContext } from "../contexts/useSocket"
 import SocketEvent from "../socket-event";
+import firebase from "../Firebase"
 
 export default function Home() {
 
   const [ name, setName ] = useState("")
   const [ email, setEmail ] = useState("")
+  const [ password, setPassword ] = useState("")
   const { gameDispatch } = useContext(GameContext)
   const { emitEvent } = useContext(SocketContext)
   const { colorMode, toggleColorMode } = useColorMode();
@@ -36,17 +38,41 @@ export default function Home() {
     })
   }, [toast]);
 
-  function handleNameChange(event: any) {
-    setName(event.target.value)
+  function handleChange(event: any) {
+    if (event.target.name === "name") {
+      setName(event.target.value)
+    } else if (event.target.name === "email") {
+      setEmail(event.target.value)
+    } else if (event.target.name === "password") {
+      setPassword(event.target.value)
+    }
   }
 
-  function handleEmailChange(event: any) {
-    setEmail(event.target.value)
-  }
-
-  function emitName() {
+  function handleSubmit() {
     console.log("SET_PLAYER_NAME", name)
     gameDispatch({ type: "SET_PLAYER_NAME", payload: name })
+    if (!(email === "" || email === null) && !(password === "" || password === null)) {
+      firebase.auth().signInWithEmailAndPassword(email, password).then(() => {
+        toast({
+          title: "Sign in completed",
+          description: "Thank you for being a part of Find My Mines!",
+          status: "success",
+          position: "top",
+          duration: 5000,
+          isClosable: true,
+        })
+      }).catch((error) => {
+        console.log("Register error.", error.code, error.message)
+        toast({
+          title: "Sign in unsuccessful",
+          description: "Please try again later.",
+          status: "error",
+          position: "top",
+          duration: 5000,
+          isClosable: true,
+        })
+      });
+    }
     emitEvent(SocketEvent.SET_PLAYER_NAME, name)
   }
 
@@ -73,15 +99,19 @@ export default function Home() {
 
           <FormControl>
             <FormLabel mb="1">Name:</FormLabel>
-            <Input mb="3" type="text" placeholder="Ex: John" variant="outline" value={name} onChange={handleNameChange}/>
+            <Input mb="3" name="name" type="text" placeholder="Ex: John" variant="outline" value={name} onChange={handleChange}/>
           </FormControl>
           <FormControl>
             <FormLabel mb="1">Email:</FormLabel>
-            <Input type="text" placeholder="Leave blank for guest" variant="outline" value={email} onChange={handleEmailChange}/>
+            <Input type="text" name="email" placeholder="Leave blank for guest" variant="outline" value={email} onChange={handleChange}/>
+          </FormControl>
+          <FormControl>
+            <FormLabel mb="1">Password:</FormLabel>
+            <Input type="text" name="password" placeholder="Leave blank for guest" variant="outline" value={password} onChange={handleChange}/>
           </FormControl>
 
           <Link to="create" style={{ textDecoration: "none" }}>
-            <Button width="full" mt={4} variantColor="teal" variant="solid" onClick={emitName}>
+            <Button width="full" mt={4} variantColor="teal" variant="solid" onClick={handleSubmit}>
               Continue
             </Button>
           </Link>
@@ -92,7 +122,7 @@ export default function Home() {
             </Button>
           </Link>
 
-          <Link to="sleaderboard">
+          <Link to="leaderboard">
             <Button width="full" mt="2" fontSize="sm" color={colorMode === "light" ? "gray.600" : "gray.300"}>
               Leaderboard
             </Button>

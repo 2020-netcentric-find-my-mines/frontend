@@ -1,21 +1,47 @@
 import React, {useState} from "react"
 import { Link } from "react-router-dom"
-import { Flex, Box, Button, Heading, useColorMode, FormControl, FormLabel, Input } from "@chakra-ui/core"
+import { Flex, Box, Button, Heading, useColorMode, FormControl, FormLabel, Input, useToast } from "@chakra-ui/core"
+import firebase from "../Firebase"
 
 export default function Register() {
-    const { colorMode } = useColorMode();
-    const [username, setUsername] = useState("");
+    const { colorMode } = useColorMode()
+    const [username, setUsername] = useState("")
     const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+
+    const toast = useToast()
 
     function handleChange(event: any) {
         if (event.target.name === "username") {
             setUsername(event.target.value)
         } else if (event.target.name === "email") {
             setEmail(event.target.value)
+        } else if (event.target.name === "password") {
+          setPassword(event.target.value)
         }
     }
 
     function handleSubmit() {
+      firebase.auth().createUserWithEmailAndPassword(email, password).then(() => {
+        toast({
+          title: "Register completed",
+          description: "Thank you for being a part of Find My Mines!",
+          status: "success",
+          position: "top",
+          duration: 5000,
+          isClosable: true,
+        })
+      }).catch((error) => {
+        console.log("Register error.", error.code, error.message)
+        toast({
+          title: "Register unsuccessful",
+          description: "Please try again later.",
+          status: "error",
+          position: "top",
+          duration: 5000,
+          isClosable: true,
+        })
+      });
     }
 
     return (
@@ -42,7 +68,6 @@ export default function Register() {
                 <Input
                   type="text"
                   name="username"
-                  placeholder="Ex: John"
                   variant="outline"
                   value={username}
                   onChange={handleChange}
@@ -51,9 +76,16 @@ export default function Register() {
                 <Input
                   type="text"
                   name="email"
-                  placeholder="Ex: John"
                   variant="outline"
                   value={email}
+                  onChange={handleChange}
+                />
+                <FormLabel mb="2">Password:</FormLabel>
+                <Input
+                  type="text"
+                  name="password"
+                  variant="outline"
+                  value={password}
                   onChange={handleChange}
                 />
               </FormControl>
