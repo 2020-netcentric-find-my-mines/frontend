@@ -20,22 +20,25 @@ export default function Home() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { gameDispatch } = useContext(GameContext);
+  const { gameState, gameDispatch } = useContext(GameContext);
   const { emitEvent } = useContext(SocketContext);
   const { colorMode, toggleColorMode } = useColorMode();
 
   const toast = useToast();
 
   useEffect(() => {
-    toast({
-      title: "Welcome to Find My Mines",
-      description: "Have a great day!",
-      status: "success",
-      position: "top",
-      duration: 3000,
-      isClosable: true,
-    });
-  }, [toast]);
+    if (gameState.firstToast) {
+      toast({
+        title: "Welcome to Find My Mines",
+        description: "Have a great day!",
+        status: "success",
+        position: "top",
+        duration: 3000,
+        isClosable: true,
+      });
+      gameDispatch({ type: "TOASTED", payload: null })
+    }
+  }, [toast, gameState, gameDispatch]);
 
   function handleChange(event: any) {
     if (event.target.name === "name") {

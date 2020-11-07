@@ -23,6 +23,7 @@ export interface IGame {
   playerJoined: boolean;
   showWinnerModal: boolean;
   winner: IPlayer[]
+  firstToast: boolean
 }
 
 export interface IGameContext {
