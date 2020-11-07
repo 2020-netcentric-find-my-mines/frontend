@@ -21,14 +21,18 @@ export default function WinnerModal() {
     for (let i = 1; i < players.length; i++){
       if (players[i].score > maxScore){
       maxScore = players[i].score;
-      winner = players[i].name ?? "";
+    }
+    }
+    for (let i = 0; i < players.length-1; i++) {
+      if (players[i] === maxScore) {
+        if (winner !== "") {
+          winner.concat(" ")
+        }
+        winner.concat(players[i].name)
       }
     }
     return winner;
   }
-  // const { isOpen, onOpen, onClose } = useDisclosure();
-
-
 
   return(
     <>
@@ -38,12 +42,12 @@ export default function WinnerModal() {
           <ModalHeader>Congratulations!</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            {findWinner()} is the Winner!
+            The winner(s) = {findWinner()}
           </ModalBody>
           <ModalFooter>
             <Button variantColor="blue" mr={3} onClick={() => {gameDispatch({ type: "SHOW_WINNER", payload: false })}}>
               Exit
-            </Button>            
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
