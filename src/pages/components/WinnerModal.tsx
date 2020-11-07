@@ -13,6 +13,7 @@ import { GameContext } from '../../contexts/useGame'
 
 export default function WinnerModal() {
   const { gameState } = useContext(GameContext)
+
   function findWinner():string{
     const players = gameState.players;
     let maxScore = 0;
