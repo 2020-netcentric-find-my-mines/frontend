@@ -75,7 +75,7 @@ export default function Chat() {
     chatData.forEach((chatDatum) => chatView.push(
         <Text key={key++}>{chatDatum.username} : {chatDatum.message}</Text>
     ))
-    const truncatedChatView = chatView.slice(chatView.length - CHAT_MAX_NUMBER)
+    const truncatedChatView = chatView.slice(Math.max(0, chatView.length - CHAT_MAX_NUMBER))
 
     return (
         <Flex direction="column">
