@@ -10,8 +10,6 @@ export default function Info() {
   return (
     <Flex alignItems="center" flexDirection="column">
       <Heading mb={4}>Find My Mines</Heading>
-      <Text>Game ID: {gameState.id}</Text>
-      <Text mb={4}>Player: {gameState.name}</Text>
       <Text>
         It is{" "}
         <span

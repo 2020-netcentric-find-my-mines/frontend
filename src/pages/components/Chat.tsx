@@ -115,6 +115,12 @@ export default function Chat() {
     <Flex direction="column">
       <Box backgroundColor="gray" padding="2">
         <Flex fontWeight="bold" fontSize="xl" justifyContent="center" pb="2">
+          Informations
+        </Flex>
+        <Text>Game ID: <span style={{ color: "orange" }}>{gameState.id}</span></Text>
+        <Text mb={4}>Player: <span style={{ color: "orange" }}>{gameState.name}</span></Text>
+        <Divider orientation="horizontal"/>
+        <Flex fontWeight="bold" fontSize="xl" justifyContent="center" pb="2">
           Scores
         </Flex>
         {scoreView}
@@ -128,14 +134,20 @@ export default function Chat() {
           Chat
         </Flex>
         {truncatedChatView}
-        <FormControl flexDirection="row">
-          <Input placeholder="Chat..." value={chat} onChange={handleChange} />
-          <IconButton
-            aria-label="Send chat"
-            icon="check"
-            size="sm"
-            onClick={handleSubmit}
-          ></IconButton>
+        <FormControl>
+          <Flex direction="row" justifyContent="center" mt="4">
+            <Input placeholder="Chat..." value={chat} onChange={handleChange} />
+            <IconButton
+              height="inherit"
+              width="inherit"
+              px="2"
+              marginLeft="2"
+              aria-label="Send chat"
+              icon="check"
+              size="sm"
+              onClick={handleSubmit}
+            ></IconButton>
+          </Flex>
         </FormControl>
       </Box>
     </Flex>

@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import SocketEvent from "../../socket-event";
-import { Grid, Box, Flex, useColorMode } from "@chakra-ui/core";
+import { Grid, Box, useColorMode } from "@chakra-ui/core";
 import { GameContext } from "../../contexts/useGame";
 import { SocketContext } from "../../contexts/useSocket";
 
@@ -61,7 +61,6 @@ export default function Board() {
   }
 
   return (
-    <Flex width="full" height="100%" align="center" justifyContent="center">
       <Grid
         templateColumns={`repeat(${gameState.width}, 1fr)`}
         templateRows={`repeat(${gameState.height}, 1fr)`}
@@ -73,6 +72,5 @@ export default function Board() {
       >
         {grid}
       </Grid>
-    </Flex>
   );
 }

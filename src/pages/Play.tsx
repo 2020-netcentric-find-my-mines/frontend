@@ -53,14 +53,18 @@ export default function Play() {
         alignItems="center"
         justifyContent="center"
       >
-        <Flex>
+        <Flex direction="row">
           <Flex direction="column">
             <Info />
             <Board />
-            <Button onClick={emitResetBoard}>Reset Game</Button>
-            <Link to="/">
-              <Button onClick={emitDisconnect}>Disconnect</Button>
-            </Link>
+            <Flex direction="row" justifyContent="center" marginTop="4">
+              <Button onClick={emitResetBoard} padding="2" marginRight="2">
+                Reset Game
+              </Button>
+              <Button onClick={emitDisconnect} padding="2">
+                <Link to="/">Disconnect</Link>
+              </Button>
+            </Flex>
           </Flex>
           <Divider orientation="vertical" />
           <Chat />
