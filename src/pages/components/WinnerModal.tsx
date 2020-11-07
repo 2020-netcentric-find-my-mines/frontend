@@ -6,7 +6,6 @@ import {
   ModalHeader,
   ModalFooter,
   ModalBody,
-  ModalCloseButton,
   Button,
 } from "@chakra-ui/core";
 import { GameContext } from "../../contexts/useGame";
@@ -18,6 +17,7 @@ export default function WinnerModal() {
     const players = gameState.players;
     let maxScore = 0;
     let winner = "";
+
     for (let i = 0; i < players.length; i++) {
       if (players[i].score > maxScore) {
         maxScore = players[i].score;
@@ -43,7 +43,6 @@ export default function WinnerModal() {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Congratulations!</ModalHeader>
-          <ModalCloseButton />
           <ModalBody>The winner(s) = {findWinner()}</ModalBody>
           <ModalFooter>
             <Button
@@ -53,7 +52,7 @@ export default function WinnerModal() {
                 gameDispatch({ type: "SHOW_WINNER", payload: false });
               }}
             >
-              Exit
+              Close
             </Button>
           </ModalFooter>
         </ModalContent>

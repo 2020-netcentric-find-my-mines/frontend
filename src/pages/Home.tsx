@@ -144,6 +144,7 @@ export default function Home() {
               mt={4}
               variantColor="teal"
               variant="solid"
+              isDisabled={name === "" ? true : false}
               onClick={handleSubmit}
             >
               Continue

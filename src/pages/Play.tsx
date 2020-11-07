@@ -56,7 +56,10 @@ export default function Play() {
         <Flex direction="row">
           <Flex direction="column">
             <Info />
-            <Board />
+            <Flex justifyContent="center" alignContent="center">
+              <Board />
+            </Flex>
+
             <Flex direction="row" justifyContent="center" marginTop="4">
               <Button onClick={emitResetBoard} padding="2" marginRight="2">
                 Reset Game
