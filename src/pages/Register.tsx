@@ -78,29 +78,32 @@ export default function Register() {
         </Box>
         <Box mt={4} textAlign="left" justifyItems="center">
           <FormControl>
-            <FormLabel mb="2">Username:</FormLabel>
+            <FormLabel>Username:</FormLabel>
             <Input
               type="text"
               name="username"
               variant="outline"
               value={username}
               onChange={handleChange}
+              mb="3"
             />
-            <FormLabel mb="2">Email:</FormLabel>
+            <FormLabel>Email:</FormLabel>
             <Input
               type="text"
               name="email"
               variant="outline"
               value={email}
               onChange={handleChange}
+              mb="3"
             />
-            <FormLabel mb="2">Password:</FormLabel>
+            <FormLabel>Password:</FormLabel>
             <Input
               type="text"
               name="password"
               variant="outline"
               value={password}
               onChange={handleChange}
+              mb="3"
             />
           </FormControl>
           <Button

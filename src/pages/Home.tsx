@@ -36,7 +36,7 @@ export default function Home() {
         duration: 3000,
         isClosable: true,
       });
-      gameDispatch({ type: "TOASTED", payload: null })
+      gameDispatch({ type: "TOASTED", payload: null });
     }
   }, [toast, gameState, gameDispatch]);
 
@@ -106,7 +106,7 @@ export default function Home() {
 
         <Box my={4} textAlign="left" justifyItems="center">
           <FormControl>
-            <FormLabel mb="1">Name:</FormLabel>
+            <FormLabel>Name:</FormLabel>
             <Input
               mb="3"
               name="name"
@@ -118,7 +118,7 @@ export default function Home() {
             />
           </FormControl>
           <FormControl>
-            <FormLabel mb="1">Email:</FormLabel>
+            <FormLabel>Email:</FormLabel>
             <Input
               mb="3"
               type="text"
@@ -130,7 +130,7 @@ export default function Home() {
             />
           </FormControl>
           <FormControl>
-            <FormLabel mb="1">Password:</FormLabel>
+            <FormLabel>Password:</FormLabel>
             <Input
               type="text"
               name="password"

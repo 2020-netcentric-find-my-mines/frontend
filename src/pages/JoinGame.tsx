@@ -81,7 +81,7 @@ export default function JoinGame() {
             <Flex>{playerListBox}</Flex>
             <Box textAlign="left" justifyItems="center" mt={playerList.length === 0 ? 2 : 0}>
               <FormControl>
-                <FormLabel mb="2">Enter Game ID:</FormLabel>
+                <FormLabel mb="1">Enter Game ID:</FormLabel>
                 <Input
                   type="text"
                   placeholder="Ex: XRTMK35"
