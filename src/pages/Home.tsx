@@ -103,7 +103,7 @@ export default function Home() {
           </FormControl>
           <FormControl>
             <FormLabel mb="1">Email:</FormLabel>
-            <Input type="text" name="email" placeholder="Leave blank for guest" variant="outline" value={email} onChange={handleChange}/>
+            <Input mb="3" type="text" name="email" placeholder="Leave blank for guest" variant="outline" value={email} onChange={handleChange}/>
           </FormControl>
           <FormControl>
             <FormLabel mb="1">Password:</FormLabel>
