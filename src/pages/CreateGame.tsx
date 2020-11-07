@@ -100,6 +100,14 @@ export default function CreateGame() {
     emitEvent("SET_MAX_PLAYER", maxPlayers);
     emitEvent("SET_NUMBER_OF_BOMB", numberOfBombs);
     emitEvent("SET_BOARD_SIZE", boardSize, boardSize);
+    toast({
+      title: "Notice",
+      description: "The configuration is applied",
+      status: "info",
+      position: "top",
+      duration: 1500,
+      isClosable: true,
+    });
   }
 
   const gameParameters =
