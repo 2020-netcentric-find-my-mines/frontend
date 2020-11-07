@@ -71,11 +71,19 @@ export default function Chat() {
     }
 
     const chatView: JSX.Element[] = []
-    let key = 0
+    let chatKey = 0
     chatData.forEach((chatDatum) => chatView.push(
-        <Text key={key++}>{chatDatum.username} : {chatDatum.message}</Text>
+        <Text key={chatKey++}>{chatDatum.username} : {chatDatum.message}</Text>
     ))
     const truncatedChatView = chatView.slice(Math.max(0, chatView.length - CHAT_MAX_NUMBER))
+
+    const scoreView: JSX.Element[] = []
+    let playerKey = 0
+    gameState.players.forEach((player) => scoreView.push(
+        <Text>
+            <span style={{ fontWeight: "bold" }}>{player.name?.length === 0 ? "Player " + ++playerKey : player.name}: </span><span style={{ color: "orange" }}>{player.score}</span>
+        </Text>
+    ))
 
     return (
         <Flex direction="column">
@@ -83,12 +91,7 @@ export default function Chat() {
                 <Flex fontWeight="bold" fontSize="xl" justifyContent="center" pb="2">
                     Scores
                 </Flex>
-                <Text>
-                <span style={{ fontWeight: "bold" }}>{gameState.players[0].name?.length === 0 ? "Player 1" : gameState.players[0].name}: </span><span style={{ color: "orange" }}>{gameState.players[0].score}</span>
-                </Text>
-                <Text>
-                <span style={{ fontWeight: "bold" }}>{gameState.players[1].name?.length === 0 ? "Player 2" : gameState.players[1].name}: </span><span style={{ color: "orange" }}>{gameState.players[1].score}</span>
-                </Text>
+                {scoreView}
                 <Text fontWeight="light" pt={2}>
                     There are {gameState.players.length} players online
                 </Text>

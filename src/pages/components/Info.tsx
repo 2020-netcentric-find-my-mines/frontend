@@ -13,13 +13,16 @@ export default function Info() {
                 Find My Mines
             </Heading>
             <Text>
-                It is {gameState.currentPlayer === socket.id ? "YOUR" : gameState.currentPlayerName + "'s"} turn.
-            </Text>
-            <Text>
-                {gameState.currentPlayer === socket.id ? `${gameState.tick} seconds left!` : "Please wait..."}
+                Game ID: {gameState.id}
             </Text>
             <Text mb={4}>
                 Player: {gameState.name}
+            </Text>
+            <Text>
+                It is <span style={{ color: gameState.currentPlayer === socket.id ? "orange" : ""}}>{gameState.currentPlayer === socket.id ? "YOUR" : gameState.currentPlayerName + "'s"}</span> turn.
+            </Text>
+            <Text mb={4}>
+                {gameState.currentPlayer === socket.id ? `${gameState.tick} seconds left!` : "Please wait..."}
             </Text>
         </Flex>
     )
