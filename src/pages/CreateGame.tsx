@@ -113,6 +113,7 @@ export default function CreateGame() {
   const gameParameters =
     gameState.id !== "" ? (
       <Box
+        width="full"
         p={5}
         m={5}
         bg={colorMode === "light" ? "gray.100" : "gray.500"}
@@ -121,8 +122,8 @@ export default function CreateGame() {
         <Text fontSize="xs" fontWeight="medium">
           Game ID:
         </Text>
-        <Text py="1" rounded="md" fontWeight="bold">
-          <span style={{ color: "orange" }}>{gameState.id}</span>
+        <Text py="1" rounded="md" fontWeight="bold" color="orange.300">
+          {gameState.id}
         </Text>
 
         <Text mt="2" fontSize="xs" fontWeight="medium">
@@ -215,6 +216,7 @@ export default function CreateGame() {
 
   const playerListBox = (
     <Box
+      width="full"
       p={5}
       m={5}
       bg={colorMode === "light" ? "gray.100" : "gray.500"}
@@ -247,16 +249,16 @@ export default function CreateGame() {
             <Box textAlign="center">
               <Heading>Create Game</Heading>
             </Box>
+            <Flex direction="row">
+              {gameParameters}
+              {playerListBox}
+            </Flex>
 
-            {gameParameters}
-            {playerListBox}
-
-            <Box mt={4} textAlign="left" justifyItems="center">
+            <Box mt={2} textAlign="left" justifyItems="center">
               <Button
                 isLoading={started}
                 loadingText="Starting..."
                 width="full"
-                mt={4}
                 variantColor={gameState.id === "" ? "teal" : "orange"}
                 variant="solid"
                 onClick={gameState.id === "" ? createGame : startGame}
