@@ -18,6 +18,7 @@ const initialState = {
   tick: 10,
   playerJoined: false,
   showWinnerModal: false,
+  winner: []
 };
 
 const initializeCoordinate = (boardWidth: number, boardHeight: number) => {
@@ -54,6 +55,11 @@ const gameReducer = (state: IGame, action: IAction) => {
       return {
         ...state,
         tick: payload,
+      };
+      case "WINNER":
+      return {
+        ...state,
+        winner: payload,
       };
     case "SET_GAME_ID":
       return {

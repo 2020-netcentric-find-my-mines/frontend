@@ -22,6 +22,7 @@ export interface IGame {
   tick: number;
   playerJoined: boolean;
   showWinnerModal: boolean;
+  winner: IPlayer[]
 }
 
 export interface IGameContext {

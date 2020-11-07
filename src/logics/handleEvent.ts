@@ -26,9 +26,10 @@ export function onSocketEvent(
     console.log("SET_PLAYER_NAME_FEEDBACK", payload);
   });
 
-  socket.on(SocketEvent.WINNER, (payload: IPayload) => {
+  socket.on(SocketEvent.WINNER, (payload: any) => {
     console.log("WINNER", payload);
     gameDispatch({ type: "SHOW_WINNER", payload: true });
+    gameDispatch({ type: "WINNER", payload: payload.winner })
   });
 
   socket.on(SocketEvent.TICK, (tick: number) => {

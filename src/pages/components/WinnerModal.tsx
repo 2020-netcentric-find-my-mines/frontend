@@ -13,28 +13,58 @@ import { GameContext } from "../../contexts/useGame";
 export default function WinnerModal() {
   const { gameState, gameDispatch } = useContext(GameContext);
 
-  function findWinner(): string {
-    const players = gameState.players;
-    let maxScore = 0;
-    let winner = "";
+  // function findWinner(): string {
+  //   const players = gameState.players;
+  //   let maxScore = 0;
+  //   let winner = "";
 
-    for (let i = 0; i < players.length; i++) {
-      if (players[i].score > maxScore) {
-        maxScore = players[i].score;
-      }
-    }
-    for (let i = 0; i < players.length; i++) {
-      console.log(maxScore);
-      console.log(players[i].name);
-      console.log(players[i].score);
-      if (players[i].score === maxScore) {
-        if (winner !== "") {
-          winner = winner + " ";
+  //   for (let i = 0; i < players.length; i++) {
+  //     if (players[i].score > maxScore) {
+  //       maxScore = players[i].score;
+  //     }
+  //   }
+  //   for (let i = 0; i < players.length; i++) {
+  //     console.log(maxScore);
+  //     console.log(players[i].name);
+  //     console.log(players[i].score);
+  //     if (players[i].score === maxScore) {
+  //       if (winner !== "") {
+  //         winner = winner + " ";
+  //       }
+  //       winner = winner + players[i].name;
+  //     }
+  //   }
+  //   return winner;
+  // }
+
+  function findWinner(): string {
+    const winner = gameState.winner;
+    console.log(winner);
+    console.log(winner.length + "leng");
+    if (winner.length === 1) {
+      return (
+        "The winner is " +
+        winner[0].name +
+        " with a score of " +
+        winner[0].score
+      );
+    } else if (winner.length > 1) {
+      let tiePlayers = "";
+      for (let i = 0; i < winner.length; i++) {
+        if (tiePlayers !== "") {
+          tiePlayers = tiePlayers + " ";
         }
-        winner = winner + players[i].name;
+        tiePlayers = tiePlayers + winner[i].name;
       }
+      return (
+        "There is a tie between " +
+        tiePlayers +
+        " with a score of " +
+        winner[0].score
+      );
+    } else {
+      return "";
     }
-    return winner;
   }
 
   return (
@@ -43,7 +73,7 @@ export default function WinnerModal() {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Congratulations!</ModalHeader>
-          <ModalBody>The winner(s) = {findWinner()}</ModalBody>
+          <ModalBody>{findWinner()}</ModalBody>
           <ModalFooter>
             <Button
               variantColor="blue"
