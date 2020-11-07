@@ -13,6 +13,11 @@ export function onSocketEvent(socket: SocketIOClient.Socket, gameDispatch: Dispa
     console.log("SET_PLAYER_NAME_FEEDBACK", payload);
   });
 
+  socket.on(SocketEvent.WINNER, (payload: IPayload) => {
+    console.log("WINNER", payload);
+    gameDispatch({ type: "SHOW_WINNER", payload: true });
+  });
+
   socket.on(SocketEvent.TICK, (tick: number) => {
     gameDispatch({ type: "SET_TICK", payload: tick });
   });

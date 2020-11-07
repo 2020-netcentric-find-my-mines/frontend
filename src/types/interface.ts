@@ -21,6 +21,7 @@ export interface IGame {
   coordinates: ICoordinate[]
   tick: number
   playerJoined: boolean
+  showWinnerModal: boolean
 }
 
 export interface IGameContext {

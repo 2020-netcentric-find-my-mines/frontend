@@ -7,6 +7,7 @@ import Info from "./components/Info";
 import Chat from "./components/Chat";
 import { SocketContext } from "../contexts/useSocket";
 import SocketEvent from "../socket-event";
+import WinnerModal from "./components/WinnerModal";
 
 export default function Play() {
   const { gameState } = useContext(GameContext);
@@ -33,7 +34,7 @@ export default function Play() {
       </div>
     );
   }
-  
+
 
   return (
     <Flex
@@ -43,7 +44,8 @@ export default function Play() {
       position="absolute"
       justifyContent="center"
       bg={colorMode === "light" ? "gray.50" : "gray.700"}
-    > 
+    >
+    <WinnerModal />
       <Box
         p={10}
         bg={colorMode === "light" ? "white" : "gray.600"}
