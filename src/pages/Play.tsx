@@ -20,7 +20,7 @@ export default function Play() {
   }
 
   function emitDisconnect() {
-    emitEvent(SocketEvent.DISCONNECT);
+    emitEvent(SocketEvent.LEAVE_GAME);
   }
 
   if (!gameState.started) {
