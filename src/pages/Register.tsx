@@ -1,5 +1,7 @@
 import React, {useState} from "react"
+import { Link } from "react-router-dom"
 import { Flex, Box, Button, Heading, useColorMode, FormControl, FormLabel, Input } from "@chakra-ui/core"
+import axios from "axios"
 
 export function Register() {
     const { colorMode } = useColorMode();
@@ -12,6 +14,9 @@ export function Register() {
         } else if (event.target.name === "email") {
             setEmail(event.target.value)
         }
+    }
+
+    function handleSubmit() {
     }
 
     return (
@@ -54,27 +59,22 @@ export function Register() {
                 />
               </FormControl>
               <Button
-                isLoading={started}
-                loadingText="Starting..."
                 width="full"
                 mt={4}
-                variantColor={
-                  gameState.playerJoined === true ? "orange" : "teal"
-                }
+                variantColor="teal"
                 variant="solid"
-                onClick={gameState.playerJoined === true ? startGame : joinGame}
+                onClick={handleSubmit}
                 fontSize="sm"
               >
-                {gameState.playerJoined === true ? "Start Game" : "Join Game"}
+                Register
               </Button>
-              <Link to="/create">
-                <Button isLoading={started} width="full" mt="2" fontSize="sm" color={colorMode === "light" ? "gray.600" : "gray.300"}>
-                  Create game
+              <Link to="/">
+                <Button width="full" mt="2" fontSize="sm">
+                    Back
                 </Button>
               </Link>
             </Box>
           </Box>
         </Flex>
-
     )
 }
