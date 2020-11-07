@@ -31,7 +31,7 @@ export default function Home() {
       description: "Have a great day!",
       status: "success",
       position: "top",
-      duration: 5000,
+      duration: 3000,
       isClosable: true,
     })
   }, [toast]);
@@ -98,7 +98,7 @@ export default function Home() {
             </Button>
           </Link>
           <Button width="full" mt="2" fontSize="sm" color={colorMode === "light" ? "gray.600" : "gray.300"} onClick={toggleColorMode}>
-            Toggle {colorMode === "light" ? "Dark" : "Light"} 
+            Toggle {colorMode === "light" ? "Dark" : "Light"}
           </Button>
         </Box>
       </Box>
