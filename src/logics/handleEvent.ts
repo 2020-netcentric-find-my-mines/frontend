@@ -1,6 +1,6 @@
 import SocketEvent from "../socket-event"
 import { Dispatch, ReducerAction, Reducer } from 'react'
-import { IGame, IAction, IPayload, IPlayer } from "../types/interface"
+import { IGame, IAction, IPayload, IPlayer, IMemberPayload, IMemberChangePayload } from "../types/interface"
 
 export function onSocketEvent(socket: SocketIOClient.Socket, gameDispatch: Dispatch<ReducerAction<Reducer<IGame, IAction>>>) {
   socket.on(SocketEvent.CREATE_GAME_FEEDBACK, (payload: IPayload) => {
@@ -52,4 +52,28 @@ export function onSocketEvent(socket: SocketIOClient.Socket, gameDispatch: Dispa
       })
     }
   });
+
+  socket.on(SocketEvent.MEMBER_JOINED_GAME, (payload: IMemberPayload) => {
+    console.log("MEMBER_JOINED_GAME", payload)
+    gameDispatch({
+      type: "MEMBER_JOINED",
+      payload: payload.member,
+    })
+  })
+
+  socket.on(SocketEvent.MEMBER_LEFT_GAME, (payload: IMemberPayload) => {
+    console.log("MEMBER_LEFT_GAME", payload)
+    gameDispatch({
+      type: "MEMBER_LEFT",
+      payload: payload.member,
+    })
+  })
+
+  socket.on(SocketEvent.MEMBER_CHANGED_TYPE, (payload: IMemberChangePayload) => {
+    console.log("MEMBER_CHANGED_TYPE", payload)
+    gameDispatch({
+      type: "MEMBER_CHANGED",
+      payload: payload,
+    })
+  })
 }
