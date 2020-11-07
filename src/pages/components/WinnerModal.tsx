@@ -1,35 +1,35 @@
 import React, { useContext } from "react";
 import {
-   Modal,
-   ModalOverlay,
-   ModalContent,
-   ModalHeader,
-   ModalFooter,
-   ModalBody,
-   ModalCloseButton,
-   Button,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  Button,
 } from "@chakra-ui/core";
-import { GameContext } from '../../contexts/useGame'
+import { GameContext } from "../../contexts/useGame";
 
 export default function WinnerModal() {
-  const { gameState, gameDispatch } = useContext(GameContext)
+  const { gameState, gameDispatch } = useContext(GameContext);
 
-  function findWinner():string{
+  function findWinner(): string {
     const players = gameState.players;
     let maxScore = 0;
     let winner = "";
-    for (let i = 0; i < players.length -1; i++){
-      if (players[i].score > maxScore){
-      maxScore = players[i].score;
+    for (let i = 0; i < players.length; i++) {
+      if (players[i].score > maxScore) {
+        maxScore = players[i].score;
+      }
     }
-    }
-    for (let i = 0; i < players.length-1; i++) {
-      console.log(maxScore)
-      console.log(players[i].name)
-      console.log(players[i].score)
+    for (let i = 0; i < players.length; i++) {
+      console.log(maxScore);
+      console.log(players[i].name);
+      console.log(players[i].score);
       if (players[i].score === maxScore) {
         if (winner !== "") {
-          winner = winner + " "
+          winner = winner + " ";
         }
         winner = winner + players[i].name;
       }
@@ -37,18 +37,22 @@ export default function WinnerModal() {
     return winner;
   }
 
-  return(
+  return (
     <>
-      <Modal isOpen={gameState.showWinnerModal} >
+      <Modal isOpen={gameState.showWinnerModal}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Congratulations!</ModalHeader>
           <ModalCloseButton />
-          <ModalBody>
-            The winner(s) = {findWinner()}
-          </ModalBody>
+          <ModalBody>The winner(s) = {findWinner()}</ModalBody>
           <ModalFooter>
-            <Button variantColor="blue" mr={3} onClick={() => {gameDispatch({ type: "SHOW_WINNER", payload: false })}}>
+            <Button
+              variantColor="blue"
+              mr={3}
+              onClick={() => {
+                gameDispatch({ type: "SHOW_WINNER", payload: false });
+              }}
+            >
               Exit
             </Button>
           </ModalFooter>

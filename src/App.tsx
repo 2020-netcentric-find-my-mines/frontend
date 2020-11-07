@@ -33,30 +33,30 @@ function App() {
       <Router basename="/">
         <ThemeProvider theme={customTheme}>
           <ColorModeProvider>
-          <CSSReset />
-          <Switch>
-            <Route exact path="/">
-              <Home />
-            </Route>
-            <Route path="/play">
-              <Play />
-            </Route>
+            <CSSReset />
             <Switch>
-              <Route path="/create">
-                <CreateGame />
+              <Route exact path="/">
+                <Home />
               </Route>
-              <Route path="/join">
-                <JoinGame />
+              <Route path="/play">
+                <Play />
               </Route>
-              <Route path="/quick-game">Quick Game</Route>
-              <Route path="/register">
-                <Register />
-              </Route>
-              <Route path="/leaderboard">
-                <Leaderboard />
-              </Route>
+              <Switch>
+                <Route path="/create">
+                  <CreateGame />
+                </Route>
+                <Route path="/join">
+                  <JoinGame />
+                </Route>
+                <Route path="/quick-game">Quick Game</Route>
+                <Route path="/register">
+                  <Register />
+                </Route>
+                <Route path="/leaderboard">
+                  <Leaderboard />
+                </Route>
+              </Switch>
             </Switch>
-          </Switch>
           </ColorModeProvider>
         </ThemeProvider>
       </Router>

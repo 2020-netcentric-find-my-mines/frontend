@@ -21,12 +21,11 @@ export default function JoinGame() {
   const [started, setStarted] = useState(false);
   const { colorMode } = useColorMode();
 
-
   function joinGame() {
     emitEvent(SocketEvent.JOIN_GAME, textfield);
   }
   function startGame() {
-    setStarted(true)
+    setStarted(true);
     emitEvent(SocketEvent.START_GAME, null);
   }
 
@@ -82,7 +81,13 @@ export default function JoinGame() {
                 {gameState.playerJoined === true ? "Start Game" : "Join Game"}
               </Button>
               <Link to="/create">
-                <Button isLoading={started} width="full" mt="2" fontSize="sm" color={colorMode === "light" ? "gray.600" : "gray.300"}>
+                <Button
+                  isLoading={started}
+                  width="full"
+                  mt="2"
+                  fontSize="sm"
+                  color={colorMode === "light" ? "gray.600" : "gray.300"}
+                >
                   Create game
                 </Button>
               </Link>

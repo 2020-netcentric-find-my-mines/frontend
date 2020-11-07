@@ -60,11 +60,11 @@ const gameReducer = (state: IGame, action: IAction) => {
         ...state,
         id: payload,
       };
-      case "SHOW_WINNER":
-        return {
-          ...state,
-          showWinnerModal: payload,
-        };
+    case "SHOW_WINNER":
+      return {
+        ...state,
+        showWinnerModal: payload,
+      };
     case "RESET_BOARD":
       let coordinates = [];
       for (let x = 0; x < state.width; x++) {
@@ -77,14 +77,14 @@ const gameReducer = (state: IGame, action: IAction) => {
           });
         }
       }
-      let players = state.players
-      players.map( player => {
-        return player.score = 0
-      })
+      let players = state.players;
+      players.map((player) => {
+        return (player.score = 0);
+      });
       return {
         ...state,
         coordinates: coordinates,
-        players: payload.players
+        players: payload.players,
       };
     case "INITIALIZE":
       return {
@@ -115,59 +115,62 @@ const gameReducer = (state: IGame, action: IAction) => {
       return {
         ...state,
         currentPlayer: payload.id,
-        currentPlayerName: (payload.name === null || payload.name === "") ? "Anonymous" : payload.name,
+        currentPlayerName:
+          payload.name === null || payload.name === ""
+            ? "Anonymous"
+            : payload.name,
       };
     case "SET_PLAYER_NAME":
       return {
         ...state,
-        name: (payload === null || payload === "") ? "Anonymous" : payload,
-      }
+        name: payload === null || payload === "" ? "Anonymous" : payload,
+      };
     case "SET_PLAYERS":
       return {
         ...state,
         players: payload,
-      }
+      };
     case "UPDATE_PLAYERS_SCORE":
       return {
         ...state,
         players: payload,
-      }
+      };
     case "MEMBER_JOINED":
-      const playersAfterJoined = state.players
+      const playersAfterJoined = state.players;
       if (payload.type === "player") {
-        playersAfterJoined.push(payload)
+        playersAfterJoined.push(payload);
       }
       return {
         ...state,
         players: playersAfterJoined,
-      }
+      };
     case "MEMBER_LEFT":
-      const playersAfterLeft = state.players
+      const playersAfterLeft = state.players;
       if (payload.type === "player") {
-        playersAfterLeft.splice(playersAfterLeft.indexOf(payload), 1)
+        playersAfterLeft.splice(playersAfterLeft.indexOf(payload), 1);
       }
       return {
         ...state,
-        players: playersAfterLeft
-      }
+        players: playersAfterLeft,
+      };
     case "MEMBER_CHANGED":
       if (payload.newType === "player") {
-        const playersAfterJoined = state.players
-        playersAfterJoined.push(payload.member)
+        const playersAfterJoined = state.players;
+        playersAfterJoined.push(payload.member);
 
         return {
           ...state,
           players: playersAfterJoined,
-        }
+        };
       } else if (payload.newType === "spectator") {
-        const playersAfterLeft = state.players
-        playersAfterLeft.splice(playersAfterLeft.indexOf(payload.member), 1)
+        const playersAfterLeft = state.players;
+        playersAfterLeft.splice(playersAfterLeft.indexOf(payload.member), 1);
         return {
           ...state,
-          players: playersAfterLeft
-        }
+          players: playersAfterLeft,
+        };
       }
-      return state
+      return state;
     default:
       return state;
   }

@@ -12,17 +12,17 @@ import WinnerModal from "./components/WinnerModal";
 export default function Play() {
   const { gameState } = useContext(GameContext);
   const { colorMode } = useColorMode();
-  const { emitEvent } = useContext(SocketContext)
+  const { emitEvent } = useContext(SocketContext);
 
   function emitResetBoard() {
-    console.log(SocketEvent.RESET_BOARD)
-    emitEvent(SocketEvent.RESET_BOARD, null)
+    console.log(SocketEvent.RESET_BOARD);
+    emitEvent(SocketEvent.RESET_BOARD, null);
   }
 
   function emitDisconnect() {
-    emitEvent(SocketEvent.DISCONNECT)
+    emitEvent(SocketEvent.DISCONNECT);
   }
-  
+
   if (!gameState.started) {
     return (
       <div>
@@ -35,7 +35,6 @@ export default function Play() {
     );
   }
 
-
   return (
     <Flex
       width="full"
@@ -45,7 +44,7 @@ export default function Play() {
       justifyContent="center"
       bg={colorMode === "light" ? "gray.50" : "gray.700"}
     >
-    <WinnerModal />
+      <WinnerModal />
       <Box
         p={10}
         bg={colorMode === "light" ? "white" : "gray.600"}
@@ -58,13 +57,9 @@ export default function Play() {
           <Flex direction="column">
             <Info />
             <Board />
-            <Button onClick={emitResetBoard}>
-              Reset Game
-            </Button>
+            <Button onClick={emitResetBoard}>Reset Game</Button>
             <Link to="/">
-              <Button onClick={emitDisconnect}>
-                Disconnect
-              </Button>
+              <Button onClick={emitDisconnect}>Disconnect</Button>
             </Link>
           </Flex>
           <Divider orientation="vertical" />
