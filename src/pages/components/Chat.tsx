@@ -49,6 +49,9 @@ export default function Chat() {
 
     const handleSubmit = () => {
         console.log(gameState.id, gameState.name)
+        if (chat === "" || chat === null) {
+            return
+        }
         setChat("")
         axios.post('https://asia-southeast2-findmymines.cloudfunctions.net/addChatMessage/',
             qs.stringify({
