@@ -191,6 +191,29 @@ export default function CreateGame() {
     </Box>
   ) : <></>
 
+  const playerList: JSX.Element[] = []
+  let playerKey = 0
+  gameState.players.forEach((player) => playerList.push(
+    <Text key={playerKey++}>{player.name === "" || player.name === null ? "Anonymous" : player.name}</Text>)
+  )
+  if (playerList.length === 0) {
+    playerList.push(<Text key={playerKey++}>None</Text>)
+  } 
+
+  const playerListBox = (
+    <Box
+      p={5}
+      m={5}
+      bg={colorMode === "light" ? "gray.100" : "gray.500"}
+      borderRadius={10}
+    >
+      <Text as="u">
+        Players joined:
+      </Text>
+      {playerList}
+    </Box>
+  )
+
   return (
     <>
       {gameState.started ? (
@@ -215,6 +238,7 @@ export default function CreateGame() {
             </Box>
 
             {gameParameters}
+            {playerListBox}
 
             <Box mt={4} textAlign="left" justifyItems="center">
               <Button
