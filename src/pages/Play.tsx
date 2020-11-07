@@ -17,6 +17,10 @@ export default function Play() {
     console.log(SocketEvent.RESET_BOARD)
     emitEvent(SocketEvent.RESET_BOARD, null)
   }
+
+  function emitDisconnect() {
+    emitEvent(SocketEvent.DISCONNECT)
+  }
   
   if (!gameState.started) {
     return (
@@ -55,6 +59,11 @@ export default function Play() {
             <Button onClick={emitResetBoard}>
               Reset Game
             </Button>
+            <Link to="/">
+              <Button onClick={emitDisconnect}>
+                Disconnect
+              </Button>
+            </Link>
           </Flex>
           <Divider orientation="vertical" />
           <Chat />
