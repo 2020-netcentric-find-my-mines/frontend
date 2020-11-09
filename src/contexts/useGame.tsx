@@ -157,10 +157,10 @@ const gameReducer = (state: IGame, action: IAction) => {
         players: playersAfterJoined,
       };
     case "MEMBER_LEFT":
-      const playersAfterLeft = state.players;
-      if (payload.type === "player") {
-        playersAfterLeft.splice(playersAfterLeft.indexOf(payload), 1);
-      }
+      const playersAfterLeft = payload.type === "player" ? state.players.filter((player) => {
+        return player.id !== payload.id
+      }) : state.players
+      
       return {
         ...state,
         players: playersAfterLeft,
@@ -175,8 +175,10 @@ const gameReducer = (state: IGame, action: IAction) => {
           players: playersAfterJoined,
         };
       } else if (payload.newType === "spectator") {
-        const playersAfterLeft = state.players;
-        playersAfterLeft.splice(playersAfterLeft.indexOf(payload.member), 1);
+        const playersAfterLeft = payload.type === "player" ? state.players.filter((player) => {
+          return player.id !== payload.id
+        }) : state.players
+
         return {
           ...state,
           players: playersAfterLeft,
