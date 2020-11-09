@@ -20,7 +20,7 @@ export default function Play() {
       emitEvent(SocketEvent.RESET_BOARD, false);
     } else {
       emitEvent(SocketEvent.RESET_BOARD, true)
-      gameDispatch({ type: "SET_CURRENT_PLAYER", payload: [] });
+      gameDispatch({ type: "WINNER", payload: [] });
     }
     
   }
