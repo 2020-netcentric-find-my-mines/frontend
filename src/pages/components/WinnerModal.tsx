@@ -39,8 +39,6 @@ export default function WinnerModal() {
 
   function findWinner(): string {
     const winner = gameState.winner;
-    console.log(winner);
-    console.log(winner.length + "leng");
     if (winner.length === 1) {
       return (
         "The winner is " +
