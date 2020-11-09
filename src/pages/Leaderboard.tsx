@@ -80,21 +80,21 @@ export default function Leaderboard() {
         {leaderboard.current.allTime[0].username} :{" "}
         {leaderboard.current.allTime[0].totalGamesWon} Wins
       </Text>
-      <Text color="gray.400">{leaderboard.current.allTime[0].email}</Text>
+      <Text fontSize="xs" color="gray.400">{leaderboard.current.allTime[0].email}</Text>
       <Divider />
       <Heading as="h4" mb="2">Weekly</Heading>
       <Text color="gray.400">
         {leaderboard.current.week[0].username} :{" "}
         {leaderboard.current.week[0].gamesWonWeek} Wins
       </Text>
-      <Text color="gray.400">{leaderboard.current.week[0].email}</Text>
+      <Text fontSize="xs" color="gray.400">{leaderboard.current.week[0].email}</Text>
       <Divider />
       <Heading as="h4" mb="2">Daily</Heading>
       <Text color="gray.400">
         {leaderboard.current.day[0].username} :{" "}
         {leaderboard.current.day[0].gamesWonDay} Wins
       </Text>
-      <Text color="gray.400">{leaderboard.current.day[0].email}</Text>
+      <Text fontSize="xs" color="gray.400">{leaderboard.current.day[0].email}</Text>
       <Divider />
       <Link to="/">
         <Button width="full" mt="2" fontSize="sm">

@@ -116,6 +116,17 @@ export default function JoinGame() {
                   Create game
                 </Button>
               </Link>
+              <Link to="/">
+                <Button
+                  isLoading={started}
+                  width="full"
+                  mt="2"
+                  fontSize="sm"
+                  color={colorMode === "light" ? "gray.600" : "gray.300"}
+                >
+                  Back
+                </Button>
+              </Link>
             </Box>
           </Box>
         </Flex>

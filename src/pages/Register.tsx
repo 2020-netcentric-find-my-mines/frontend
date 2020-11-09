@@ -78,15 +78,6 @@ export default function Register() {
         </Box>
         <Box mt={4} textAlign="left" justifyItems="center">
           <FormControl>
-            <FormLabel>Username:</FormLabel>
-            <Input
-              type="text"
-              name="username"
-              variant="outline"
-              value={username}
-              onChange={handleChange}
-              mb="3"
-            />
             <FormLabel>Email:</FormLabel>
             <Input
               type="text"
