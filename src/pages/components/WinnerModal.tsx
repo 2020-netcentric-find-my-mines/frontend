@@ -52,12 +52,12 @@ export default function WinnerModal() {
       let tiePlayers = "";
       for (let i = 0; i < winner.length; i++) {
         if (tiePlayers !== "") {
-          tiePlayers = tiePlayers + " ";
+          tiePlayers = tiePlayers + ", ";
         }
         tiePlayers = tiePlayers + winner[i].name;
       }
       return (
-        "There is a tie between " +
+        "Tie between " +
         tiePlayers +
         " with a score of " +
         winner[0].score
@@ -72,7 +72,7 @@ export default function WinnerModal() {
       <Modal isOpen={gameState.showWinnerModal}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Congratulations!</ModalHeader>
+  <ModalHeader>{gameState.winner.length == 1 ? "Congratulations" : "Tie"}!</ModalHeader>
           <ModalBody>{findWinner()}</ModalBody>
           <ModalFooter>
             <Button
