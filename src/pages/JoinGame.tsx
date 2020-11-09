@@ -65,7 +65,7 @@ export default function JoinGame() {
           width="full"
           height="100%"
           align="center"
-          position="absolute"
+          minHeight="100vh"
           justifyContent="center"
           bg={colorMode === "light" ? "gray.50" : "gray.700"}
         >
@@ -114,6 +114,17 @@ export default function JoinGame() {
                   color={colorMode === "light" ? "gray.600" : "gray.300"}
                 >
                   Create game
+                </Button>
+              </Link>
+              <Link to="/">
+                <Button
+                  isLoading={started}
+                  width="full"
+                  mt="2"
+                  fontSize="sm"
+                  color={colorMode === "light" ? "gray.600" : "gray.300"}
+                >
+                  Back
                 </Button>
               </Link>
             </Box>

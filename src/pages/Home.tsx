@@ -8,6 +8,8 @@ import {
   FormLabel,
   Heading,
   Input,
+  InputRightElement,
+  InputGroup,
   useColorMode,
   useToast,
 } from "@chakra-ui/core";
@@ -20,9 +22,12 @@ export default function Home() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const { gameState, gameDispatch } = useContext(GameContext);
   const { emitEvent } = useContext(SocketContext);
   const { colorMode, toggleColorMode } = useColorMode();
+
+  const handleClick = () => setShowPassword(!showPassword);
 
   const toast = useToast();
 
@@ -90,7 +95,7 @@ export default function Home() {
       width="full"
       height="100%"
       align="center"
-      position="absolute"
+      minHeight="100vh"
       justifyContent="center"
       bg={colorMode === "light" ? "gray.50" : "gray.700"}
     >
@@ -131,14 +136,21 @@ export default function Home() {
           </FormControl>
           <FormControl>
             <FormLabel>Password:</FormLabel>
-            <Input
-              type="text"
-              name="password"
-              placeholder="Leave blank for guest"
-              variant="outline"
-              value={password}
-              onChange={handleChange}
-            />
+            <InputGroup>
+              <Input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                placeholder="Leave blank for guest"
+                variant="outline"
+                value={password}
+                onChange={handleChange}
+              />
+              <InputRightElement width="4.5rem">
+                <Button h="1.75rem" size="sm" onClick={handleClick}>
+                  {showPassword ? "Hide" : "Show"}
+                </Button>
+              </InputRightElement>
+            </InputGroup>
           </FormControl>
 
           <Link to="create" style={{ textDecoration: "none" }}>

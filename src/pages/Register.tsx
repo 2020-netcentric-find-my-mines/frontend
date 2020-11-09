@@ -49,7 +49,7 @@ export default function Register() {
         console.log("Register error.", error.code, error.message);
         toast({
           title: "Register unsuccessful",
-          description: "Please try again later.",
+          description: "Password must be at least 6 characters.",
           status: "error",
           position: "top",
           duration: 5000,
@@ -63,7 +63,7 @@ export default function Register() {
       width="full"
       height="100%"
       align="center"
-      position="absolute"
+      minHeight="100vh"
       justifyContent="center"
       bg={colorMode === "light" ? "gray.50" : "gray.700"}
     >
@@ -78,15 +78,6 @@ export default function Register() {
         </Box>
         <Box mt={4} textAlign="left" justifyItems="center">
           <FormControl>
-            <FormLabel>Username:</FormLabel>
-            <Input
-              type="text"
-              name="username"
-              variant="outline"
-              value={username}
-              onChange={handleChange}
-              mb="3"
-            />
             <FormLabel>Email:</FormLabel>
             <Input
               type="text"
