@@ -31,6 +31,11 @@ export default function CreateGame() {
 
   const toast = useToast();
 
+  function back() {
+    emitEvent(SocketEvent.LEAVE_GAME);
+  }
+
+
   useEffect(() => {
     socket.on(SocketEvent.SET_BOARD_SIZE_FEEDBACK, (payload: IPayload) => {
       console.log("SELECT_BOARD_SIZE_FEEDBACK", payload);
@@ -285,11 +290,11 @@ export default function CreateGame() {
               </Link>
               <Link to="/">
                 <Button
-                  isLoading={started}
                   width="full"
                   mt="2"
                   fontSize="sm"
                   color={colorMode === "light" ? "gray.600" : "gray.300"}
+                  onClick={() => {back()}}
                 >
                   Back
                 </Button>

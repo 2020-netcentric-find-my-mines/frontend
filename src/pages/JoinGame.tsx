@@ -22,6 +22,10 @@ export default function JoinGame() {
   const [started, setStarted] = useState(false);
   const { colorMode } = useColorMode();
 
+
+  function back() {
+    emitEvent(SocketEvent.LEAVE_GAME);
+  }
   function joinGame() {
     emitEvent(SocketEvent.JOIN_GAME, textfield);
   }
@@ -118,11 +122,11 @@ export default function JoinGame() {
               </Link>
               <Link to="/">
                 <Button
-                  isLoading={started}
                   width="full"
                   mt="2"
                   fontSize="sm"
                   color={colorMode === "light" ? "gray.600" : "gray.300"}
+                  onClick={() => {back()}}
                 >
                   Back
                 </Button>

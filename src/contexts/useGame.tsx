@@ -188,7 +188,12 @@ const gameReducer = (state: IGame, action: IAction) => {
     case "LEAVE_GAME":
       return {
         ...state,
+        id: "",
         started: false,
+        playerJoined: false,
+        showWinnerModal: false,
+        winner: [],
+        players: []
       }
     default:
       return state;
