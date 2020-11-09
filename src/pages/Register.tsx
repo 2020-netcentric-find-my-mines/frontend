@@ -15,16 +15,13 @@ import firebase from "../Firebase";
 
 export default function Register() {
   const { colorMode } = useColorMode();
-  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const toast = useToast();
 
   function handleChange(event: any) {
-    if (event.target.name === "username") {
-      setUsername(event.target.value);
-    } else if (event.target.name === "email") {
+    if (event.target.name === "email") {
       setEmail(event.target.value);
     } else if (event.target.name === "password") {
       setPassword(event.target.value);
@@ -49,7 +46,8 @@ export default function Register() {
         console.log("Register error.", error.code, error.message);
         toast({
           title: "Register unsuccessful",
-          description: "Password must be at least 6 characters and account must not be already registered. Please try again later.",
+          description:
+            "Password must be at least 6 characters and account must not be already registered. Please try again later.",
           status: "error",
           position: "top",
           duration: 5000,

@@ -70,7 +70,7 @@ export default function WinnerModal() {
       <Modal isOpen={gameState.showWinnerModal}>
         <ModalOverlay />
         <ModalContent>
-  <ModalHeader>{gameState.winner.length == 1 ? "Congratulations" : "Tie"}!</ModalHeader>
+  <ModalHeader>{gameState.winner.length === 1 ? "Congratulations" : "Tie"}!</ModalHeader>
           <ModalBody>{findWinner()}</ModalBody>
           <ModalFooter>
             <Button
