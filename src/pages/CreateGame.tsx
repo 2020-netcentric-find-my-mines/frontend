@@ -154,7 +154,7 @@ export default function CreateGame() {
           step={1}
           defaultValue={3}
           min={1}
-          max={Math.ceil((1 / 4) * boardSize * boardSize)}
+          max={11}
           bg={colorMode === "light" ? "gray.200" : "gray.600"}
           rounded="md"
           value={numberOfBombs}

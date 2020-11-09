@@ -49,7 +49,7 @@ export default function Register() {
         console.log("Register error.", error.code, error.message);
         toast({
           title: "Register unsuccessful",
-          description: "Please try again later.",
+          description: "Password must be at least 6 characters.",
           status: "error",
           position: "top",
           duration: 5000,
