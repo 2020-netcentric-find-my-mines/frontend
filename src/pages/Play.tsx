@@ -10,13 +10,19 @@ import SocketEvent from "../socket-event";
 import WinnerModal from "./components/WinnerModal";
 
 export default function Play() {
-  const { gameState } = useContext(GameContext);
+  const { gameState, gameDispatch } = useContext(GameContext);
   const { colorMode } = useColorMode();
   const { emitEvent } = useContext(SocketContext);
 
   function emitResetBoard() {
     console.log(SocketEvent.RESET_BOARD);
-    emitEvent(SocketEvent.RESET_BOARD, null);
+    if (gameState.winner.length === 0) {
+      emitEvent(SocketEvent.RESET_BOARD, false);
+    } else {
+      emitEvent(SocketEvent.RESET_BOARD, true)
+      gameDispatch({ type: "SET_CURRENT_PLAYER", payload: [] });
+    }
+    
   }
 
   function emitDisconnect() {
