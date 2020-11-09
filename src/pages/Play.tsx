@@ -40,7 +40,7 @@ export default function Play() {
       width="full"
       height="100%"
       align="center"
-      position="absolute"
+      minHeight="100vh"
       justifyContent="center"
       bg={colorMode === "light" ? "gray.50" : "gray.700"}
     >
