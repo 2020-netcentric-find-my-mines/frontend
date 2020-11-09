@@ -14,18 +14,23 @@ import {
 import { Link, Redirect } from "react-router-dom";
 import { GameContext } from "../contexts/useGame";
 import { SocketContext } from "../contexts/useSocket";
+import { IPayload } from "../types/interface";
 
 export default function JoinGame() {
   const [textfield, setTextField] = useState("");
+  const [isJoin, setIsJoin] = useState(false);
   const { gameState } = useContext(GameContext);
   const { emitEvent } = useContext(SocketContext);
   const [started, setStarted] = useState(false);
   const { colorMode } = useColorMode();
-
+  const { socket } = useContext(SocketContext);
 
   function back() {
     emitEvent(SocketEvent.LEAVE_GAME);
   }
+  socket.on(SocketEvent.JOIN_GAME_FEEDBACK, (payload: IPayload) => {
+    setIsJoin(true);
+  });
   function joinGame() {
     emitEvent(SocketEvent.JOIN_GAME, textfield);
   }
@@ -80,19 +85,27 @@ export default function JoinGame() {
             boxShadow="0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)"
           >
             <Box textAlign="center">
-              <Heading>Join Game</Heading>
+              <Heading minWidth="20rem">Join Game</Heading>
             </Box>
             <Flex>{playerListBox}</Flex>
-            <Box textAlign="left" justifyItems="center" mt={playerList.length === 0 ? 2 : 0}>
+            <Box
+              textAlign="left"
+              justifyItems="center"
+              mt={playerList.length === 0 ? 2 : 0}
+            >
               <FormControl>
                 <FormLabel mb="1">Enter Game ID:</FormLabel>
-                <Input
-                  type="text"
-                  placeholder="Ex: XRTMK35"
-                  variant="outline"
-                  value={textfield}
-                  onChange={handleChange}
-                />
+                {isJoin === false ? (
+                  <Input
+                    type="text"
+                    placeholder="Ex: XRTMK35"
+                    variant="outline"
+                    value={textfield}
+                    onChange={handleChange}
+                  />
+                ) : (
+                  <Text color="orange.400" fontWeight="bold">{textfield}</Text>
+                )}
               </FormControl>
 
               <Button
@@ -111,6 +124,7 @@ export default function JoinGame() {
               </Button>
               <Link to="/create">
                 <Button
+                  hidden={isJoin === true ? true: false}
                   isLoading={started}
                   width="full"
                   mt="2"
@@ -126,7 +140,9 @@ export default function JoinGame() {
                   mt="2"
                   fontSize="sm"
                   color={colorMode === "light" ? "gray.600" : "gray.300"}
-                  onClick={() => {back()}}
+                  onClick={() => {
+                    back();
+                  }}
                 >
                   Back
                 </Button>

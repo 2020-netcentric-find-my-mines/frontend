@@ -35,7 +35,6 @@ export default function CreateGame() {
     emitEvent(SocketEvent.LEAVE_GAME);
   }
 
-
   useEffect(() => {
     socket.on(SocketEvent.SET_BOARD_SIZE_FEEDBACK, (payload: IPayload) => {
       console.log("SELECT_BOARD_SIZE_FEEDBACK", payload);
@@ -257,7 +256,11 @@ export default function CreateGame() {
               {playerListBox}
             </Flex>
 
-            <Box textAlign="left" justifyItems="center" mt={playerList.length === 0 ? 4 : 2}>
+            <Box
+              textAlign="left"
+              justifyItems="center"
+              mt={playerList.length === 0 ? 4 : 2}
+            >
               <Button
                 isLoading={started}
                 loadingText="Starting..."
@@ -279,6 +282,7 @@ export default function CreateGame() {
 
               <Link to="/join">
                 <Button
+                  hidden={gameState.id !== ""}
                   isLoading={started}
                   width="full"
                   mt="2"
@@ -294,7 +298,9 @@ export default function CreateGame() {
                   mt="2"
                   fontSize="sm"
                   color={colorMode === "light" ? "gray.600" : "gray.300"}
-                  onClick={() => {back()}}
+                  onClick={() => {
+                    back();
+                  }}
                 >
                   Back
                 </Button>

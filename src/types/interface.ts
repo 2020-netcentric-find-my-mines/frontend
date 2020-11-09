@@ -24,6 +24,7 @@ export interface IGame {
   showWinnerModal: boolean;
   winner: IPlayer[]
   firstToast: boolean
+  
 }
 
 export interface IGameContext {
