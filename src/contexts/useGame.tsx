@@ -160,7 +160,7 @@ const gameReducer = (state: IGame, action: IAction) => {
       const playersAfterLeft = payload.type === "player" ? state.players.filter((player) => {
         return player.id !== payload.id
       }) : state.players
-      
+
       return {
         ...state,
         players: playersAfterLeft,
@@ -185,6 +185,11 @@ const gameReducer = (state: IGame, action: IAction) => {
         };
       }
       return state;
+    case "LEAVE_GAME":
+      return {
+        ...state,
+        started: false,
+      }
     default:
       return state;
   }
