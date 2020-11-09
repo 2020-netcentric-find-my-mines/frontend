@@ -92,9 +92,7 @@ export function onSocketEvent(
     });
   });
 
-  socket.on(
-    SocketEvent.MEMBER_CHANGED_TYPE,
-    (payload: IMemberChangePayload) => {
+  socket.on(SocketEvent.MEMBER_CHANGED_TYPE, (payload: IMemberChangePayload) => {
       console.log("MEMBER_CHANGED_TYPE", payload);
       gameDispatch({
         type: "MEMBER_CHANGED",
@@ -102,4 +100,14 @@ export function onSocketEvent(
       });
     }
   );
+
+  socket.on(SocketEvent.LEAVE_GAME_FEEDBACK, (payload: IPayload) => {
+    console.log("LEAVE_GAME_FEEDBACK", payload);
+    if (payload.isOK) {
+      gameDispatch({
+        type: "LEAVE_GAME",
+        payload: true,
+      })
+    }
+  })
 }
