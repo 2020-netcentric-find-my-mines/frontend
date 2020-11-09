@@ -24,6 +24,7 @@ export function onSocketEvent(
 
   socket.on(SocketEvent.SET_PLAYER_NAME_FEEDBACK, (payload: IPayload) => {
     console.log("SET_PLAYER_NAME_FEEDBACK", payload);
+    gameDispatch({ type: "SET_PLAYERS", payload: payload.data === null ? [] : payload.data.players})
   });
 
   socket.on(SocketEvent.WINNER, (payload: any) => {
