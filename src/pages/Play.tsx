@@ -68,7 +68,7 @@ export default function Play() {
 
             <Flex direction="row" justifyContent="center" marginTop="4">
               <Button onClick={emitResetBoard} padding="2" marginRight="2">
-                Reset Game
+                {gameState.winner.length === 0 ? "Reset Game" : "Play Again"}
               </Button>
               <Button onClick={emitDisconnect} padding="2">
                 <Link to="/">Disconnect</Link>
