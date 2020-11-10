@@ -78,24 +78,16 @@ const gameReducer = (state: IGame, action: IAction) => {
         showWinnerModal: payload,
       };
     case "RESET_BOARD":
-      let coordinates = [];
-      for (let x = 0; x < state.width; x++) {
-        for (let y = 0; y < state.height; y++) {
-          coordinates.push({
-            x,
-            y,
-            isBomb: false,
-            isSelected: false,
-          });
-        }
-      }
       let players = state.players;
       players.map((player) => {
         return (player.score = 0);
       });
       return {
         ...state,
-        coordinates: coordinates,
+        coordinates: initializeCoordinate(
+          state.width,
+          state.height
+        ),
         players: payload.players,
       };
     case "INITIALIZE":
