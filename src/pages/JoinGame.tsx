@@ -29,7 +29,9 @@ export default function JoinGame() {
     emitEvent(SocketEvent.LEAVE_GAME);
   }
   socket.on(SocketEvent.JOIN_GAME_FEEDBACK, (payload: IPayload) => {
-    setIsJoin(true);
+    if(payload.isOK === true) {
+      setIsJoin(true);
+    }
   });
   function joinGame() {
     emitEvent(SocketEvent.JOIN_GAME, textfield);
