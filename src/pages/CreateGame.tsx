@@ -25,7 +25,7 @@ export default function CreateGame() {
   const [started, setStarted] = useState(false);
   const { colorMode } = useColorMode();
   const [boardSize, setBoardSize] = useState(6);
-  const [numberOfBombs, setNumberOfBombs] = useState(3);
+  const [numberOfBombs, setNumberOfBombs] = useState(11);
   const [maxPlayers, setMaxPlayers] = useState(2);
   const { socket } = useContext(SocketContext);
 

@@ -8,14 +8,11 @@ import Chat from "./components/Chat";
 import { SocketContext } from "../contexts/useSocket";
 import SocketEvent from "../socket-event";
 import WinnerModal from "./components/WinnerModal";
-import firebase from "../Firebase"
 
 export default function Play() {
   const { gameState, gameDispatch } = useContext(GameContext);
   const { colorMode } = useColorMode();
   const { emitEvent } = useContext(SocketContext);
-
-  console.log(firebase.auth().currentUser)
 
   function emitResetBoard() {
     console.log(SocketEvent.RESET_BOARD);
@@ -71,7 +68,7 @@ export default function Play() {
 
             <Flex direction="row" justifyContent="center" marginTop="4">
               <Button onClick={emitResetBoard} padding="2" marginRight="2">
-                {gameState.winner.length === 0 ? "Reset Game" : "Play Again"}
+                Replay
               </Button>
               <Button onClick={emitDisconnect} padding="2">
                 <Link to="/">Disconnect</Link>
