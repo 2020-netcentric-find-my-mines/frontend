@@ -10,6 +10,8 @@ import {
   FormLabel,
   Input,
   useToast,
+  InputGroup,
+  InputRightElement
 } from "@chakra-ui/core";
 import firebase from "../Firebase";
 
@@ -17,6 +19,9 @@ export default function Register() {
   const { colorMode } = useColorMode();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClick = () => setShowPassword(!showPassword);
 
   const toast = useToast();
 
@@ -86,14 +91,20 @@ export default function Register() {
               mb="3"
             />
             <FormLabel>Password:</FormLabel>
-            <Input
-              type="text"
-              name="password"
-              variant="outline"
-              value={password}
-              onChange={handleChange}
-              mb="3"
-            />
+            <InputGroup>
+              <Input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                variant="outline"
+                value={password}
+                onChange={handleChange}
+              />
+              <InputRightElement width="4.5rem">
+                <Button h="1.75rem" size="sm" onClick={handleClick}>
+                  {showPassword ? "Hide" : "Show"}
+                </Button>
+              </InputRightElement>
+            </InputGroup>
           </FormControl>
           <Button
             width="full"
