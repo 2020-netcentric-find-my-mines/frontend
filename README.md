@@ -1,3 +1,30 @@
+# Welcome to Find My Mines (Group 2) ! :bomb::boom: 
+
+**This project is proudly presented by**
+  ```  
+   - Chanyut     Yuvacharuskul   6131741221
+   - Patcharapat Chaijaroen      6131816721
+   - Pattarapon  Kittisrisawai   6131837921
+   - Patthanat   Thanintantrakun 6131835621
+   - Supanut     Phonampai       6131870521
+  ```
+_All requirements and additional features are implemented and tested successfully._ 
+
+Additional features:
+ > 1. Leaderboard
+ > 2. Chat
+ > 3. Rooms
+ > 4. Membership
+ > 5. Anonymous
+ > 6. List of joined players before starting game
+ > 7. Dark mode
+ > 8. Can set number of bombs
+ > 9. Can set game board size
+ > 10. Can set max players
+
+:heart:
+
+---
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
