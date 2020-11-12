@@ -33,7 +33,6 @@ export function onSocketEvent(
     console.log("WINNER", payload);
     gameDispatch({ type: "SHOW_WINNER", payload: true });
     gameDispatch({ type: "WINNER", payload: payload.winners })
-    console.log(firebase.auth().currentUser?.uid, payload.winners, socket.id)
     if (payload.winners.length === 1 && payload.winners[0].id === socket.id) {
       axios.get("https://asia-southeast2-findmymines.cloudfunctions.net/incrementUserScore?uid=" + firebase.auth().currentUser?.uid)
     }
