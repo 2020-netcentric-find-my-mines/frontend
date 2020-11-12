@@ -156,9 +156,9 @@ export default function CreateGame() {
 
         <NumberInput
           step={1}
-          defaultValue={3}
+          defaultValue={11}
           min={1}
-          max={11}
+          max={20}
           bg={colorMode === "light" ? "gray.200" : "gray.600"}
           rounded="md"
           value={numberOfBombs}
