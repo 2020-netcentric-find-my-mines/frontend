@@ -8,6 +8,8 @@ import {
   IMemberPayload,
   IMemberChangePayload,
 } from "../types/interface";
+import axios from "axios";
+import firebase from "../Firebase"
 
 export function onSocketEvent(
   socket: SocketIOClient.Socket,
@@ -31,6 +33,15 @@ export function onSocketEvent(
     console.log("WINNER", payload);
     gameDispatch({ type: "SHOW_WINNER", payload: true });
     gameDispatch({ type: "WINNER", payload: payload.winners })
+    if (payload.winners.length === 1 && payload.winners[0] === socket.id) {
+      axios.get("https://asia-southeast2-findmymines.cloudfunctions.net/incrementUserScore",
+        {
+          params: {
+            uid: firebase.auth().currentUser
+          },
+        }
+      )
+    }
   });
 
   socket.on(SocketEvent.TICK, (tick: number) => {
