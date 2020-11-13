@@ -15,7 +15,7 @@ Additional features:
  > 2. Chat
  > 3. Rooms
  > 4. Membership
- > 5. Anonymous
+ > 5. Classboard color
  > 6. List of joined players before starting game
  > 7. Dark mode
  > 8. Can set number of bombs
