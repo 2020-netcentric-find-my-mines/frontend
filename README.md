@@ -16,7 +16,7 @@ Additional features:
  > 3. Rooms
  > 4. Membership
  > 5. Classboard color
- > 6. List of joined players before starting game
+ > 6. Disconnect
  > 7. Dark mode
  > 8. Can set number of bombs
  > 9. Can set game board size
